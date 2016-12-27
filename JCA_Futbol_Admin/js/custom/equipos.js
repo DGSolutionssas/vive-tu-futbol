@@ -8,7 +8,7 @@ function cargarTabla() {
     $.ajax({
         type: "post",
         dataType: "json",
-        url: "../BL/EquiposBL.php",
+        url: "BL/EquiposBL.php",
         data: {action: 'obtenerEquipos'},
         success: function (data) {
             $('#tableEquipos').dataTable({

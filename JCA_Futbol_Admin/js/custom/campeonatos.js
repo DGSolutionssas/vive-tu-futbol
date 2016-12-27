@@ -8,7 +8,7 @@ function cargarTabla() {
     $.ajax({
         type: "post",
         dataType: "json",
-        url: "../BL/CampeonatosBL.php",
+        url: "BL/CampeonatosBL.php",
         data: {action: 'obtenerCampeonatos'},
         success: function (data) {
             $('#tableCampeonatos').dataTable({

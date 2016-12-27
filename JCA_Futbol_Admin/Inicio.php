@@ -7,7 +7,7 @@
  * @copyright DG Solutions sas
  */
 session_start();
-include("Header.php");
+include_once './Header.php';
 if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
     ?>
     <div>
@@ -18,4 +18,4 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
     <script type='text/javascript'>redireccionarInicio();</script>
     <?php
 }
-include("Footer.php");
+include_once './Footer.php';

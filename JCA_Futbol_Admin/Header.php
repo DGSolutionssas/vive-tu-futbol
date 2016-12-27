@@ -73,7 +73,7 @@
                                     <h3>ADMINISTRADOR</h3>
                                     <ul class="nav side-menu" id="listaCampanas">
                                         <li><a href="Inicio.php"><i class="fa fa-home"></i>Inicio <span class="fa fa-chevron-right"></span></a></li>
-                                        <li><a href="./Views/Campeonatos.php"><i class="fa fa-futbol-o"></i>Campeonatos<span class="fa fa-chevron-right"></span></a></li>
+                                        <li><a href="./Campeonatos.php"><i class="fa fa-futbol-o"></i>Campeonatos<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="./Equipos.php"><i class="fa fa-users"></i>Equipos<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="Jugadores.php"><i class="fa fa-user"></i>Jugadores<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="Jugadores.php"><i class="fa fa-calendar-o"></i>Fechas<span class="fa fa-chevron-right"></span></a></li>
