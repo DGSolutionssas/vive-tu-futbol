@@ -11,19 +11,19 @@
         <meta name="author" content="JCA Futbol">
 
         <link rel="shortcut icon" href="img/indice.ico"/>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/animate.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/custom.css"/>
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/parsley/parsley.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="Views/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="Views/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="Views/css/animate.min.css"/>
+        <link rel="stylesheet" type="text/css" href="Views/css/custom.css"/>
+        <script type="text/javascript" src="Views/js/jquery.min.js"></script>
+        <script type="text/javascript" src="Views/js/parsley/parsley.min.js"></script>
 
-        <script type="text/javascript" src="js/datatables/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="js/datatables/tools/js/dataTables.tableTools.js"></script>
-        <script type="text/javascript" src="js/Chart.min.js"></script>
-        <script type="text/javascript" src="js//switch/bootstrap-switch.js"></script>
-        <script type="text/javascript" src="js/jquery-ui.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css">
+        <script type="text/javascript" src="Views/js/datatables/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="Views/js/datatables/tools/js/dataTables.tableTools.js"></script>
+        <script type="text/javascript" src="Views/js/Chart.min.js"></script>
+        <script type="text/javascript" src="Views/js//switch/bootstrap-switch.js"></script>
+        <script type="text/javascript" src="Views/js/jquery-ui.js"></script>
+        <link rel="stylesheet" type="text/css" href="Views/css/jqueryui/jquery-ui.css">
         <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -51,14 +51,14 @@
                         <div class="left_col scroll-view">
                             <div class="navbar nav_title" style="border: 0;">
                                 <a class="site_title">
-                                    <img  width="70" height="50" src="img/Logo.jpg" alt="..."><span> JCA Futbol</span></a>
+                                    <img  width="70" height="50" src="Views/img/Logo.jpg" alt="..."><span> JCA Futbol</span></a>
                             </div>
                             <div class="clearfix">
                             </div>
                             <!-- menu prile quick info -->
                             <div class="profile">
                                 <div class="profile_pic">
-                                    <img src="img/user.png" alt="..." class="img-circle profile_img">
+                                    <img src="Views/img/user.png" alt="..." class="img-circle profile_img">
                                 </div>
                                 <div class="profile_info">
                                     <span>Bienvenido,</span>
@@ -98,7 +98,7 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="">
                                         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            <img src="img/user.png" alt="">Administrador
+                                            <img src="Views/img/user.png" alt="">Administrador
                                             <span class=" fa fa-angle-down"></span>
                                         </a>
                                         <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">

@@ -43,25 +43,25 @@
 
 </script>
 
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/chartjs/chart.min.js"></script>
-<script type="text/javascript" src="js/progressbar/bootstrap-progressbar.min.js"></script>
-<script type="text/javascript" src="js/nicescroll/jquery.nicescroll.min.js"></script>
-<script type="text/javascript" src="js/icheck/icheck.min.js"></script>
-<script type="text/javascript" src="js/custom.js"></script>
-<script type="text/javascript" src="js/cropping/cropper.min.js"></script>
-<script type="text/javascript" src="js/cropping/main.js"></script>
-<script type="text/javascript" src="js/moment.min.js"></script>
-<script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
-<script type="text/javascript" src="js/moris/raphael-min.js"></script>
-<script type="text/javascript" src="js/moris/morris.js"></script>
+<script type="text/javascript" src="Views/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="Views/js/chartjs/chart.min.js"></script>
+<script type="text/javascript" src="Views/js/progressbar/bootstrap-progressbar.min.js"></script>
+<script type="text/javascript" src="Views/js/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="Views/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="Views/js/custom.js"></script>
+<script type="text/javascript" src="Views/js/cropping/cropper.min.js"></script>
+<script type="text/javascript" src="Views/js/cropping/main.js"></script>
+<script type="text/javascript" src="Views/js/moment.min.js"></script>
+<script type="text/javascript" src="Views/js/datepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="Views/js/moris/raphael-min.js"></script>
+<script type="text/javascript" src="Views/js/moris/morris.js"></script>
 
 
-<script type="text/javascript" src="js/nicescroll/jquery.nicescroll.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css"/>
+<script type="text/javascript" src="Views/js/nicescroll/jquery.nicescroll.min.js"></script>
+<link rel="stylesheet" type="text/css" href="Views/css/jqueryui/jquery-ui.css"/>
 
 <!-- PNotify -->
-<script type="text/javascript" src="js/notify/pnotify.core.js"></script>    
-<script type="text/javascript" src="js/notify/pnotify.buttons.js"></script>    
-<script type="text/javascript" src="js/notify/pnotify.nonblock.js"></script>
+<script type="text/javascript" src="Views/js/notify/pnotify.core.js"></script>    
+<script type="text/javascript" src="Views/js/notify/pnotify.buttons.js"></script>    
+<script type="text/javascript" src="Views/js/notify/pnotify.nonblock.js"></script>
 </html>
