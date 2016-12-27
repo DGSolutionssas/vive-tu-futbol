@@ -32,4 +32,9 @@ class EquiposDA {
         }
     }
 
+    function eliminarEquipo($idEquipoEliminar)
+    {
+        $resul=mysqli_query($this->db->Connect(),"delete from equipos where IdEquipo = " . $idEquipoEliminar);
+    }
+
 }

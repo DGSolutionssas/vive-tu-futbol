@@ -1,8 +1,35 @@
-var idVideoEliminar = "";
+var idEquipoEliminar = "";
 $(document).ready(function () {
     $('#myPleaseWait').modal('show');
     cargarTabla();
 });
+
+function obtenerLineaEliminar(lnk)
+{
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    idEquipoEliminar = row.cells[0].innerHTML;
+    VentanaEliminar('Confirmar Eliminacion', '¿Esta seguro de eliminar el ID <b>' + idEquipoEliminar + '</b>?', 'SI', 'NO');
+}
+
+function Eliminar()
+{
+    jQuery.post('BL/EquiposBL.php', {action: 'eliminarEquipo',idEquipoEliminar: idEquipoEliminar}, function (data) {
+        if (data.error === 1)
+        {
+        }
+        else
+        {
+            new PNotify({
+                title: 'Transaccion Exitosa!',
+                text: 'Se Elimino Correctamente',
+                type: 'success'
+            });
+            confirmModal.modal('hide');
+            cargarTabla();
+        }
+    });
+}
 
 function cargarTabla() {
     $.ajax({

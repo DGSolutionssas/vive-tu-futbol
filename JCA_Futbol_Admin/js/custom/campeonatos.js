@@ -1,8 +1,35 @@
-var idVideoEliminar = "";
+var idCampeonatoEliminar = "";
 $(document).ready(function () {
     $('#myPleaseWait').modal('show');
     cargarTabla();
 });
+
+function obtenerLineaEliminar(lnk)
+{
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    idCampeonatoEliminar = row.cells[0].innerHTML;
+    VentanaEliminar('Confirmar Eliminacion', '¿Esta seguro de eliminar el ID <b>' + idCampeonatoEliminar + '</b>?', 'SI', 'NO');
+}
+
+function Eliminar()
+{
+    jQuery.post('BL/CampeonatosBL.php', {action: 'eliminarCampeonato',IdCampeonato: idCampeonatoEliminar}, function (data) {
+        if (data.error === 1)
+        {
+        }
+        else
+        {
+            new PNotify({
+                title: 'Transaccion Exitosa!',
+                text: 'Se Elimino Correctamente',
+                type: 'success'
+            });
+            confirmModal.modal('hide');
+            cargarTabla();
+        }
+    });
+}
 
 function cargarTabla() {
     $.ajax({
@@ -99,7 +126,7 @@ function guardarCampeonato()
         var equipos = document.getElementById("txtEquipos").value;
         var action='registrarCampeonato';
         
-        jQuery.post('../BL/CampeonatosBL.php', {campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipos, action:action}, function (data) {
+        jQuery.post('BL/CampeonatosBL.php', {campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipos, action:action}, function (data) {
             if (data.error === 1)
             {
             }

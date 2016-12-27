@@ -24,5 +24,9 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             }
             echo json_encode($arrayEquipos);
             break;
+        case 'eliminarEquipo':
+            $equipos = $db->eliminarEquipo($_POST['idEquipoEliminar']);
+            echo '{"error": "2", "descripcion": "Se elimino correctamente el Equipo"}';
+            break;
     }
 }

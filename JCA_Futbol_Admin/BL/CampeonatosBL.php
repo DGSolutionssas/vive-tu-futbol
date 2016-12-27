@@ -33,5 +33,9 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $dtoCampeonato->setEquipos($_POST['equipos']);
             $campeonatos = $db->guardarCampeonato($dtoCampeonato);
             break;
+        case 'eliminarCampeonato':
+            $campeonatos = $db->eliminarCampeonato($_POST['IdCampeonato']);
+            echo '{"error": "2", "descripcion": "Se elimino correctamente el Campeonato"}';
+        break;
     }
 }
