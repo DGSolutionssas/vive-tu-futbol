@@ -32,6 +32,29 @@ class CampeonatosDA {
             return "";
         }
     }
+	
+	function eliminarCampeonato($IdCampeonato)
+    {
+        $resul=mysqli_query($this->db->Connect(),"delete from campeonatos where IdCampeonato = " . $IdCampeonato);
+    }
+
+    function obtenerGruposCampeonato($idCampeonato) {
+        $query = "SELECT Grupos FROM Campeonatos WHERE idCampeonato=" . $idCampeonato;
+
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
 
     function guardarCampeonato($dtoCampeonato) {
         $resul = mysqli_query($this->db->Connect(), "INSERT INTO Campeonatos (Campeonato, Descripcion, Grupos, Equipos) VALUES ("
@@ -42,8 +65,24 @@ class CampeonatosDA {
         );
     }
 
-    function eliminarCampeonato($IdCampeonato)
-    {
-        $resul=mysqli_query($this->db->Connect(),"delete from campeonatos where IdCampeonato = " . $IdCampeonato);
+    function autocompletarCampeonato($campeonato) {
+        $query = "SELECT idCampeonato,campeonato FROM campeonatos WHERE campeonato LIKE '%" . $campeonato . "%'";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $return_arr = array();
+        if ($nrows > 0) {
+            while ($row =  mysqli_fetch_array($resul, MYSQLI_ASSOC)) {
+                $row_array['id'] = $row['idCampeonato'];
+                $row_array['value'] = $row['campeonato'];
+
+                array_push($return_arr, $row_array);
+            }
+            return $return_arr;
+        } else {
+            return "";
+        }
     }
+
 }

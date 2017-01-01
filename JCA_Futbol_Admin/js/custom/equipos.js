@@ -1,4 +1,11 @@
-var idEquipoEliminar = "";
+/*
+ * Javascript que contiene la logica para el modulo de Equipo
+ * @author Diego Saavedra
+ * @created 29/12/2016
+ * @copyright DG Solutions sas
+ */
+ var idEquipoEliminar = "";
+var idCampeonatoSeleccionado = "";
 $(document).ready(function () {
     $('#myPleaseWait').modal('show');
     cargarTabla();
@@ -31,6 +38,69 @@ function Eliminar()
     });
 }
 
+//Metodo que autocompleta el texto para el campeonato
+$(document).ready(function () {
+    $('#txtCampeonato').autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: 'BL/CampeonatosBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarCampeonato'
+                },
+                success: function (data) {
+                    response($.map(data, function (objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            idCampeonatoSeleccionado = ui.item.id;
+            document.getElementById("txtCampeonato").value = ui.item.value;
+            $('#divGrupo').show();
+            consultarGruposCampeonato();
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
+
+//Metodo que consulta los grupos del campeonato seleccionado
+function consultarGruposCampeonato()
+{
+    var letras = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    var ddlGrupoEquipo = document.getElementById("ddlGrupoEquipo");
+    var cantidad = ddlGrupoEquipo.length;
+    for (var i = 0; i <= cantidad; i++) {
+        $("#ddlGrupoEquipo option[value='" + i + "']").remove();
+    }
+    var action = 'consultarGruposCampeonato';
+    jQuery.post('BL/CampeonatosBL.php', {idCampeonato: idCampeonatoSeleccionado, action: action}, function (data) {
+        if (data.error === 1)
+        {
+            alert("ERROR");
+        } else
+        {
+            var obj = JSON.parse(data);
+            //alert(obj[0].Grupos);
+            for (i = 0; i < obj[0].Grupos; i++)
+            {
+                var option = new Option(letras[i + 1], i + 1);
+                ddlGrupoEquipo.append(option);
+            }
+        }
+    });
+}
+
+//Metodo que carga la informacion en la tabla
 function cargarTabla() {
     $.ajax({
         type: "post",
@@ -44,6 +114,17 @@ function cargarTabla() {
                 "bPaginate": true,
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
+                "sDom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
+                    aButtons: [
+                        {sExtends: "csv",
+                            "sButtonText": '<br><a href="#" data-dismiss="modal" class="label label-primary" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-file-excel-o"></i> Descargar </a><br>',
+                            sFileName: 'Equipos.csv',
+                            sFieldSeperator: ",",
+                            exportOptions: {columns: [0, 1, 2, 3, 4, 5]}
+                        }
+                    ]},
                 language: {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
@@ -93,7 +174,7 @@ function cargarTabla() {
                         'data': 'Puntos',
                         "sClass": "justify",
                         "width": "auto"
-                    },      
+                    },
                     {
                         'data': 'Grupo',
                         "sClass": "justify",
@@ -103,7 +184,7 @@ function cargarTabla() {
                         data: null,
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger" OnClick="return obtenerLineaEliminar(this)"> Eliminar </a>'
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i> Eliminar </a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');
@@ -118,4 +199,38 @@ function cargarTabla() {
 
         }
     });
+}
+
+//Metodo que almacena el equipo en la base de datos
+function guardarEquipo()
+{
+    var ddlGrupoEquipo = document.getElementById("ddlGrupoEquipo");
+    var idGrupo = ddlGrupoEquipo.options[ddlGrupoEquipo.selectedIndex].value;
+    var idCampeonato = idCampeonatoSeleccionado;
+
+    var verdadero = $('#form1').parsley().validate("block1", true);
+    if (verdadero)
+    {
+        {
+            var nombreEquipo = document.getElementById("txtNombreEquipo").value;
+            var descripcionEquipo = document.getElementById("txtDescripcionEquipo").value;
+            var action = 'registrarEquipoGrupo';
+
+            jQuery.post('BL/EquiposBL.php', {nombreEquipo: nombreEquipo, descripcionEquipo: descripcionEquipo, idGrupo: idGrupo, idCampeonato: idCampeonato, action: action}, function (data) {
+                if (data.error === 1)
+                {
+
+                } else
+                {
+                    $('#VentanaRegistro').modal('hide');
+                    new PNotify({
+                        title: 'Transaccion Exitos!',
+                        text: 'Equipo Registrado Correctamente',
+                        type: 'success'
+                    });
+                    cargarTabla();
+                }
+            });
+        }
+    }
 }

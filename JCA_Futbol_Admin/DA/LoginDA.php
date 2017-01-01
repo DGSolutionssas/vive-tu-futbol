@@ -25,9 +25,9 @@ class LoginDA {
         $jsonData = array();
         $nrows = mysqli_num_rows($resul);
 
-        $file = fopen("archivo.txt", "a");
-        fwrite($file, "Cantidad : " . $nrows . PHP_EOL);
-        fclose($file);
+        //$file = fopen("archivo.txt", "a");
+        //fwrite($file, "Cantidad : " . $nrows . PHP_EOL);
+        //fclose($file);
 
         if ($nrows > 0) {
             while ($row = mysqli_fetch_array($resul)) {

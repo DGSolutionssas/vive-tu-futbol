@@ -17,13 +17,14 @@
         <link rel="stylesheet" type="text/css" href="css/custom.css"/>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/parsley/parsley.min.js"></script>
-
         <script type="text/javascript" src="js/datatables/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="js/datatables/tools/js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="js/Chart.min.js"></script>
         <script type="text/javascript" src="js//switch/bootstrap-switch.js"></script>
         <script type="text/javascript" src="js/jquery-ui.js"></script>
         <link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css">
+        <link href="css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->

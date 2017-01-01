@@ -33,7 +33,20 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $dtoCampeonato->setEquipos($_POST['equipos']);
             $campeonatos = $db->guardarCampeonato($dtoCampeonato);
             break;
-        case 'eliminarCampeonato':
+        case 'consultarGruposCampeonato':
+            $gruposCampeonatos = $db->obtenerGruposCampeonato($_POST['idCampeonato']);
+            $arrayGrupos = array();
+            for ($i = 0; $i < count($gruposCampeonatos); $i++) {
+                $arrayGrupos[$i]['Grupos'] = $gruposCampeonatos[$i]['Grupos'];
+            }
+            echo json_encode($arrayGrupos, JSON_FORCE_OBJECT);
+            break;
+        case 'autoCompletarCampeonato':
+            $campeonato = $_POST['term'];
+            $list = $db->autocompletarCampeonato($campeonato);
+            echo json_encode($list);
+            break;
+		case 'eliminarCampeonato':
             $campeonatos = $db->eliminarCampeonato($_POST['IdCampeonato']);
             echo '{"error": "2", "descripcion": "Se elimino correctamente el Campeonato"}';
         break;

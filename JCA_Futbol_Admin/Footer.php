@@ -33,6 +33,10 @@
         $('#VentanaRegistro').on('hidden.bs.modal', function (e) {
             $(this).find("input,textarea,select").val('').end().find("input[type=checkbox], input[type=radio]").prop("checked", "").end();
         });
+        $('#VentanaRegistroEquipo').on('hidden.bs.modal', function (e) {
+            $(this).find("input,textarea,select").val('').end().find("input[type=checkbox], input[type=radio]").prop("checked", "").end();
+        });
+        $('#divGrupo').hide();
     }
 
     function VentanaEliminar(titulo, pregunta, botonSi, botonNo, llamar) {
@@ -55,9 +59,9 @@
 <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
 <script type="text/javascript" src="js/moris/raphael-min.js"></script>
 <script type="text/javascript" src="js/moris/morris.js"></script>
-
-
 <script type="text/javascript" src="js/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/parsley/parsley.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css"/>
 
 <!-- PNotify -->

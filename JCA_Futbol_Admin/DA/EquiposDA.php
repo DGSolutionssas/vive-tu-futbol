@@ -31,10 +31,19 @@ class EquiposDA {
             return "";
         }
     }
-
-    function eliminarEquipo($idEquipoEliminar)
+	
+	function eliminarEquipo($idEquipoEliminar)
     {
         $resul=mysqli_query($this->db->Connect(),"delete from equipos where IdEquipo = " . $idEquipoEliminar);
     }
-
+    
+    function registrarEquipoCampeonato($idCampeonato, $nombreEquipo, $descripcionEquipo, $idGrupo)
+    {
+        $resul = mysqli_query($this->db->Connect(), "INSERT INTO Equipos (IdCampeonato, Nombre, Descripcion, Grupo) VALUES ("
+                . $idCampeonato . ","
+                . "'" . $nombreEquipo. "',"
+                . "'" . $descripcionEquipo . "',"
+                . $idGrupo . ")"
+        );
+    }
 }
