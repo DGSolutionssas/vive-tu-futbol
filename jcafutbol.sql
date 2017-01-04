@@ -2,10 +2,10 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 26, 2016 at 08:02 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.5.38
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 04-01-2017 a las 23:45:53
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 7.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `jcafutbol`
+-- Base de datos: `jcafutbol`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `campeonatos`
+-- Estructura de tabla para la tabla `campeonatos`
 --
 
 CREATE TABLE `campeonatos` (
@@ -35,18 +35,18 @@ CREATE TABLE `campeonatos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `campeonatos`
+-- Volcado de datos para la tabla `campeonatos`
 --
 
 INSERT INTO `campeonatos` (`IdCampeonato`, `Campeonato`, `Descripcion`, `Grupos`, `Equipos`) VALUES
 (1, 'CAMPEONATO NAVIDEO 2016', 'CAMPEONATO NAVIDEO 2016', 2, 12),
 (2, 'Prueba', 'Prueba', 1, 1),
-(3, 'Prueba2', 'Prueba2', 3, 4);
+(4, 'La Championsssss', 'Campeonato Aficionado', 2, 8);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `equipos`
+-- Estructura de tabla para la tabla `equipos`
 --
 
 CREATE TABLE `equipos` (
@@ -59,16 +59,61 @@ CREATE TABLE `equipos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `equipos`
+-- Volcado de datos para la tabla `equipos`
 --
 
 INSERT INTO `equipos` (`IdEquipo`, `IdCampeonato`, `Nombre`, `Descripcion`, `Puntos`, `Grupo`) VALUES
-(1, 1, 'Cachamas FC', 'Cachamas FC Casanare', 0, '1');
+(1, 1, 'Cachamas FC', 'Cachamas FC Casanare', 0, '1'),
+(2, 1, 'Sirenas F.C', 'Sirenas F.C', NULL, '1'),
+(3, 1, 'DGFutbol', 'DGFutbol', NULL, '2'),
+(4, 1, 'Leopardos FC', 'Leopardos FC', NULL, '2');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `fechas`
+--
+
+CREATE TABLE `fechas` (
+  `IdFecha` int(11) NOT NULL,
+  `Descripcion` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `fechas`
+--
+
+INSERT INTO `fechas` (`IdFecha`, `Descripcion`) VALUES
+(1, 'fecha1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `resultados`
+--
+
+CREATE TABLE `resultados` (
+  `IdResultado` int(11) NOT NULL,
+  `IdFecha` int(11) NOT NULL,
+  `IdCampeonato` int(11) NOT NULL,
+  `IdEquipo1` int(11) NOT NULL,
+  `IdEquipo2` int(11) NOT NULL,
+  `Goles1` int(11) NOT NULL,
+  `Goles2` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla para los resultados';
+
+--
+-- Volcado de datos para la tabla `resultados`
+--
+
+INSERT INTO `resultados` (`IdResultado`, `IdFecha`, `IdCampeonato`, `IdEquipo1`, `IdEquipo2`, `Goles1`, `Goles2`) VALUES
+(1, 1, 1, 1, 2, 2, 3),
+(2, 1, 1, 1, 2, 1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -79,63 +124,96 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`IdUsuario`, `Usuario`, `Nombre`, `Password`) VALUES
 (1, 'admin', 'ADMINISTRADOR JCA FUTBOL', 'admin');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `campeonatos`
+-- Indices de la tabla `campeonatos`
 --
 ALTER TABLE `campeonatos`
   ADD PRIMARY KEY (`IdCampeonato`);
 
 --
--- Indexes for table `equipos`
+-- Indices de la tabla `equipos`
 --
 ALTER TABLE `equipos`
   ADD PRIMARY KEY (`IdEquipo`),
   ADD KEY `fk_Equipos_Campeonatos` (`IdCampeonato`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `fechas`
+--
+ALTER TABLE `fechas`
+  ADD PRIMARY KEY (`IdFecha`);
+
+--
+-- Indices de la tabla `resultados`
+--
+ALTER TABLE `resultados`
+  ADD PRIMARY KEY (`IdResultado`),
+  ADD KEY `IdCampeonato` (`IdCampeonato`),
+  ADD KEY `IdEquipo1` (`IdEquipo1`),
+  ADD KEY `IdEquipo2` (`IdEquipo2`);
+
+--
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`IdUsuario`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `campeonatos`
+-- AUTO_INCREMENT de la tabla `campeonatos`
 --
 ALTER TABLE `campeonatos`
-  MODIFY `IdCampeonato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdCampeonato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `equipos`
+-- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `IdEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `fechas`
+--
+ALTER TABLE `fechas`
+  MODIFY `IdFecha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `resultados`
+--
+ALTER TABLE `resultados`
+  MODIFY `IdResultado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `equipos`
+-- Filtros para la tabla `equipos`
 --
 ALTER TABLE `equipos`
   ADD CONSTRAINT `fk_Equipos_Campeonatos` FOREIGN KEY (`IdCampeonato`) REFERENCES `campeonatos` (`IdCampeonato`);
+
+--
+-- Filtros para la tabla `resultados`
+--
+ALTER TABLE `resultados`
+  ADD CONSTRAINT `fk_Resultado_Campeonato` FOREIGN KEY (`IdCampeonato`) REFERENCES `campeonatos` (`IdCampeonato`),
+  ADD CONSTRAINT `fk_Resultado_Equipo1` FOREIGN KEY (`IdEquipo1`) REFERENCES `equipos` (`IdEquipo`),
+  ADD CONSTRAINT `fk_Resultado_Equipo2` FOREIGN KEY (`IdEquipo2`) REFERENCES `equipos` (`IdEquipo`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
