@@ -9,7 +9,7 @@
 session_start();
 if (isset($_POST['action']) && !empty($_POST['action'])) {
     $action = $_POST['action'];
-    require_once('/../DA/LoginDA.php');
+    require_once('../DA/LoginDA.php');
     $db = new LoginDA();
     switch ($action) {
         case 'iniciarSesion' :

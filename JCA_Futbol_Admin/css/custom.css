@@ -1138,6 +1138,15 @@ legend {
     padding: 10px 0 0;
 }
 
+.input-result{
+    width: 450px;
+    float: left;
+}
+.input-score{
+    width: 100px;
+    float: right;
+}
+
 .well.profile_view .divider {
     border-top: 1px solid #e5e5e5;
     padding-top: 5px;
