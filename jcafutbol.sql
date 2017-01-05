@@ -75,16 +75,20 @@ INSERT INTO `equipos` (`IdEquipo`, `IdCampeonato`, `Nombre`, `Descripcion`, `Pun
 --
 
 CREATE TABLE `fechas` (
-  `IdFecha` int(11) NOT NULL,
-  `Descripcion` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `IdFecha` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_fecha` varchar(250) NOT NULL,
+  `fecha` date NOT NULL,
+  `idCampeonato` int(11) NOT NULL,
+  PRIMARY KEY (`IdFecha`),
+  KEY `idCampeonato_FK_idx` (`idCampeonato`),
+  CONSTRAINT `idCampeonato_FK` FOREIGN KEY (`idCampeonato`) REFERENCES `campeonatos` (`IdCampeonato`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `fechas`
 --
 
-INSERT INTO `fechas` (`IdFecha`, `Descripcion`) VALUES
-(1, 'fecha1');
+INSERT INTO fechas (nombre_fecha, fecha, idCampeonato) VALUES ('fecha1','12/31/2016',2)
 
 -- --------------------------------------------------------
 

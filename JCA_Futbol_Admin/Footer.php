@@ -63,6 +63,8 @@
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="js/parsley/parsley.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css"/>
+<!-- Calendar -->
+<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
 
 <!-- PNotify -->
 <script type="text/javascript" src="js/notify/pnotify.core.js"></script>    

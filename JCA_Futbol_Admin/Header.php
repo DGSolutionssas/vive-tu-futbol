@@ -17,13 +17,19 @@
         <link rel="stylesheet" type="text/css" href="css/custom.css"/>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/parsley/parsley.min.js"></script>
-
         <script type="text/javascript" src="js/datatables/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="js/datatables/tools/js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="js/Chart.min.js"></script>
         <script type="text/javascript" src="js//switch/bootstrap-switch.js"></script>
         <script type="text/javascript" src="js/jquery-ui.js"></script>
         <link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css">
+        <link href="css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+		
+		<!-- Calendar -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker3.min.css"/>
+		
         <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -76,8 +82,8 @@
                                         <li><a href="./Campeonatos.php"><i class="fa fa-futbol-o"></i>Campeonatos<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="./Equipos.php"><i class="fa fa-users"></i>Equipos<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="Jugadores.php"><i class="fa fa-user"></i>Jugadores<span class="fa fa-chevron-right"></span></a></li>
-                                        <li><a href="Jugadores.php"><i class="fa fa-calendar-o"></i>Fechas<span class="fa fa-chevron-right"></span></a></li>
-                                        <li><a href="./Resultados.php"><i class="fa fa-table"></i>Resultados<span class="fa fa-chevron-right"></span></a></li>
+                                        <li><a href="./Fechas.php"><i class="fa fa-calendar-o"></i>Fechas<span class="fa fa-chevron-right"></span></a></li>
+										<li><a href="./Resultados.php"><i class="fa fa-table"></i>Resultados<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="Jugadores.php"><i class="fa fa-hand-o-up"></i>Juego Limpio<span class="fa fa-chevron-right"></span></a></li>
                                          <li><a href="Jugadores.php"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a></li>
                                   </ul>
