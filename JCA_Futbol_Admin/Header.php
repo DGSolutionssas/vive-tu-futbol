@@ -85,7 +85,8 @@
                                         <li><a href="./Fechas.php"><i class="fa fa-calendar-o"></i>Fechas<span class="fa fa-chevron-right"></span></a></li>
 										<li><a href="./Resultados.php"><i class="fa fa-table"></i>Resultados<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="Jugadores.php"><i class="fa fa-hand-o-up"></i>Juego Limpio<span class="fa fa-chevron-right"></span></a></li>
-                                          <li><a href="#"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a>
+                                        <li><a href="Jugadores.php"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a></li>
+										<li><a href="#"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a>
                                             <ul class="nav child_menu">
                                                 <li><a href="./Reportes.php">Campeonatos</a></li>
                                                 <li><a href="./Reportes.php">Equipos</a></li>
@@ -93,7 +94,7 @@
                                                 <li><a href="./Reportes.php">Carnets</a></li>
                                             </ul>
                                         </li>
-                                  </ul>
+									</ul>
                                 </div>
                             </div>  
                             <!-- /sidebar menu -->
