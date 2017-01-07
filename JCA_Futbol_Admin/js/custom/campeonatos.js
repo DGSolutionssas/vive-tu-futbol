@@ -111,7 +111,7 @@ function cargarTabla() {
                         data: null,
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-plus"></i> Equipos</a><a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i> Eliminar </a>'
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-plus"></i> Equipos</a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');

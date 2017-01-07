@@ -25,11 +25,17 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             echo json_encode($arrayEquipos);
             break;
         case 'registrarEquipoGrupo':
-            $equipo = $db->registrarEquipoCampeonato($_POST['idCampeonato'], $_POST['nombreEquipo'],$_POST['descripcionEquipo'],$_POST['idGrupo']);
-        break;
-		case 'eliminarEquipo':
+            $equipo = $db->registrarEquipoCampeonato($_POST['idCampeonato'], $_POST['nombreEquipo'], $_POST['descripcionEquipo'], $_POST['idGrupo']);
+            break;
+        case 'autoCompletarEquipo':
+            $Equipo = $_POST['term'];
+            $IdCampeonato = $_POST['IdCampeonato'];
+            $list = $db->autocompletarEquipo($Equipo, $IdCampeonato);
+            echo json_encode($list);
+            break;   
+        case 'eliminarEquipo':
             $equipos = $db->eliminarEquipo($_POST['idEquipoEliminar']);
             echo '{"error": "2", "descripcion": "Se elimino correctamente el Equipo"}';
-        break;
+            break;
     }
 }

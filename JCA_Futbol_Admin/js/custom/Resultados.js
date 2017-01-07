@@ -1,4 +1,9 @@
 var idResultadoEliminar = "";
+var idCampeonatoSeleccionado = "";
+var idFechaSeleccionado = "";
+var idEquipo1Seleccionado = "";
+var idEquipo2Seleccionado = "";
+
 $(document).ready(function () {
     $('#myPleaseWait').modal('show');
     cargarTabla();
@@ -31,6 +36,144 @@ function Eliminar()
         }
     });
 }
+//---------------------------
+//para autocompletar el campeonato
+//----------------------------
+$(document).ready(function () {
+    $('#txtIdCampeonato').autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: 'BL/CampeonatosBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarCampeonato'
+                },
+                success: function (data) {
+                    response($.map(data, function (objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            idCampeonatoSeleccionado = ui.item.id;
+            document.getElementById("txtIdCampeonato").value = ui.item.value;
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
+//---------------------------
+//para autocompletar la Fecha
+//----------------------------
+$(document).ready(function () {
+    $('#txtIdFecha').autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: 'BL/FechasBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarFechas'
+                },
+                success: function (data) {
+                    response($.map(data, function (objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            idFechaSeleccionado = ui.item.id;
+            document.getElementById("txtIdFecha").value = ui.item.value;
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
+//---------------------------
+//para autocompletar el equipo 1
+//----------------------------
+$(document).ready(function () {
+    $('#txtIdEquipo1').autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: 'BL/EquiposBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarEquipo',
+                    IdCampeonato: idCampeonatoSeleccionado
+                },
+                success: function (data) {
+                    response($.map(data, function (objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            idEquipo1Seleccionado = ui.item.id;
+            document.getElementById("txtIdEquipo1").value = ui.item.value;
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
+//---------------------------
+//para autocompletar el equipo 2
+//----------------------------
+$(document).ready(function () {
+    $('#txtIdEquipo2').autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: 'BL/EquiposBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarEquipo',
+                    IdCampeonato: idCampeonatoSeleccionado
+                },
+                success: function (data) {
+                    response($.map(data, function (objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            idEquipo2Seleccionado = ui.item.id;
+            document.getElementById("txtIdEquipo2").value = ui.item.value;
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
 
 function cargarTabla() {
     $.ajax({
@@ -107,9 +250,9 @@ function cargarTabla() {
                     },
                     {
                         data: null,
-                        className: "center",
+                        className: "auto",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger" OnClick="return obtenerLineaEliminar(this)"> Eliminar </a>'
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-plus"></i> Equipos</a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');
@@ -131,10 +274,10 @@ function guardarResultado()
     var verdadero = $('#form1').parsley().validate("block1", true);
     if (verdadero)
     {
-        var IdFecha= document.getElementById("txtIdFecha").value;
-        var IdCampeonato = document.getElementById("txtIdCampeonato").value;
-        var IdEquipo1 = document.getElementById("txtIdEquipo1").value;
-        var IdEquipo2 = document.getElementById("txtIdEquipo2").value;
+        var IdFecha= idFechaSeleccionado;
+        var IdCampeonato = idCampeonatoSeleccionado;
+        var IdEquipo1 = idEquipo1Seleccionado;
+        var IdEquipo2 = idEquipo2Seleccionado;
         var Goles1 = document.getElementById("txtGoles1").value;
         var Goles2 = document.getElementById("txtGoles2").value;
         var action='registrarResultado';

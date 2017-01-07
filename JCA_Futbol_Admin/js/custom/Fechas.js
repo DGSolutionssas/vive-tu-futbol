@@ -189,8 +189,8 @@ function guardarFecha()
                 {
                     $('#VentanaRegistro').modal('hide');
                     new PNotify({
-                        title: 'Transaccion Exitos!',
-                        text: 'Fecha Registraa Correctamente',
+                        title: 'Transaccion Exitosa!',
+                        text: 'Fecha Registrada Correctamente',
                         type: 'success'
                     });
                     cargarTabla();

@@ -62,3 +62,8 @@ Cantidad : 1
 Cantidad : 1
 Cantidad : 1
 Cantidad : 1
+Cantidad : 1
+IdFecha : 4
+Cantidad : 1
+Cantidad : 1
+IdFecha : 4

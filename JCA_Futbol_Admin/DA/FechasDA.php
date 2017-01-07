@@ -16,7 +16,7 @@ class FechasDA {
     }
 
     function obtenerFechas() {
-        $query = "select f.id_fecha as idfecha, f.nombre_fecha as nombrefecha, f.fecha, c.Campeonato from fechas f inner join campeonatos c on f.idCampeonato = c.IdCampeonato";
+        $query = "select f.idfecha as idfecha, f.nombre_fecha as nombrefecha, f.fecha, c.Campeonato from fechas f inner join campeonatos c on f.idCampeonato = c.IdCampeonato";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -49,5 +49,24 @@ class FechasDA {
                 . "'" . $fecha . "',"
                 . $idCampeonato . ")"
         );
+    }
+    function autocompletarFecha($fecha) {
+        $query = "SELECT idFecha,nombre_fecha FROM fechas WHERE nombre_fecha LIKE '%" . $fecha . "%'";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $return_arr = array();
+        if ($nrows > 0) {
+            while ($row =  mysqli_fetch_array($resul, MYSQLI_ASSOC)) {
+                $row_array['id'] = $row['idFecha'];
+                $row_array['value'] = $row['nombre_fecha'];
+
+                array_push($return_arr, $row_array);
+            }
+            return $return_arr;
+        } else {
+            return "";
+        }
     }
 }

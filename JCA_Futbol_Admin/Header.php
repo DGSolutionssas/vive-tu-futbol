@@ -25,19 +25,19 @@
         <link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css">
         <link href="css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
-		
-		<!-- Calendar -->
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css"/>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker3.min.css"/>
-		
+
+        <!-- Calendar -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker3.min.css"/>
+
         <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
 
         <noscript>Tu navegador no soporta JavaScript!</noscript>
 
@@ -83,10 +83,8 @@
                                         <li><a href="./Equipos.php"><i class="fa fa-users"></i>Equipos<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="Jugadores.php"><i class="fa fa-user"></i>Jugadores<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="./Fechas.php"><i class="fa fa-calendar-o"></i>Fechas<span class="fa fa-chevron-right"></span></a></li>
-										<li><a href="./Resultados.php"><i class="fa fa-table"></i>Resultados<span class="fa fa-chevron-right"></span></a></li>
-                                        <li><a href="Jugadores.php"><i class="fa fa-hand-o-up"></i>Juego Limpio<span class="fa fa-chevron-right"></span></a></li>
-                                        <li><a href="Jugadores.php"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a></li>
-										<li><a href="#"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a>
+                                        <li><a href="./Resultados.php"><i class="fa fa-table"></i>Resultados<span class="fa fa-chevron-right"></span></a></li>
+                                        <li><a href="#"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a>
                                             <ul class="nav child_menu">
                                                 <li><a href="./Reportes.php">Campeonatos</a></li>
                                                 <li><a href="./Reportes.php">Equipos</a></li>
@@ -94,7 +92,7 @@
                                                 <li><a href="./Reportes.php">Carnets</a></li>
                                             </ul>
                                         </li>
-									</ul>
+                                    </ul>
                                 </div>
                             </div>  
                             <!-- /sidebar menu -->

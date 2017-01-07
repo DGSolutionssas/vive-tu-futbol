@@ -6,7 +6,6 @@ function generarReporte()
         }
         else
         {
-			alert(data);
            var divResultado=document.getElementById("divResultado");
            var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
            divResultado.innerHTML+=object; 

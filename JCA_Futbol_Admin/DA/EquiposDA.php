@@ -46,4 +46,23 @@ class EquiposDA {
                 . $idGrupo . ")"
         );
     }
+    function autocompletarEquipo($Equipo, $IdCampeonato) {
+        $query = "SELECT idEquipo,Nombre FROM equipos WHERE Nombre LIKE '%" . $Equipo . "%' AND IdCampeonato = $IdCampeonato";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $return_arr = array();
+        if ($nrows > 0) {
+            while ($row =  mysqli_fetch_array($resul, MYSQLI_ASSOC)) {
+                $row_array['id'] = $row['idEquipo'];
+                $row_array['value'] = $row['Nombre'];
+
+                array_push($return_arr, $row_array);
+            }
+            return $return_arr;
+        } else {
+            return "";
+        }
+    }
 }
