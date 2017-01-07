@@ -184,7 +184,7 @@ function cargarTabla() {
                         data: null,
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i> Eliminar </a>'
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" Title="Eliminar" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');
