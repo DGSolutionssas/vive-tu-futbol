@@ -84,6 +84,7 @@
                                         <li><a href="Jugadores.php"><i class="fa fa-user"></i>Jugadores<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="./Fechas.php"><i class="fa fa-calendar-o"></i>Fechas<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="./Resultados.php"><i class="fa fa-table"></i>Resultados<span class="fa fa-chevron-right"></span></a></li>
+                                        <li><a href="./Plantillas.php"><i class="fa fa-newspaper-o"></i>Plantillas<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="#"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a>
                                             <ul class="nav child_menu">
                                                 <li><a href="./Reportes.php">Campeonatos</a></li>
