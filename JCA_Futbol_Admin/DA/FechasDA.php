@@ -34,7 +34,7 @@ class FechasDA {
 	
 	function eliminarFecha($idFechaEliminar)
     {
-        $resul=mysqli_query($this->db->Connect(),"delete from fechas where id_fecha = " . $idFechaEliminar);
+        $resul=mysqli_query($this->db->Connect(),"delete from fechas where idFecha = " . $idFechaEliminar);
     }
     
     function registrarFecha($idCampeonato, $nombreFecha, $fecha)
