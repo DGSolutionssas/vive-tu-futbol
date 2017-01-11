@@ -1,45 +1,52 @@
-CREATE DATABASE  IF NOT EXISTS `jcafutbol` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `jcafutbol`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
+-- phpMyAdmin SQL Dump
+-- version 4.5.2
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: jcafutbol
--- ------------------------------------------------------
--- Server version	5.6.22-log
+-- Servidor: localhost
+-- Tiempo de generación: 11-01-2017 a las 03:00:16
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 5.6.28
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `jugadores`
+-- Base de datos: `jcafutbol`
 --
 
-DROP TABLE IF EXISTS `jugadores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `jugadores` (
-  `idJugador` int(11) NOT NULL AUTO_INCREMENT,
-  `Cedula` varchar(50) DEFAULT NULL,
-  `Nombres` varchar(50) DEFAULT NULL,
-  `Apellidos` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idJugador`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+-- --------------------------------------------------------
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Estructura de tabla para la tabla `Jugador`
+--
+
+CREATE TABLE `Jugador` (
+  `IdJugador` int(11) NOT NULL,
+  `NombreJugador` varchar(255) NOT NULL,
+  `Documento` int(30) NOT NULL,
+  `CorreoElectronico` varchar(255) NOT NULL,
+  `Celular` int(10) NOT NULL,
+  `DirectorTecnico` tinyint(1) NOT NULL,
+  `Delegado` tinyint(1) NOT NULL,
+  `RepresentanteLegal` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `Jugador`
+--
+ALTER TABLE `Jugador`
+  ADD PRIMARY KEY (`IdJugador`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-01-10 20:55:20
