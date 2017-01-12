@@ -39,7 +39,8 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             for ($i = 0; $i < count($jugadores); $i++) {
                 if ($jugadores[$i]['Equipo'] == $equipo1) {
                     $plantilla->getActiveSheet()->setCellValue('B' . $indicadorCeldaEquipo1, $jugadores[$i]['Cedula'])
-                            ->setCellValue('G' . $indicadorCeldaEquipo1, $jugadores[$i]['Nombres'] . " " . $jugadores[$i]['Apellidos']);
+                            //->setCellValue('G' . $indicadorCeldaEquipo1, $jugadores[$i]['Nombres'] . " " . $jugadores[$i]['Apellidos']);
+							->setCellValue('G' . $indicadorCeldaEquipo1, $jugadores[$i]['Nombre']);
                     ++$indicadorCeldaEquipo1;
                 }
             }
@@ -49,13 +50,14 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             for ($i = 0; $i < count($jugadores); $i++) {
                 if ($jugadores[$i]['Equipo'] == $equipo2) {
                     $plantilla->getActiveSheet()->setCellValue('B' . $indicadorCeldaEquipo2, $jugadores[$i]['Cedula'])
-                            ->setCellValue('G' . $indicadorCeldaEquipo2, $jugadores[$i]['Nombres'] . " " . $jugadores[$i]['Apellidos']);
+                            //->setCellValue('G' . $indicadorCeldaEquipo2, $jugadores[$i]['Nombres'] . " " . $jugadores[$i]['Apellidos']);
+							->setCellValue('G' . $indicadorCeldaEquipo2, $jugadores[$i]['Nombre']);
                     ++$indicadorCeldaEquipo2;
                 }
             }
             $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
             $objWriter->save('../Utiles/PlanillaFutbol5_Generada.xlsx');
-            echo '{"error": "2", "url": "http://127.0.0.1:8080/vive-tu-futbol/JCA_Futbol_Admin/Utiles/PlanillaFutbol5_Generada.xlsx"}';
+            echo '{"error": "2", "url": "http://127.0.0.1:8082/JCA_Futbol_Admin/Utiles/PlanillaFutbol5_Generada.xlsx"}';
             break;
     }
 }
