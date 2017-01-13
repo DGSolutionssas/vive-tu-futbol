@@ -32,8 +32,7 @@ class ResultadosDA {
         }
     }
 
-    function guardarResultado($idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2) 
-    {                  
+    function guardarResultado($idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2) {
         $resul = mysqli_query($this->db->Connect(), "INSERT INTO resultados (IdFecha, IdCampeonato, IdEquipo1, IdEquipo2, Goles1, Goles2) VALUES ("
                 . $idFecha . ","
                 . $idCampeonato . ","
@@ -44,8 +43,42 @@ class ResultadosDA {
         );
     }
 
-   function eliminarResultado($IdResultado)
-    {
-        $resul=mysqli_query($this->db->Connect(),"delete from resultados where IdResultado = " . $IdResultado);
+    function eliminarResultado($IdResultado) {
+        $resul = mysqli_query($this->db->Connect(), "delete from resultados where IdResultado = " . $IdResultado);
     }
+
+    function obtenerResultadosJL($IdEquipo1) {
+        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.Idjugador=J.idjugador WHERE EJ.idEquipo= $IdEquipo1 ";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
+
+    function obtenerResultadosJL1($IdEquipo2) {
+        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.Idjugador=J.idjugador WHERE EJ.idEquipo= $IdEquipo2 ";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
+
 }
