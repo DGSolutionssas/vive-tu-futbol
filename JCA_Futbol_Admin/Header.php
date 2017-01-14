@@ -57,7 +57,7 @@
                         <div class="left_col scroll-view">
                             <div class="navbar nav_title" style="border: 0;">
                                 <a class="site_title">
-                                    <img  width="70" height="50" src="img/Logo.jpg" alt="..."><span> JCA Futbol</span></a>
+                                    <img  width="50" height="50" src="img/Logo.png" alt="..."><span> JCA Futbol</span></a>
                             </div>
                             <div class="clearfix">
                             </div>
