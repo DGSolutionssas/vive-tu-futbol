@@ -23,7 +23,15 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 $arrayJugadores[$i]['DT'] = $Jugadores[$i]['DT'];
                 $arrayJugadores[$i]['Delegado'] = $Jugadores[$i]['Delegado'];
                 $arrayJugadores[$i]['RepresentanteLegal'] = $Jugadores[$i]['RepresentanteLegal'];
-                //$arrayJugadores[$i]['Url'] = $Jugadores[$i]['Url'];
+                if(strlen($Jugadores[$i]['Url']) > 0)
+                {
+                     $arrayJugadores[$i]['Url'] = "<img src='Uploads/".$Jugadores[$i]['Url']."' class='img-circle profile_img2'>";
+                }
+                else
+                {
+                    $arrayJugadores[$i]['Url'] = "<img src='img/user.png' class='img-circle profile_img2'>";
+                }
+                
             }
             echo json_encode($arrayJugadores);
             break;   

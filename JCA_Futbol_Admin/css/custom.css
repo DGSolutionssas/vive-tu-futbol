@@ -150,6 +150,17 @@ body.nav-sm .profile {
     padding: 4px;
 }
 
+.img-circle.profile_img2 {
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    margin-left: 10%;
+    z-index: 1000;
+    position: inherit;
+    border: 1px solid rgba(52, 73, 94, 0.44);
+    padding: 4px;
+}
+
 .profile_info {
     padding: 25px 10px 10px;
     width: 65%;

@@ -18,6 +18,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
             <table id="tableJugadores" class="display table table-hover table-bordered jambo_table">
                 <thead>
                     <tr>
+                    <th></th>
                     <th>ID</th>
                     <th>NOMBRE</th>
                     <th>DOCUMENTO</th>

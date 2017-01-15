@@ -14,7 +14,7 @@ function obtenerLineaEliminar(lnk)
 {
     var row = lnk.parentNode.parentNode;
     var rowIndex = row.rowIndex - 1;
-    idJugadorEliminar = row.cells[0].innerHTML;
+    idJugadorEliminar = row.cells[1].innerHTML;
     VentanaEliminar('Confirmar Eliminacion', '¿Esta seguro de eliminar el ID <b>' + idJugadorEliminar + '</b>?', 'SI', 'NO');
 }
 
@@ -60,7 +60,7 @@ function cargarTabla() {
                             "sButtonText": '<br><a href="#" data-dismiss="modal" class="label label-primary" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-file-excel-o"></i> Descargar </a><br>',
                             sFileName: 'Equipos.csv',
                             sFieldSeperator: ",",
-                            exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6, 7]}
+                            exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]}
                         }
                     ]},
                 language: {
@@ -89,6 +89,11 @@ function cargarTabla() {
                 },
                 data: data,
                 columns: [{
+                        data: 'Url',
+                        className: "center",
+                        bSortable: false,
+                    },
+                    {
                         'data': 'IdJugador',
                         "sClass": "justify",
                         "width": "auto"
@@ -167,6 +172,7 @@ console.log(verdadero);
             var Delegado = document.getElementById("chkDelegado").checked;
             var RepresentanteLegal = document.getElementById("chkRepresentanteLegal").checked;
             var Url = document.getElementById("archivoImage").value;
+            Url = Url.replace("C:\\fakepath\\","");
             var action = 'registrarJugador';
 
             jQuery.post('BL/JugadoresBL.php', {NombreJugador: NombreJugador, Documento: Documento, CorreoElectronico: CorreoElectronico, Celular: Celular,DT:DT, Delegado:Delegado,RepresentanteLegal:RepresentanteLegal, Url:Url,action: action}, function (data) {
@@ -178,7 +184,7 @@ console.log(verdadero);
                     $('#VentanaRegistro').modal('hide');
                     new PNotify({
                         title: 'Transaccion Exitos!',
-                        text: 'Equipo Registrado Correctamente',
+                        text: 'Jugador Registrado Correctamente',
                         type: 'success'
                     });
                     cargarTabla();

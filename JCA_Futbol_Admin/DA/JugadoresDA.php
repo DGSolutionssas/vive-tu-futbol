@@ -16,7 +16,9 @@ class JugadoresDA {
     }
 
     function obtenerJugadores() {
-        $query = "SELECT J.IdJugador AS IdJugador, J.NombreJugador AS NombreJugador, J.Documento AS Documento, J.CorreoElectronico AS CorreoElectronico, J.Celular AS Celular, IF(J.DirectorTecnico=0,'FALSE','TRUE' )AS DT, IF(J.Delegado=0,'FALSE','TRUE') As Delegado, IF(J.RepresentanteLegal=0,'FALSE','TRUE') As RepresentanteLegal
+        
+        //var imagen = 'CONCAT('<img src="Uploads/',Url,'"" class="img-circle profile_img2">')''''';
+        $query = "SELECT J.IdJugador AS IdJugador, J.NombreJugador AS NombreJugador, J.Documento AS Documento, J.CorreoElectronico AS CorreoElectronico, J.Celular AS Celular, IF(J.DirectorTecnico=0,'FALSE','TRUE' )AS DT, IF(J.Delegado=0,'FALSE','TRUE') As Delegado, IF(J.RepresentanteLegal=0,'FALSE','TRUE') As RepresentanteLegal,Url AS Url
 FROM Jugador J ";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
@@ -39,7 +41,7 @@ FROM Jugador J ";
     }
     
     function registrarJugador($NombreJugador, $Documento, $CorreoElectronico, $Celular, $DirectorTecnico, $Delegado, $RepresentanteLegal,$Url)
-    {
+    { 
         $resul = mysqli_query($this->db->Connect(), "INSERT INTO Jugador (NombreJugador, Documento, CorreoElectronico, Celular, DirectorTecnico, Delegado, RepresentanteLegal,Url) VALUES ("
                 . "'" . $NombreJugador . "',"
                 . $Documento . ","
@@ -48,7 +50,7 @@ FROM Jugador J ";
                 . $DirectorTecnico . ","
                 . $Delegado . ","
                 . $RepresentanteLegal . ","
-                . "'" . $Url . "',)"
+                . "'" . $Url . "')"
         );
     }
     
