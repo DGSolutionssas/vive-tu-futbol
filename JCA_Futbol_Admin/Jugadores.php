@@ -15,7 +15,8 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
             <button type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Jugador</button>
             <script type="text/javascript" src="js/custom/jugadores.js"></script>
             <br>
-            <table id="tableJugadores" class="display table table-hover table-bordered jambo_table">
+			<div class="row">
+            <table id="tableJugadores" class="display" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                     <th></th>
@@ -31,6 +32,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     </tr>
                 </thead>
             </table>
+			</div>
             </br>
         </div>
 
