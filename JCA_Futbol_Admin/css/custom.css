@@ -6429,3 +6429,8 @@ form .item.items{ height:auto; }
     border-color: #1F8A70 !important;
     color: #fff !important;
 }
+
+table.dataTable thead th{
+	background-color:#5A738E;
+	color:#FFFFFF;
+}
