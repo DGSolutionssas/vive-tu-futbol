@@ -56,5 +56,8 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             }
             echo json_encode($arrayResultadosJL);
             break;
+        case 'registrarDetalle':
+            $resultado = $db->guardarDetalle($_POST['IdJugador'],$_POST['Amarilla'],$_POST['Azul'],$_POST['Roja'],$_POST['Goles']);
+            break;
     }   
 }

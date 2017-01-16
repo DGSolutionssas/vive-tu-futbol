@@ -272,7 +272,7 @@ function cargarTabla() {
                         data: null,
                         className: "auto",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-plus"></i> Equipos</a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick=""><i class="fa fa-plus"></i>Detalles</a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');
@@ -307,7 +307,7 @@ function guardarResultado(){
             }
             else
             {
-                /*$('#VentanaRegistro').modal('hide');*/
+                //$('#VentanaRegistro').modal('hide');
                 new PNotify({
                     title: 'Transaccion Exitosa!',
                     text: 'Resultado Registrado Correctamente',
@@ -359,7 +359,7 @@ function cargartablaJL() {
                             'data': 'id',
                             "sClass": "justify",
                             "width": "auto",
-                            "visible": false
+                            //"visible": false
                         },
                         {
                             'data': 'nombre',
@@ -367,10 +367,10 @@ function cargartablaJL() {
                             "width": "auto"
                         },
                         {
-                            "sDefaultContent": "Edit",
+                            "sDefaultContent": "",
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="text" maxlength="2" size="1px">';
+                                    return '<input maxlength="2" size="1px" id="txtgoles" name="txtgoles">';
                                 }
                                 return data;
                             },
@@ -383,7 +383,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" class="editor-active">';
+                                    return '<input type="checkbox" id="checkAmarilla" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -394,7 +394,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" class="editor-active">';
+                                    return '<input type="checkbox" id="checkAzul" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -405,7 +405,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" class="editor-active">';
+                                    return '<input type="checkbox" id="checkRoja" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -413,9 +413,9 @@ function cargartablaJL() {
                         {
                         data: null,
                         width: "auto",
-                        className: "auto",
+                        className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-success btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-floppy-o"></i></a>'
+                        defaultContent: '<a href="#" class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
                     }
                     ],
                 });
@@ -482,7 +482,7 @@ function cargartablaJL1() {
                             "sDefaultContent": "Edit",
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="text" maxlength="2" size="1px">';
+                                    return '<input  maxlength="2" size="1px" id="txtgoles" name="txtgoles>';
                                 }
                                 return data;
                             },
@@ -527,7 +527,7 @@ function cargartablaJL1() {
                         width: "auto",
                         className: "auto",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-floppy-o"></i></a>'
+                        defaultContent: '<a href="#" class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
                     }
                     ],
                 });
@@ -543,4 +543,35 @@ function cargartablaJL1() {
 
             }
         });
+}
+
+function registrardetalle(lnk){
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    var IdJugador = row.cells[0].innerHTML;
+    var Goles = document.getElementById("txtgoles").value;
+    var Amarilla = document.getElementById("checkAmarilla").checked; 
+    var Azul = document.getElementById("checkAzul").checked;
+    var Roja = document.getElementById("checkRoja").checked;
+    var action = 'registrarDetalle';
+    jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, action: action}, function(data) {
+            if (data.error === 1)
+            {
+                //alert("se jodio esta vaina");
+            }
+            else
+            {
+                new PNotify({
+                    title: 'Transaccion Exitosa!',
+                    text: 'Resultado Registrado Correctamente',
+                    type: 'success'
+                });
+            }
+    });
+}
+function terminarregistro(){
+    $('#VentanaJL1').modal('hide');
+    $('#VentanaJL').modal('hide');
+    $('#VentanaRegistro').modal('hide');
+    cargartabla();
 }

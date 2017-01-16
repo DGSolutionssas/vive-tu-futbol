@@ -6,6 +6,7 @@
  * @copyright DG Solutions sas
  */
 session_start();
+
 require_once "Header.php";
 if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
     ?>
@@ -154,7 +155,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <br>
                         <div class="modal-footer">
                             <div class='form-row'>
-                                <a id="btnGuardar" class="btn btn-success" name="btnGuardar" onclick = "guardarResultado()"> Guardar</a>
+                                <a id="btnGuardar" class="btn btn-success" name="btnGuardar" onclick = "terminarregistro()"> Terminar</a>
                             </div>
                         </div>
                     </div>
