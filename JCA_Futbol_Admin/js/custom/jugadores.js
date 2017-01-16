@@ -53,7 +53,7 @@ function cargarTabla() {
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
                 "sDom": 'T<"clear">lfrtip',
-				"responsive":true,
+                "responsive":true,
                 "tableTools": {
                     "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
                     aButtons: [
@@ -92,7 +92,7 @@ function cargarTabla() {
                 columns: [{
                         data: 'Url',
                         className: "center",
-                        bSortable: false,
+                        bSortable: false
                     },
                     {
                         'data': 'IdJugador',
