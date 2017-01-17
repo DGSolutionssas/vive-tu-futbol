@@ -6434,3 +6434,7 @@ table.dataTable thead th{
 	background-color:#5A738E;
 	color:#FFFFFF;
 }
+
+.dropdown-menu{
+	top:48% !important;
+}

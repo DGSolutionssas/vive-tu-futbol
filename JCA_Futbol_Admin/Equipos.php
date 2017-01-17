@@ -25,6 +25,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     <th>PUNTOS</th>
                     <th>GRUPOS</th>
                     <th></th>
+					<th></th>
                     </tr>
                 </thead>
             </table>
@@ -71,6 +72,50 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 </div>
             </div>
         </div>
+		
+		
+		 <div id="VentanaEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Cancelar</span>
+                        </button>
+                        <h4 class="modal-title" id="H3">
+                            <p>EDITAR EQUIPO</p>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <label class='control-label'>Campeonato:</label>
+                            <input autocomplete="off" type="text" disabled id="txtCampeonatoEditar" name="txtCampeonatoEditar" class="form-control">
+                      </div>
+                        <div class="form-row">
+                            <label class='control-label'>Nombre Equipo:</label>
+                            <input autocomplete="off" type="text" id="txtNombreEquipoEditar" name="txtNombreEquipoEditar"  data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="block1" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Descripcion Equipo:</label>
+                            <input autocomplete="off" type="text" id="txtDescripcionEquipoEditar" name="txtDescripcionEquipoEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="block1" class="form-control">
+                        </div>
+                        <div class="form-row" id="divGrupo">
+                            <label class='control-label'>Grupo:</label>
+                            <select id="ddlGrupoEquipoEditar" name="ddlGrupoEquipoEditar" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class='form-row'>
+                            <a id="btnActualizar" type="submit" class="btn btn-success" name="btnActualizar" onclick="actualizarEquipo();">Actualizar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		
         <div id="dvResultado"></div>
     </div>
     <?php

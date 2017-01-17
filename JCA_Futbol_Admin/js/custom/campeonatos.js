@@ -84,7 +84,7 @@ function cargarTabla() {
                 data: data,
                 columns: [{
                         'data': 'IdCampeonato',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
@@ -99,12 +99,12 @@ function cargarTabla() {
                     },
                     {
                         'data': 'Grupos',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'Equipos',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {

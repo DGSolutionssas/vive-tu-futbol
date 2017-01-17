@@ -96,42 +96,42 @@ function cargarTabla() {
                     },
                     {
                         'data': 'IdJugador',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'NombreJugador',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'Documento',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'CorreoElectronico',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'Celular',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'DT',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'Delegado',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'RepresentanteLegal',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {

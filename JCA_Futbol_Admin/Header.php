@@ -23,11 +23,6 @@
         <link rel="stylesheet" type="text/css" href="css/jqueryui/jquery-ui.css">
         <link href="css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
-
-        <!-- Calendar -->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker3.min.css"/>
-
         <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -37,7 +32,8 @@
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
 			
-
+        <!-- Calendar -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css"/>
 <script type="text/javascript" charset="utf8" src="js/jquery-1.11.1.min.js"></script>
 
 		<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
@@ -46,6 +42,8 @@
 <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css"/>
 <link rel="stylesheet" type="text/css" href="css/dataTables.responsive.css">
 <script type="text/javascript" language="javascript" src="js/dataTables.responsive.js"></script>
+
+
 	
 			
 

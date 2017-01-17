@@ -4,7 +4,8 @@
  * @created 29/12/2016
  * @copyright DG Solutions sas
  */
- var idEquipoEliminar = "";
+var idEquipoEditar=""; 
+var idEquipoEliminar = "";
 var idCampeonatoSeleccionado = "";
 $(document).ready(function () {
     $('#myPleaseWait').modal('show');
@@ -17,6 +18,20 @@ function obtenerLineaEliminar(lnk)
     var rowIndex = row.rowIndex - 1;
     idEquipoEliminar = row.cells[0].innerHTML;
     VentanaEliminar('Confirmar Eliminacion', '¿Esta seguro de eliminar el ID <b>' + idEquipoEliminar + '</b>?', 'SI', 'NO');
+}
+
+function obtenerLineaEditar(lnk)
+{
+	var row=lnk.parentNode.parentNode;
+	var rowIndex=row.rowIndex-1;
+	idEquipoEditar=row.cells[0].innerHTML;	
+	$('#VentanaEditar').modal('show');
+	document.getElementById("txtCampeonatoEditar").value=row.cells[1].innerHTML;
+	document.getElementById("txtNombreEquipoEditar").value=row.cells[2].innerHTML;
+	document.getElementById("txtDescripcionEquipoEditar").value=row.cells[3].innerHTML;
+	document.getElementById("")
+	
+	
 }
 
 function Eliminar()
@@ -100,6 +115,33 @@ function consultarGruposCampeonato()
     });
 }
 
+//Metodo que consulta los grupos del campeonato seleccionado para editar
+function consultarGruposCampeonato()
+{
+    var letras = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    var ddlGrupoEquipoEditar = document.getElementById("ddlGrupoEquipoEditar");
+    var cantidad = ddlGrupoEquipoEditar.length;
+    for (var i = 0; i <= cantidad; i++) {
+        $("#ddlGrupoEquipoEditar option[value='" + i + "']").remove();
+    }
+    var action = 'consultarGruposCampeonato';
+    jQuery.post('BL/CampeonatosBL.php', {idCampeonato: idCampeonatoSeleccionado, action: action}, function (data) {
+        if (data.error === 1)
+        {
+            alert("ERROR");
+        } else
+        {
+            var obj = JSON.parse(data);
+            //alert(obj[0].Grupos);
+            for (i = 0; i < obj[0].Grupos; i++)
+            {
+                var option = new Option(letras[i + 1], i + 1);
+                ddlGrupoEquipoEditar.append(option);
+            }
+        }
+    });
+}
+
 //Metodo que carga la informacion en la tabla
 function cargarTabla() {
     $.ajax({
@@ -152,7 +194,7 @@ function cargarTabla() {
                 data: data,
                 columns: [{
                         'data': 'IdEquipo',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
@@ -177,8 +219,14 @@ function cargarTabla() {
                     },
                     {
                         'data': 'Grupo',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
+                    },
+					{
+                        data: null,
+                        className: "center",
+                        bSortable: false,
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" Title="Editar" OnClick="return obtenerLineaEditar(this)"><i class="fa fa-pencil-square-o"></i></a>'
                     },
                     {
                         data: null,
