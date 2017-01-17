@@ -20,9 +20,13 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 $arrayJugadores[$i]['Documento'] = $Jugadores[$i]['Documento'];
                 $arrayJugadores[$i]['CorreoElectronico'] = $Jugadores[$i]['CorreoElectronico'];
                 $arrayJugadores[$i]['Celular'] = $Jugadores[$i]['Celular'];
-                $arrayJugadores[$i]['DT'] = $Jugadores[$i]['DT'];
-                $arrayJugadores[$i]['Delegado'] = $Jugadores[$i]['Delegado'];
-                $arrayJugadores[$i]['RepresentanteLegal'] = $Jugadores[$i]['RepresentanteLegal'];
+                $arrayJugadores[$i]['DT'] = "<input type='checkbox' id='cbox0'  ".$Jugadores[$i]['DT']." disabled readonly>";
+                //$arrayJugadores[$i]['DT'] = "<input type='checkbox' id='cbox0'  disabled readonly>";
+                $arrayJugadores[$i]['Delegado'] = "<input type='checkbox' id='cbox1'  ".$Jugadores[$i]['Delegado']." disabled readonly>";
+                $arrayJugadores[$i]['RepresentanteLegal'] = "<input type='checkbox' id='cbox2'  ".$Jugadores[$i]['RepresentanteLegal']." disabled readonly>";
+                //$arrayJugadores[$i]['DT'] = $Jugadores[$i]['DT'];
+                //$arrayJugadores[$i]['Delegado'] = $Jugadores[$i]['Delegado'];
+                //$arrayJugadores[$i]['RepresentanteLegal'] = $Jugadores[$i]['RepresentanteLegal'];
                 if(strlen($Jugadores[$i]['Url']) > 0)
                 {
                      $arrayJugadores[$i]['Url'] = "<img src='Uploads/".$Jugadores[$i]['Url']."' class='img-circle profile_img2'>";
