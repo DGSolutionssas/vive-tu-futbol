@@ -19,15 +19,17 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 <thead>
                     <tr>
                     <th>ID</th>
+                    <th>IDC</th>
                     <th>CAMPEONATO</th>
                     <th>NOMBRE</th>
                     <th>DESCRIPCION</th>
                     <th>PUNTOS</th>
                     <th>GRUPOS</th>
-                    <th></th>
-					<th></th>
+                    <th></th><th></th>
                     </tr>
                 </thead>
+                <tbody>                    
+                </tbody>
             </table>
             </br>
         </div>

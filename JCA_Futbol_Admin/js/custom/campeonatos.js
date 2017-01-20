@@ -15,11 +15,10 @@ function obtenerLineaEliminar(lnk)
 
 function Eliminar()
 {
-    jQuery.post('BL/CampeonatosBL.php', {action: 'eliminarCampeonato',IdCampeonato: idCampeonatoEliminar}, function (data) {
+    jQuery.post('BL/CampeonatosBL.php', {action: 'eliminarCampeonato', IdCampeonato: idCampeonatoEliminar}, function (data) {
         if (data.error === 1)
         {
-        }
-        else
+        } else
         {
             new PNotify({
                 title: 'Transaccion Exitosa!',
@@ -199,9 +198,10 @@ function guardarCampeonato()
         var descripcion = document.getElementById("txtDescripcion").value;
         var grupos = document.getElementById("txtGrupos").value;
         var equipos = document.getElementById("txtEquipos").value;
+        var equipostotal = grupos * equipos;
         var action = 'registrarCampeonato';
 
-        jQuery.post('BL/CampeonatosBL.php', {campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipos, action: action}, function (data) {
+        jQuery.post('BL/CampeonatosBL.php', {campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipostotal, action: action}, function (data) {
             if (data.error === 1)
             {
             } else

@@ -16,7 +16,7 @@ class EquiposDA {
     }
 
     function obtenerEquipos() {
-        $query = "SELECT E.idEquipo AS IdEquipo, C.Campeonato AS Campeonato, E.Nombre AS Nombre, E.Descripcion AS Descripcion, E.Puntos AS Puntos, E.Grupo AS Grupo FROM equipos E INNER JOIN campeonatos C ON E.idCampeonato=C.idCampeonato";
+        $query = "SELECT E.idEquipo AS IdEquipo,C.idCampeonato as IdCampeonato, C.Campeonato AS Campeonato, E.Nombre AS Nombre, E.Descripcion AS Descripcion, E.Puntos AS Puntos, E.Grupo AS Grupo FROM equipos E INNER JOIN campeonatos C ON E.idCampeonato=C.idCampeonato";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -46,6 +46,13 @@ class EquiposDA {
                 . $idGrupo . ")"
         );
     }
+    
+    function actualizarEquipo($idEquipo, $nombreEquipo, $descripcionEquipo, $idGrupo)
+    {
+        $resul = mysqli_query($this->db->Connect(), "UPDATE equipos SET Nombre=". "'" . $nombreEquipo. "', Descripcion=". "'" . $descripcionEquipo . "', Grupo="  . $idGrupo . " WHERE IdEquipo=".$idEquipo);
+    }
+    
+    
     function autocompletarEquipo($Equipo, $IdCampeonato) {
         $query = "SELECT idEquipo,Nombre FROM equipos WHERE Nombre LIKE '%" . $Equipo . "%' AND IdCampeonato = $IdCampeonato";
         mysqli_set_charset($this->db->Connect(), "utf8");

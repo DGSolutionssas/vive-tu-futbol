@@ -4,7 +4,7 @@
  * @created 29/12/2016
  * @copyright DG Solutions sas
  */
-var idEquipoEditar=""; 
+var idEquipoEditar = "";
 var idEquipoEliminar = "";
 var idCampeonatoSeleccionado = "";
 $(document).ready(function () {
@@ -20,27 +20,68 @@ function obtenerLineaEliminar(lnk)
     VentanaEliminar('Confirmar Eliminacion', '¿Esta seguro de eliminar el ID <b>' + idEquipoEliminar + '</b>?', 'SI', 'NO');
 }
 
+var table = $('#tableEquipos').dataTable();
+
 function obtenerLineaEditar(lnk)
 {
-	var row=lnk.parentNode.parentNode;
-	var rowIndex=row.rowIndex-1;
-	idEquipoEditar=row.cells[0].innerHTML;	
-	$('#VentanaEditar').modal('show');
-	document.getElementById("txtCampeonatoEditar").value=row.cells[1].innerHTML;
-	document.getElementById("txtNombreEquipoEditar").value=row.cells[2].innerHTML;
-	document.getElementById("txtDescripcionEquipoEditar").value=row.cells[3].innerHTML;
-	document.getElementById("")
-	
-	
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    idEquipoEditar = row.cells[0].innerHTML;
+    $('#VentanaEditar').modal('show');
+    document.getElementById("txtCampeonatoEditar").value = row.cells[2].innerHTML;
+    document.getElementById("txtNombreEquipoEditar").value = row.cells[3].innerHTML;
+    document.getElementById("txtDescripcionEquipoEditar").value = row.cells[4].innerHTML;
+    var idGrupo = row.cells[6].innerHTML;
+    var idCampeonato = row.cells[1].innerHTML;
+
+
+    var letras = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    var ddlGrupoEquipoEditar = document.getElementById("ddlGrupoEquipoEditar");
+    var cantidad = ddlGrupoEquipoEditar.length;
+    for (var i = 0; i <= cantidad; i++) {
+        $("#ddlGrupoEquipoEditar option[value='" + i + "']").remove();
+    }
+
+    var action = 'consultarGruposCampeonato';
+
+    $.ajax({
+        type: "POST",
+        url: 'BL/CampeonatosBL.php',
+        data: {idCampeonato: idCampeonato, action: action},
+        async: false
+
+    })
+            .done(function (data, textStatus, jqXHR) {
+                if (data.error === 1)
+                {
+                    alert("ERROR");
+                } else
+                {
+                    var obj = JSON.parse(data);
+                    //alert(obj[0].Grupos);
+                    for (i = 0; i < obj[0].Grupos; i++)
+                    {
+                        var option = new Option(letras[i + 1], i + 1);
+                        ddlGrupoEquipoEditar.append(option);
+                    }
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                if (console && console.log) {
+                    console.log("La solicitud a fallado: " + textStatus);
+                }
+            });
+    document.getElementById("ddlGrupoEquipoEditar").value = idGrupo;
+
 }
+
 
 function Eliminar()
 {
-    jQuery.post('BL/EquiposBL.php', {action: 'eliminarEquipo',idEquipoEliminar: idEquipoEliminar}, function (data) {
+    jQuery.post('BL/EquiposBL.php', {action: 'eliminarEquipo', idEquipoEliminar: idEquipoEliminar}, function (data) {
         if (data.error === 1)
         {
-        }
-        else
+        } else
         {
             new PNotify({
                 title: 'Transaccion Exitosa!',
@@ -87,7 +128,6 @@ $(document).ready(function () {
         minLength: 3
     });
 });
-
 //Metodo que consulta los grupos del campeonato seleccionado
 function consultarGruposCampeonato()
 {
@@ -105,7 +145,6 @@ function consultarGruposCampeonato()
         } else
         {
             var obj = JSON.parse(data);
-            //alert(obj[0].Grupos);
             for (i = 0; i < obj[0].Grupos; i++)
             {
                 var option = new Option(letras[i + 1], i + 1);
@@ -115,35 +154,11 @@ function consultarGruposCampeonato()
     });
 }
 
-//Metodo que consulta los grupos del campeonato seleccionado para editar
-function consultarGruposCampeonato()
-{
-    var letras = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-    var ddlGrupoEquipoEditar = document.getElementById("ddlGrupoEquipoEditar");
-    var cantidad = ddlGrupoEquipoEditar.length;
-    for (var i = 0; i <= cantidad; i++) {
-        $("#ddlGrupoEquipoEditar option[value='" + i + "']").remove();
-    }
-    var action = 'consultarGruposCampeonato';
-    jQuery.post('BL/CampeonatosBL.php', {idCampeonato: idCampeonatoSeleccionado, action: action}, function (data) {
-        if (data.error === 1)
-        {
-            alert("ERROR");
-        } else
-        {
-            var obj = JSON.parse(data);
-            //alert(obj[0].Grupos);
-            for (i = 0; i < obj[0].Grupos; i++)
-            {
-                var option = new Option(letras[i + 1], i + 1);
-                ddlGrupoEquipoEditar.append(option);
-            }
-        }
-    });
-}
 
 //Metodo que carga la informacion en la tabla
 function cargarTabla() {
+
+
     $.ajax({
         type: "post",
         dataType: "json",
@@ -198,6 +213,11 @@ function cargarTabla() {
                         "width": "auto"
                     },
                     {
+                        'data': 'IdCampeonato',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
                         'data': 'Campeonato',
                         "sClass": "justify",
                         "width": "auto"
@@ -222,7 +242,7 @@ function cargarTabla() {
                         "sClass": "center",
                         "width": "auto"
                     },
-					{
+                    {
                         data: null,
                         className: "center",
                         bSortable: false,
@@ -233,7 +253,7 @@ function cargarTabla() {
                         className: "center",
                         bSortable: false,
                         defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" Title="Eliminar" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
-                    }],
+                    }]
             });
             $('#myPleaseWait').modal('hide');
         },
@@ -244,7 +264,6 @@ function cargarTabla() {
                 text: 'Por favor intentelo nuevamente.<br><b>Si el problema persiste contacte al Administrador</b>',
                 type: 'error'
             });
-
         }
     });
 }
@@ -255,7 +274,6 @@ function guardarEquipo()
     var ddlGrupoEquipo = document.getElementById("ddlGrupoEquipo");
     var idGrupo = ddlGrupoEquipo.options[ddlGrupoEquipo.selectedIndex].value;
     var idCampeonato = idCampeonatoSeleccionado;
-
     var verdadero = $('#form1').parsley().validate("block1", true);
     if (verdadero)
     {
@@ -263,7 +281,6 @@ function guardarEquipo()
             var nombreEquipo = document.getElementById("txtNombreEquipo").value;
             var descripcionEquipo = document.getElementById("txtDescripcionEquipo").value;
             var action = 'registrarEquipoGrupo';
-
             jQuery.post('BL/EquiposBL.php', {nombreEquipo: nombreEquipo, descripcionEquipo: descripcionEquipo, idGrupo: idGrupo, idCampeonato: idCampeonato, action: action}, function (data) {
                 if (data.error === 1)
                 {
@@ -281,4 +298,30 @@ function guardarEquipo()
             });
         }
     }
+}
+
+function actualizarEquipo()
+{
+    var nombreEquipoEditar = document.getElementById("txtNombreEquipoEditar").value;
+    var descripcionEquipoEditar = document.getElementById("txtDescripcionEquipoEditar").value;
+    var ddlGrupoEquipoEditar = document.getElementById("ddlGrupoEquipoEditar");
+    var idGrupo = ddlGrupoEquipoEditar.options[ddlGrupoEquipoEditar.selectedIndex].value;
+
+    var action = 'actualizarEquipoGrupo';
+    jQuery.post('BL/EquiposBL.php', {idEquipo: idEquipoEditar, nombreEquipo: nombreEquipoEditar, descripcionEquipo: descripcionEquipoEditar, idGrupo: idGrupo, action: action}, function (data) {
+        if (data.error === 1)
+        {
+
+        } else
+        {
+            $('#VentanaRegistro').modal('hide');
+            new PNotify({
+                title: 'Transaccion Exitos!',
+                text: 'Equipo Actualizado Correctamente',
+                type: 'success'
+            });
+            $('#VentanaEditar').modal('hide');
+            cargarTabla();
+        }
+    });
 }

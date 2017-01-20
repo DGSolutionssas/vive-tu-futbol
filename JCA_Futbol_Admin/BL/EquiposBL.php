@@ -16,6 +16,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $arrayEquipos = array();
             for ($i = 0; $i < count($equipos); $i++) {
                 $arrayEquipos[$i]['IdEquipo'] = $equipos[$i]['IdEquipo'];
+                $arrayEquipos[$i]['IdCampeonato'] = $equipos[$i]['IdCampeonato'];
                 $arrayEquipos[$i]['Campeonato'] = $equipos[$i]['Campeonato'];
                 $arrayEquipos[$i]['Nombre'] = $equipos[$i]['Nombre'];
                 $arrayEquipos[$i]['Descripcion'] = $equipos[$i]['Descripcion'];
@@ -37,5 +38,8 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $equipos = $db->eliminarEquipo($_POST['idEquipoEliminar']);
             echo '{"error": "2", "descripcion": "Se elimino correctamente el Equipo"}';
             break;
+        case 'actualizarEquipoGrupo':
+            $equipos=$db->actualizarEquipo($_POST['idEquipo'], $_POST['nombreEquipo'], $_POST['descripcionEquipo'], $_POST['idGrupo']);
+        break;
     }
 }
