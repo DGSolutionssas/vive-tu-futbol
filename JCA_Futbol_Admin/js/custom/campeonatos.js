@@ -107,6 +107,11 @@ function cargarTabla() {
                         "width": "auto"
                     },
                     {
+                        'data': 'CantidadJugadores',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
                         data: null,
                         className: "center",
                         bSortable: false,
@@ -198,10 +203,11 @@ function guardarCampeonato()
         var descripcion = document.getElementById("txtDescripcion").value;
         var grupos = document.getElementById("txtGrupos").value;
         var equipos = document.getElementById("txtEquipos").value;
+        var cantidadJugadores = document.getElementById("txtCantidadJugadores").value;
         var equipostotal = grupos * equipos;
         var action = 'registrarCampeonato';
 
-        jQuery.post('BL/CampeonatosBL.php', {campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipostotal, action: action}, function (data) {
+        jQuery.post('BL/CampeonatosBL.php', {campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipostotal, action: action, cantidadjugadores:cantidadJugadores}, function (data) {
             if (data.error === 1)
             {
             } else
