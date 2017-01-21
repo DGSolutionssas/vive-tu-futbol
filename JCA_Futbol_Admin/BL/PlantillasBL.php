@@ -33,12 +33,14 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $indicadorCeldaEquipo1 = 16;
 
             $plantilla->getActiveSheet()->setCellValue('K6', $equipo1)
+                    ->setCellValue('B11', $equipo1)
                     ->setCellValue('BA6', $equipo2)
+                    ->setCellValue('B36', $equipo2)
                     ->setCellValue('B7', 'CAMPEONATO.  ' . $campeonato);
 
             for ($i = 0; $i < count($jugadores); $i++) {
                 if ($jugadores[$i]['Equipo'] == $equipo1) {
-                    $plantilla->getActiveSheet()->setCellValue('B' . $indicadorCeldaEquipo1, $jugadores[$i]['Cedula'])
+                    $plantilla->getActiveSheet()->setCellValue('B' . $indicadorCeldaEquipo1, substr($jugadores[$i]['Cedula'], strlen($jugadores[$i]['Cedula'])-4, 4))
                             //->setCellValue('G' . $indicadorCeldaEquipo1, $jugadores[$i]['Nombres'] . " " . $jugadores[$i]['Apellidos']);
 							->setCellValue('G' . $indicadorCeldaEquipo1, $jugadores[$i]['Nombre']);
                     ++$indicadorCeldaEquipo1;
@@ -49,7 +51,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 
             for ($i = 0; $i < count($jugadores); $i++) {
                 if ($jugadores[$i]['Equipo'] == $equipo2) {
-                    $plantilla->getActiveSheet()->setCellValue('B' . $indicadorCeldaEquipo2, $jugadores[$i]['Cedula'])
+                    $plantilla->getActiveSheet()->setCellValue('B' . $indicadorCeldaEquipo2, substr($jugadores[$i]['Cedula'], strlen($jugadores[$i]['Cedula'])-4, 4))
                             //->setCellValue('G' . $indicadorCeldaEquipo2, $jugadores[$i]['Nombres'] . " " . $jugadores[$i]['Apellidos']);
 							->setCellValue('G' . $indicadorCeldaEquipo2, $jugadores[$i]['Nombre']);
                     ++$indicadorCeldaEquipo2;
