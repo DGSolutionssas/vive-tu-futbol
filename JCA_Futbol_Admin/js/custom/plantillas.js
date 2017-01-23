@@ -144,13 +144,16 @@ function limpiarPlantilla()
 
 function generarPlantilla()
 {
+    $('#myPleaseWait').modal('show');
     var action = 'generarPlantilla';
+    var ddlTipoPlantilla = document.getElementById("ddlTipoPlantilla");
+    var idTipoPlantilla = ddlTipoPlantilla.options[ddlTipoPlantilla.selectedIndex].value;    
     var campeonato=document.getElementById("txtCampeonato").value;
     var equipo1=document.getElementById("txtEquipo1").value;
     var equipo2=document.getElementById("txtEquipo2").value;
     
 
-    jQuery.post('BL/PlantillasBL.php', {campeonato:campeonato, equipo1:equipo1, equipo2:equipo2, idCampeonato: idCampeonatoSeleccionado, idEquipo1: idEquipo1Seleccionado, idEquipo2: idEquipo2Seleccionado, action: action}, function (data) {
+    jQuery.post('BL/PlantillasBL.php', {campeonato:campeonato, equipo1:equipo1, equipo2:equipo2, idCampeonato: idCampeonatoSeleccionado, idEquipo1: idEquipo1Seleccionado, idEquipo2: idEquipo2Seleccionado, idTipoPlantilla:idTipoPlantilla, action: action}, function (data) {
         if (data.error === 1)
         {
         }else
@@ -159,4 +162,5 @@ function generarPlantilla()
             window.location.href = obj.url;
         }
     });
+    $('#myPleaseWait').modal('hide');
 }
