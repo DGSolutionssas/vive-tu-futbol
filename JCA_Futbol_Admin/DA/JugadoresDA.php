@@ -53,5 +53,17 @@ FROM Jugador J ";
                 . "'" . $Url . "')"
         );
     }
+    function ActualizarJugador($idJugadorEditar,$NombreJugadorEditar, $DocumentoEditar, $CorreoElectronicoEditar, $CelularEditar, $DirectorTecnicoEditar, $DelegadoEditar, $RepresentanteLegalEditar,$UrlEditar)
+    { 
+        
+       if($UrlEditar)
+       {
+            $resul = mysqli_query($this->db->Connect(),  "UPDATE Jugador SET NombreJugador='" . $NombreJugadorEditar . "', Documento=" . $DocumentoEditar .", CorreoElectronico = '".$CorreoElectronicoEditar."', Celular=".$CelularEditar.", DirectorTecnico=".$DirectorTecnicoEditar.",Delegado=".$DelegadoEditar.", RepresentanteLegal=".$RepresentanteLegalEditar.", Url='".$UrlEditar."' WHERE IdJugador= ".$idJugadorEditar);
+       }
+       else
+       {
+           $resul = mysqli_query($this->db->Connect(),  "UPDATE Jugador SET NombreJugador='" . $NombreJugadorEditar . "', Documento=" . $DocumentoEditar .", CorreoElectronico = '".$CorreoElectronicoEditar. "', Celular=".$CelularEditar.", DirectorTecnico=".$DirectorTecnicoEditar.",Delegado=".$DelegadoEditar.", RepresentanteLegal=".$RepresentanteLegalEditar." WHERE IdJugador= ".$idJugadorEditar);
+       }
+    }
     
 }
