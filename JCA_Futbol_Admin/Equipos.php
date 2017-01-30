@@ -9,7 +9,7 @@ session_start();
 require_once "./Header.php";
 if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
     ?>
-    <div>   
+    <div>
         <br><br><br>
         <div class="jumbotron">
             <button type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Equipo</button>
@@ -28,7 +28,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     <th></th><th></th>
                     </tr>
                 </thead>
-                <tbody>                    
+                <tbody>
                 </tbody>
             </table>
             </br>
@@ -50,15 +50,15 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     <div class="modal-body">
                         <div class="form-row">
                             <label class='control-label'>Campeonato:</label>
-                            <input autocomplete="off" type="text" id="txtCampeonato" name="txtCampeonato" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="block1" class="form-control">
+                            <input autocomplete="off" type="text" id="txtCampeonato" name="txtCampeonato" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="blockRegistro" class="form-control">
                       </div>
                         <div class="form-row">
                             <label class='control-label'>Nombre Equipo:</label>
-                            <input autocomplete="off" type="text" id="txtNombreEquipo" name="txtNombreEquipo"  data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="block1" class="form-control">
+                            <input autocomplete="off" type="text" id="txtNombreEquipo" name="txtNombreEquipo"  data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="blockRegistro" class="form-control">
                         </div>
                         <div class="form-row">
                             <label class='control-label'>Descripcion Equipo:</label>
-                            <input autocomplete="off" type="text" id="txtDescripcionEquipo" name="txtDescripcionEquipo" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="block1" class="form-control">
+                            <input autocomplete="off" type="text" id="txtDescripcionEquipo" name="txtDescripcionEquipo" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="blockRegistro" class="form-control">
                         </div>
                         <div class="form-row" id="divGrupo">
                             <label class='control-label'>Grupo:</label>
@@ -74,8 +74,8 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 </div>
             </div>
         </div>
-		
-		
+
+
 		 <div id="VentanaEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
@@ -116,8 +116,8 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 </div>
             </div>
         </div>
-		
-		
+
+
         <div id="dvResultado"></div>
     </div>
     <?php
@@ -126,5 +126,3 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
     <?php
 }
 require_once './Footer.php';
-
-

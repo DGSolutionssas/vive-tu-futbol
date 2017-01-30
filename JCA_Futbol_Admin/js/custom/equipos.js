@@ -274,10 +274,9 @@ function guardarEquipo()
     var ddlGrupoEquipo = document.getElementById("ddlGrupoEquipo");
     var idGrupo = ddlGrupoEquipo.options[ddlGrupoEquipo.selectedIndex].value;
     var idCampeonato = idCampeonatoSeleccionado;
-    var verdadero = $('#form1').parsley().validate("block1", true);
+    verdadero = $('#form1').parsley().validate("blockRegistro", true);
     if (verdadero)
     {
-        {
             var nombreEquipo = document.getElementById("txtNombreEquipo").value;
             var descripcionEquipo = document.getElementById("txtDescripcionEquipo").value;
             var action = 'registrarEquipoGrupo';
@@ -296,7 +295,6 @@ function guardarEquipo()
                     cargarTabla();
                 }
             });
-        }
     }
 }
 
