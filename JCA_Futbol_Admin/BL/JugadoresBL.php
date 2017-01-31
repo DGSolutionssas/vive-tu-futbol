@@ -43,8 +43,12 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $Jugadores = $db->eliminarJugador($_POST['idJugadorEliminar']);
             echo '{"error": "2", "descripcion": "Se elimino correctamente el Jugador"}';
             break;
+        case 'ActualizarJugador':
+            $Jugadores = $db->ActualizarJugador($_POST['idJugadorEditar'], $_POST['NombreJugadorEditar'], $_POST['DocumentoEditar'], $_POST['CorreoElectronicoEditar'], $_POST['CelularEditar'], $_POST['DTEditar'], $_POST['DelegadoEditar'], $_POST['RepresentanteLegalEditar'], $_POST['UrlEditar']);
+            break;
         case 'registrarJugador':
             $Jugadores = $db->registrarJugador($_POST['NombreJugador'], $_POST['Documento'], $_POST['CorreoElectronico'], $_POST['Celular'], $_POST['DT'], $_POST['Delegado'], $_POST['RepresentanteLegal'], $_POST['Url']);
             break;
+        
     }
 }

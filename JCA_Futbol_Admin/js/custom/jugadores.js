@@ -4,6 +4,7 @@
  * @created 12/01/2017
  * @copyright DG Solutions sas
  */
+var idJugadorEditar = "";
  var idJugadorEliminar = "";
 $(document).ready(function () {
     $('#myPleaseWait').modal('show');
@@ -17,6 +18,27 @@ function obtenerLineaEliminar(lnk)
     idJugadorEliminar = row.cells[1].innerHTML;
     VentanaEliminar('Confirmar Eliminacion', '¿Esta seguro de eliminar el ID <b>' + idJugadorEliminar + '</b>?', 'SI', 'NO');
 }
+function obtenerLineaEditar(lnk)
+{
+	var row=lnk.parentNode.parentNode;
+	var rowIndex=row.rowIndex-1;
+	idJugadorEditar=row.cells[1].innerHTML;	
+	$('#VentanaEditar').modal('show');
+    document.getElementById("txtIdJugadorEditar").value = row.cells[1].innerHTML;	
+	document.getElementById("txtNombreJugadorEditar").value=row.cells[2].innerHTML;
+	document.getElementById("txtDocumentoEditar").value=row.cells[3].innerHTML;
+	document.getElementById("txtCorreoElectronicoEditar").value=row.cells[4].innerHTML;
+    document.getElementById("txtCelularEditar").value=row.cells[5].innerHTML;
+    document.getElementById("chkDirectorTecnicoEditar").checked= row.cells[6].innerHTML.includes("checked");
+    document.getElementById("chkDelegadoEditar").checked=row.cells[7].innerHTML.includes("checked");
+    document.getElementById("chkRepresentanteLegalEditar").checked=row.cells[8].innerHTML.includes("checked");
+    //if(row.cells[6].innerHTML.includes("checked"))
+	
+	document.getElementById("")
+	
+	
+}
+
 
 function Eliminar()
 {
@@ -61,7 +83,7 @@ function cargarTabla() {
                             "sButtonText": '<br><a href="#" data-dismiss="modal" class="label label-primary" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-file-excel-o"></i> Descargar </a><br>',
                             sFileName: 'Equipos.csv',
                             sFieldSeperator: ",",
-                            exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]}
+                            exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6, 7, 8,9,10]}
                         }
                     ]},
                 language: {
@@ -138,6 +160,12 @@ function cargarTabla() {
                         data: null,
                         className: "center",
                         bSortable: false,
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" Title="Editar" OnClick="return obtenerLineaEditar(this)"><i class="fa fa-pencil-square-o"></i></a>'
+                    },
+                    {
+                        data: null,
+                        className: "center",
+                        bSortable: false,
                         defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" Title="Eliminar" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     }],
             });
@@ -186,6 +214,45 @@ console.log(verdadero);
                     new PNotify({
                         title: 'Transaccion Exitos!',
                         text: 'Jugador Registrado Correctamente',
+                        type: 'success'
+                    });
+                    cargarTabla();
+                }
+            });
+        }
+    }
+}
+function actualizarJugador()
+{
+    var verdadero = $('#form1').parsley().validate("block2", true);
+console.log(verdadero);
+    if (verdadero)
+    {
+        {
+            console.log("ingreso");
+            var NombreJugadorEditar = document.getElementById("txtNombreJugadorEditar").value;
+            var DocumentoEditar = document.getElementById("txtDocumentoEditar").value;
+            var CorreoElectronicoEditar = document.getElementById("txtCorreoElectronicoEditar").value;
+            var CelularEditar = document.getElementById("txtCelularEditar").value;
+            var DTEditar = document.getElementById("chkDirectorTecnicoEditar").checked;
+            var DelegadoEditar = document.getElementById("chkDelegadoEditar").checked;
+            var RepresentanteLegalEditar = document.getElementById("chkRepresentanteLegalEditar").checked;
+            var UrlEditar = document.getElementById("archivoImageEditar").value;
+            UrlEditar = UrlEditar.replace("C:\\fakepath\\","");
+            var idJugadorEditar = document.getElementById("txtIdJugadorEditar").value;
+            
+            var action = 'ActualizarJugador';
+
+            jQuery.post('BL/JugadoresBL.php', {idJugadorEditar:idJugadorEditar ,NombreJugadorEditar: NombreJugadorEditar, DocumentoEditar: DocumentoEditar, CorreoElectronicoEditar: CorreoElectronicoEditar, CelularEditar: CelularEditar,DTEditar:DTEditar, DelegadoEditar:DelegadoEditar,RepresentanteLegalEditar:RepresentanteLegalEditar, UrlEditar:UrlEditar,action: action}, function (data) {
+                if (data.error === 1)
+                {
+
+                } else
+                {
+                    $('#VentanaEditar').modal('hide');
+                    new PNotify({
+                        title: 'Transaccion Exitos!',
+                        text: 'Jugador Actualizado Correctamente',
                         type: 'success'
                     });
                     cargarTabla();

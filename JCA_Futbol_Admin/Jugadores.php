@@ -29,6 +29,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     <th>DELEGADO</th>
                     <th>REPRESENTANTE</th>
                     <th></th>
+                    <th></th>
                     </tr>
                 </thead>
             </table>
@@ -98,6 +99,69 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 </div>
             </div>
         </div>
+         <div id="VentanaEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Cancelar</span>
+                        </button>
+                        <h4 class="modal-title" id="H3">
+                            <p>EDITAR JUGADOR</p>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-row">
+                            <label class='control-label'>Nombre Jugador:</label><input autocomplete="off" type="text" id="txtIdJugadorEditar" name="txtIdJugadorEditar" style=" visibility: hidden;">
+                            <input autocomplete="off" type="text" id="txtNombreJugadorEditar" name="txtNombreJugadorEditar"  data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="block2" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Documento:</label>
+                            <input autocomplete="off" type="text" id="txtDocumentoEditar" name="txtDocumentoEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-type="number" data-parsley-error-message="el dato ingresado debe ser numerico" data-parsley-group="block2" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>E-Mail:</label>
+                            <input autocomplete="off" type="text" id="txtCorreoElectronicoEditar" name="txtCorreoElectronicoEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="email" data-parsley-error-message="No es un E-mail Valido" data-parsley-group="block2" 
+                            class="form-control">
+                        </div>
+                         <div class="form-row">
+                            <label class='control-label'>Celular:</label>
+                            <input autocomplete="off" type="text" id="txtCelularEditar" name="txtCelularEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="number" data-parsley-error-message="El dato ingresado no esta en el formato corrrecto"  data-parsley-minlength="10" data-parsley-maxlength="10" data-parsley-minlength-message="No es un número de celular valido"  data-parsley-maxlength-message="No es un número de celular valido" data-parsley-group="block2" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Director Tecnico:</label>
+                            <input type="checkbox"id="chkDirectorTecnicoEditar" name="chkDirectorTecnicoEditar" class="form-control">
+                            
+                        </div>
+                        <div class="form-row" >
+                            <label class='control-label'>Delegado:</label>
+                            <input type="checkbox"id="chkDelegadoEditar" name="chkDelegadoEditar" class="form-control">
+                            
+                        </div>
+                        <div class="form-row" >
+                            <label class='control-label'>Representante Legal:</label>
+                            <input type="checkbox"id="chkRepresentanteLegalEditar" name="chkRepresentanteLegalEditar" class="form-control">
+                         </div>
+
+                        <div class="form-row">
+                        <label class='control-label'>Foto:</label>
+                        <input type="file"  class="btn btn-warning"  name="archivoImageEditar" id="archivoImageEditar" />
+                        <a id="btnCargar" type="submit" class="btn btn-success" name="btnCargar" onclick="uploadAjax();">
+                            <span class="fa fa-cloud-upload"></span> Cargar Imagen</a>
+                        </div>    
+                                
+                    </div>
+                    <div class="modal-footer">
+                        <div class='form-row'>
+                            <a id="btnActualizar" type="submit" class="btn btn-success" name="btnActualizar" onclick="actualizarJugador();">Actualizar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
         <div id="dvResultado"></div>
     </div>
     <?php
