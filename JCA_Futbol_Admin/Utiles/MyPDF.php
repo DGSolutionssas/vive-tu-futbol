@@ -16,7 +16,7 @@ class MyPDF extends FPDF {
         $this->Image('../img/Logo.jpg', 10, 8, 33);
         $this->SetFont('Arial', 'B', 15);
         $this->Cell(80);
-        $this->Cell(30, 23, 'Reporte Jugadores', 0, 0, 'C');
+        //$this->Cell(30, 23, 'Reporte Jugadores', 0, 0, 'C');
         $this->Ln(40);
     }
 
@@ -47,16 +47,17 @@ class MyPDF extends FPDF {
    function TablaColores($header)
 {
 //Colores, ancho de línea y fuente en negrita
-$this->SetFillColor(255,0,0);
+$this->SetFillColor(20,143,20);
 $this->SetTextColor(255);
-$this->SetDrawColor(128,0,0);
-$this->SetLineWidth(.3);
-$this->SetFont('','B');
+$this->SetDrawColor(0,0,0);
+$this->SetLineWidth(.2);
+$this->SetFont('Arial','I', 10);
 //Cabecera
 
 for($i=0;$i<count($header);$i++)
-$this->Cell(40,7,$header[$i],1,0,'C',1);
+	$this->Cell(30,6,$header[$i],1,0,'C',true);
 $this->Ln();
+
 //Restauración de colores y fuentes
 $this->SetFillColor(224,235,255);
 $this->SetTextColor(0);

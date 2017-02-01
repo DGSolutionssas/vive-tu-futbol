@@ -95,7 +95,7 @@
                                         <li><a href="./Plantillas.php"><i class="fa fa-newspaper-o"></i>Plantillas<span class="fa fa-chevron-right"></span></a></li>
                                         <li><a href="#"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="./Reportes.php">Campeonatos</a></li>
+                                                <li><a href="./ReportesCampeonatos.php">Campeonatos</a></li>
                                                 <li><a href="./Reportes.php">Equipos</a></li>
                                                 <li><a href="./Reportes.php">Jugadores</a></li>
                                                 <li><a href="./Reportes.php">Carnets</a></li>
