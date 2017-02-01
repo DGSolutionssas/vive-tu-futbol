@@ -55,7 +55,16 @@ $this->SetFont('Arial','I', 10);
 //Cabecera
 
 for($i=0;$i<count($header);$i++)
-	$this->Cell(30,6,$header[$i],1,0,'C',true);
+{
+	if(strlen($header[$i])>4)
+	{
+		$this->Cell(40,6,$header[$i],1,0,'C',true);
+	}
+	else
+	{
+		$this->Cell(15,6,$header[$i],1,0,'C',true);	
+	}	
+}
 $this->Ln();
 
 //Restauración de colores y fuentes
@@ -65,7 +74,7 @@ $this->SetFont('');
 //Datos
 $fill=false;
 
-$this->Cell(40,6,"hola",'LR',0,'L',$fill);
+$this->Cell(30,6,"hola",'LR',0,'L',$fill);
 $this->Cell(40,6,"hola2",'LR',0,'L',$fill);
 $this->Cell(40,6,"hola3",'LR',0,'R',$fill);
 $this->Cell(40,6,"hola4",'LR',0,'R',$fill);

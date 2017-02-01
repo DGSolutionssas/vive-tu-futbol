@@ -29,13 +29,12 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 		case 'generarReporteCampeonato' :
 			$idCampeonato = $_POST['idCampeonato'];
 			$estadisticas = $db->championshipReportById($idCampeonato);
-			
-            $header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
-            $pdf = new MyPDF('L','mm','500');
+			$header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
+            $pdf = new MyPDF('L', 'mm', 'A4');
             $pdf->AliasNbPages();
             $pdf->AddPage();
             $pdf->TablaColores($header);
-            $pdf->SetFont('Times', '', 12);
+            $pdf->SetFont('Times', '', 10);
             for ($i = 1; $i <= 5; $i++)
                 $pdf->Cell(0, 10, 'Jugador ' . $i, 0, 1);
             $pdfString = $pdf->Output('', 'S');
