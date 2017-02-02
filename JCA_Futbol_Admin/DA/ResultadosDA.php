@@ -80,5 +80,29 @@ class ResultadosDA {
             return "";
         }
     }
+    
+    function guardarDetalle($idJugador, $Amarilla, $Azul, $Roja, $Goles) {
+        
+        $IdResultado1 = mysqli_query($this->db->Connect(), "SELECT MAX(IdResultado) AS id FROM resultados");
+        $fila = mysqli_fetch_array($IdResultado1);
+        echo "INSERT INTO resultadodetalle (IdJugador, IdResultado, Amarilla, Azul, Roja, Goles) VALUES ("
+                . $idJugador . ","
+                . $fila['id']. ","
+                . $Amarilla . ","
+                . $Azul . ","
+                . $Roja . ","
+                . $Goles . ")";
+		
+		
+        $resul = mysqli_query($this->db->Connect(), "INSERT INTO resultadodetalle (IdJugador, IdResultado, Amarilla, Azul, Roja, Goles) VALUES ("
+                . $idJugador . ","
+                . $fila['id']. ","
+                //. $idResultado2['IdResultado'] . ","
+                . $Amarilla . ","
+                . $Azul . ","
+                . $Roja . ","
+                . $Goles . ")"
+        );
+    }
 
 }

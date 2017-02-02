@@ -96,7 +96,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             </h4>
                         </div>
                         <div class="modal-body">
-                            <div align="center"><h4><input id='txtcargaequipo1' readonly='readonly' style="border:none"></h4></div>
+                            <div align="center"><h2><input id='txtcargaequipo1' readonly='readonly' style="border:none"></h2></div>
                             <table id="tableJL" class="display table table-hover table-bordered jambo_table">
                                 <thead>
                                     <tr>
@@ -137,7 +137,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             </h4>
                         </div>
                         <div class="modal-body">
-                            <div align="center"><h4><input id='txtcargaequipo2' readonly='readonly' style="border:none"></h4></div><table id="tableJL1" class="display table table-hover table-bordered jambo_table">
+                            <div align="center"><h2><input id='txtcargaequipo2' readonly='readonly' style="border:none"></h2></div><table id="tableJL1" class="display table table-hover table-bordered jambo_table">
                                 <thead>
                                     <tr>
                                     <th>ID</th>

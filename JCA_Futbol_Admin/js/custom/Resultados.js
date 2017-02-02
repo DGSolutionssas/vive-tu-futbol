@@ -37,26 +37,6 @@ function Eliminar()
 }
 
 //---------------------------
-//para poner el nombre del equipo # 1 en la ventana de resultados
-//----------------------------
-$(document).ready(function() {
-    $("#txtIdEquipo1").keyup(function() {
-        var value = $(this).val();
-        $("#txtcargaequipo1").val(value);
-    });
-});
-
-//---------------------------
-//para poner el nombre del equipo # 2 en la ventana de resultados
-//----------------------------
-$(document).ready(function() {
-    $("#txtIdEquipo2").keyup(function() {
-        var value = $(this).val();
-        $("#txtcargaequipo2").val(value);
-    });
-});
-
-//---------------------------
 //para autocompletar el campeonato
 //----------------------------
 $(document).ready(function() {
@@ -300,6 +280,8 @@ function guardarResultado(){
         var Goles1 = document.getElementById("txtGoles1").value;
         var Goles2 = document.getElementById("txtGoles2").value;
         var action = 'registrarResultado';
+		var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
+		var equipo1=document.getElementById("txtcargaequipo2").value = equipo1=document.getElementById("txtIdEquipo2").value;
 
         jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, action: action}, function(data) {
             if (data.error === 1)
@@ -370,7 +352,8 @@ function cargartablaJL() {
                             "sDefaultContent": "",
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input maxlength="2" size="1px" id="txtgoles" name="txtgoles">';
+                                    //return '<input maxlength="2" size="1px" id="txtgoles" name="txtgoles
+                                    return '<input maxlength="2" size="1px" id="txtgoles'+row.id+'" name="txtgoles" value="0">';
                                 }
                                 return data;
                             },
@@ -383,7 +366,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" id="checkAmarilla" class="editor-active">';
+                                    return '<input type="checkbox" id="checkAmarilla'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -394,7 +377,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" id="checkAzul" class="editor-active">';
+                                    return '<input type="checkbox" id="checkAzul'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -405,7 +388,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" id="checkRoja" class="editor-active">';
+                                    return '<input type="checkbox" id="checkRoja'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -415,7 +398,7 @@ function cargartablaJL() {
                         width: "auto",
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
+                        defaultContent: '<a href="#" id="guardarJ1"  class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
                     }
                     ],
                 });
@@ -471,7 +454,7 @@ function cargartablaJL1() {
                             'data': 'id',
                             "sClass": "justify",
                             "width": "auto",
-                            "visible": false
+                            //"visible": false
                         },
                         {
                             'data': 'nombre',
@@ -479,10 +462,11 @@ function cargartablaJL1() {
                             "width": "auto"
                         },
                         {
-                            "sDefaultContent": "Edit",
+                            "sDefaultContent": "",
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input  maxlength="2" size="1px" id="txtgoles" name="txtgoles>';
+                                    //return '<input maxlength="2" size="1px" id="txtgoles" name="txtgoles\n\
+                                    return '<input maxlength="2" size="1px" id="txtgoles'+row.id+'" name="txtgoles" value="0">';
                                 }
                                 return data;
                             },
@@ -495,7 +479,7 @@ function cargartablaJL1() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" class="editor-active">';
+                                    return '<input type="checkbox" id="checkAmarilla'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -506,7 +490,7 @@ function cargartablaJL1() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" class="editor-active">';
+                                    return '<input type="checkbox" id="checkAzul'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -517,7 +501,7 @@ function cargartablaJL1() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" class="editor-active">';
+                                    return '<input type="checkbox" id="checkRoja'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -525,9 +509,9 @@ function cargartablaJL1() {
                         {
                         data: null,
                         width: "auto",
-                        className: "auto",
+                        className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
+                        defaultContent: '<a href="#" id="guardarJ1"  class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
                     }
                     ],
                 });
@@ -549,29 +533,33 @@ function registrardetalle(lnk){
     var row = lnk.parentNode.parentNode;
     var rowIndex = row.rowIndex - 1;
     var IdJugador = row.cells[0].innerHTML;
-    var Goles = document.getElementById("txtgoles").value;
-    var Amarilla = document.getElementById("checkAmarilla").checked; 
-    var Azul = document.getElementById("checkAzul").checked;
-    var Roja = document.getElementById("checkRoja").checked;
+    //alert (rowIndex);
+    Goles = document.getElementById('txtgoles'+IdJugador).value;
+    Amarilla = document.getElementById('checkAmarilla'+IdJugador).checked; 
+    Azul = document.getElementById('checkAzul'+IdJugador).checked;
+    Roja = document.getElementById('checkRoja'+IdJugador).checked;
     var action = 'registrarDetalle';
     jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, action: action}, function(data) {
-            if (data.error === 1)
-            {
-                //alert("se jodio esta vaina");
-            }
-            else
-            {
-                new PNotify({
-                    title: 'Transaccion Exitosa!',
-                    text: 'Resultado Registrado Correctamente',
-                    type: 'success'
-                });
-            }
+        if (data.error === 1)
+        {
+            //alert("se jodio esta vaina");
+        }
+        else
+        {
+            new PNotify({
+                title: 'Transaccion Exitosa!',
+                text: 'Resultado Registrado Correctamente',
+                type: 'success'
+            });
+
+        }
     });
-}
+    }
+//limpiar();
+
 function terminarregistro(){
     $('#VentanaJL1').modal('hide');
     $('#VentanaJL').modal('hide');
     $('#VentanaRegistro').modal('hide');
-    cargartabla();
+    cargarTabla();
 }
