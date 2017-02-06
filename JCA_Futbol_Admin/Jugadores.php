@@ -12,7 +12,23 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
     <div>   
         <br><br><br>
         <div class="jumbotron">
-            <button type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Jugador</button>
+            <table width=100% cellpadding=10>
+                <tr>
+                    <td>
+                         <label >Campeonato:</label><br>
+                        <input autocomplete="off" style="width:50%;" type="text" id="txtCampeonato" name="txtCampeonato"> 
+                    </td>
+                     <td>
+                         <label >Equipo:</label><br>
+                        <input autocomplete="off" style="width:50%;" type="text" id="txtEquipo" name="txtEquipo"> 
+                    </td>
+                </tr>
+            </table>
+
+              
+            <br><br><br>
+                                    
+            <button id="btnRegistrar" name="btnRegistrar" disabled= "true" type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Jugador</button>
             <script type="text/javascript" src="js/custom/jugadores.js"></script>
             <br>
 			<div class="row">

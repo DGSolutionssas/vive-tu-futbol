@@ -6,10 +6,82 @@
  */
 var idJugadorEditar = "";
  var idJugadorEliminar = "";
+ var idCampeonatoSeleccionado = "";
+ var idEquipoSeleccionado = "";
 $(document).ready(function () {
     $('#myPleaseWait').modal('show');
     cargarTabla();
 });
+
+//Metodo que autocompleta el texto para el campeonato
+$(document).ready(function () {
+    $('#txtCampeonato').autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: 'BL/CampeonatosBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarCampeonato'
+                },
+                success: function (data) {
+                    response($.map(data, function (objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            idCampeonatoSeleccionado = ui.item.id;
+            document.getElementById("txtCampeonato").value = ui.item.value;
+            consultarEquiposCampeonato();
+            return false;
+        },
+        autoFocus: true,
+        minLength: 1
+    });
+   
+});
+function consultarEquiposCampeonato()
+{
+    $('#txtEquipo').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: 'BL/JugadoresBL.php',
+                    dataType: "json",
+                    type: "POST",
+                    data: {
+                        term: request.term,
+                        idCampeonato: idCampeonatoSeleccionado,
+                        action: 'consultarEquipos'
+                    },
+                    success: function (data) {
+                        response($.map(data, function (objeto) {
+                            return {
+                                label: objeto.value,
+                                value: objeto.value,
+                                id: objeto.id
+                            }
+                        }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                idEquipoSeleccionado = ui.item.id;
+                document.getElementById("txtEquipo").value = ui.item.value;
+                document.getElementById("btnRegistrar").disabled = false;
+                cargarTablaFiltrada(idEquipoSeleccionado);
+                return false;
+            },
+            autoFocus: true,
+            minLength: 1
+        });
+    }
 
 function obtenerLineaEliminar(lnk)
 {
@@ -38,7 +110,6 @@ function obtenerLineaEditar(lnk)
 	
 	
 }
-
 
 function Eliminar()
 {
@@ -183,6 +254,132 @@ function cargarTabla() {
     });
 }
 
+//Metodo que carga la informacion en la tabla
+function cargarTablaFiltrada(idEquipoSeleccionado) {
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: "BL/JugadoresBL.php",
+        data: {
+            idEquipo: idEquipoSeleccionado
+            , action: 'obtenerJugadoresFlitro'
+        },
+        success: function (data) {
+            $('#tableJugadores').dataTable({
+                "iDisplayLength": 10,
+                "bProcessing": true,
+                "bPaginate": true,
+                "bDestroy": true,
+                "sPaginationType": "full_numbers",
+                "sDom": 'T<"clear">lfrtip',
+				"responsive":true,
+                "tableTools": {
+                    "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
+                    aButtons: [
+                        {sExtends: "csv",
+                            "sButtonText": '<br><a href="#" data-dismiss="modal" class="label label-primary" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-file-excel-o"></i> Descargar </a><br>',
+                            sFileName: 'Equipos.csv',
+                            sFieldSeperator: ",",
+                            exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6, 7, 8,9,10]}
+                        }
+                    ]},
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "<b>Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros</b>",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "<b>Buscar : </b>",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                data: data,
+                columns: [{
+                        data: 'Url',
+                        className: "center",
+                        bSortable: false
+                    },
+                    {
+                        'data': 'IdJugador',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        'data': 'NombreJugador',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        'data': 'Documento',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        'data': 'CorreoElectronico',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        'data': 'Celular',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        'data': 'DT',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        'data': 'Delegado',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        'data': 'RepresentanteLegal',
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        data: null,
+                        className: "center",
+                        bSortable: false,
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" Title="Editar" OnClick="return obtenerLineaEditar(this)"><i class="fa fa-pencil-square-o"></i></a>'
+                    },
+                    {
+                        data: null,
+                        className: "center",
+                        bSortable: false,
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" Title="Eliminar" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
+                    }],
+            });
+            $('#myPleaseWait').modal('hide');
+        },
+        error: function () {
+            $('#myPleaseWait').modal('hide');
+            new PNotify({
+                title: 'Error!',
+                text: 'Por favor intentelo nuevamente.<br><b>Si el problema persiste contacte al Administrador</b>',
+                type: 'error'
+            });
+
+        }
+    });
+}
+
 //Metodo que almacena el equipo en la base de datos
 function guardarJugador()
 {
@@ -204,7 +401,7 @@ console.log(verdadero);
             Url = Url.replace("C:\\fakepath\\","");
             var action = 'registrarJugador';
 
-            jQuery.post('BL/JugadoresBL.php', {NombreJugador: NombreJugador, Documento: Documento, CorreoElectronico: CorreoElectronico, Celular: Celular,DT:DT, Delegado:Delegado,RepresentanteLegal:RepresentanteLegal, Url:Url,action: action}, function (data) {
+            jQuery.post('BL/JugadoresBL.php', {NombreJugador: NombreJugador, Documento: Documento, CorreoElectronico: CorreoElectronico, Celular: Celular,DT:DT, Delegado:Delegado,RepresentanteLegal:RepresentanteLegal, Url:Url,idEquipoSeleccionado: idEquipoSeleccionado,action: action}, function (data) {
                 if (data.error === 1)
                 {
 
@@ -295,4 +492,24 @@ function uploadAjax()
                 });
             }
         });
+}
+//Metodo que consulta los grupos del campeonato seleccionado
+function consultarEquipos()
+{
+    var ddlGrupoEquipo = document.getElementById("ddlGrupoEquipo");
+    var action = 'consultarEquipos';
+    jQuery.post('BL/CampeonatosBL.php', {idCampeonato: idCampeonatoSeleccionado, action: action}, function (data) {
+        if (data.error === 1)
+        {
+            alert("ERROR");
+        } else
+        {
+            var obj = JSON.parse(data);
+            for (i = 0; i < obj[0].Grupos; i++)
+            {
+                var option = new Option(letras[i + 1], i + 1);
+                ddlGrupoEquipo.append(option);
+            }
+        }
+    });
 }
