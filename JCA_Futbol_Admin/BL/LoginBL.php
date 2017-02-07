@@ -17,11 +17,25 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             if ($logins == "") {
                 echo json_encode(array('error' => '1', 'descripcion' => 'No existe el Usuario'));
             } else {
-                $_SESSION['autenticado'] = true;
-                $_SESSION['inicioSesion'] = 1;
-                $_SESSION['idUsuario'] = $logins[0][0];
-                $_SESSION['nombreUsuario'] = $logins[0][1];
-                $_SESSION['idPerfil'] = $logins[0][2];
+                if($logins[0][0] == "JUGADOR")
+                {
+                    $_SESSION['autenticado'] = true;
+                    $_SESSION['inicioSesion'] = 1;
+                    $_SESSION['idPerfil'] = "JUGADOR";
+                    $_SESSION['idUsuario'] = $logins[0][1];
+                    $_SESSION['nombreUsuario'] = $logins[0][2];
+                    $_SESSION['idEquipo'] = $logins[0][3];
+                    $_SESSION['IdCampeonato'] = $logins[0][4];
+
+                    echo json_encode(array('error' => '2', 'descripcion' => 'No existe el Usuario'));
+
+                }else{
+
+                    $_SESSION['autenticado'] = true;
+                    $_SESSION['inicioSesion'] = 1;
+                    $_SESSION['idUsuario'] = $logins[0][0];
+                    $_SESSION['nombreUsuario'] = $logins[0][1];
+                    $_SESSION['idPerfil'] = $logins[0][2];
 
                 echo json_encode(array('error' => '2', 'descripcion' => 'No existe el Usuario'));
                 /*
@@ -29,6 +43,8 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                   fwrite($file, "La Ruta es : " .$_SERVER['DOCUMENT_ROOT'] . "/AppAdminFeEnAccion/Index.php" . PHP_EOL);
                   fclose($file);
                  */
+                }
+               
             }
             break;
     }
