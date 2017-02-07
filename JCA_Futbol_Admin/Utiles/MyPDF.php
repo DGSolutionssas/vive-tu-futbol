@@ -13,10 +13,12 @@ class MyPDF extends FPDF {
 
 // Cabecera de página
     function Header() {
+		$tituloReporte = $_SESSION['nombreCampeonato'];
+		
         $this->Image('../img/Logo.jpg', 10, 8, 33);
         $this->SetFont('Arial', 'B', 15);
         $this->Cell(80);
-        //$this->Cell(30, 23, 'Reporte Jugadores', 0, 0, 'C');
+        $this->Cell(30, 23, $tituloReporte, 0, 0, 'C');
         $this->Ln(40);
     }
 
@@ -44,14 +46,14 @@ class MyPDF extends FPDF {
       $this->Cell(40,5,"linea 4",1);
    } 
    
-   function TablaColores($header)
+   function TablaColoresCampeonatos($header, $data)
 {
 //Colores, ancho de línea y fuente en negrita
 $this->SetFillColor(20,143,20);
 $this->SetTextColor(255);
 $this->SetDrawColor(0,0,0);
 $this->SetLineWidth(.2);
-$this->SetFont('Arial','I', 10);
+$this->SetFont('Arial','I', 12);
 //Cabecera
 
 for($i=0;$i<count($header);$i++)
@@ -68,25 +70,74 @@ for($i=0;$i<count($header);$i++)
 $this->Ln();
 
 //Restauración de colores y fuentes
-$this->SetFillColor(224,235,255);
+$this->SetFillColor(182,255,188);
 $this->SetTextColor(0);
 $this->SetFont('');
 //Datos
-$fill=false;
+$fill = false;
+foreach($data as $row)
+{
+	//'Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS'
+	//$this->Cell(40,6,$row['Campeonato'],1,0,'C',$fill);
+	$this->Cell(40,6,$row['Grupo'],1,0,'C',$fill);
+	$this->Cell(40,6,$row['Nombre'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['PJ'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['PG'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['PE'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['PP'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['GF'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['GC'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['DG'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['JL'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['PW'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['PTOS'],1,0,'C',$fill);
+	$this->Ln();
+	$fill = !$fill;
+}
 
-$this->Cell(30,6,"hola",'LR',0,'L',$fill);
-$this->Cell(40,6,"hola2",'LR',0,'L',$fill);
-$this->Cell(40,6,"hola3",'LR',0,'R',$fill);
-$this->Cell(40,6,"hola4",'LR',0,'R',$fill);
-$this->Ln();
-$fill=true;
-$this->Cell(40,6,"col",'LR',0,'L',$fill);
-$this->Cell(40,6,"col2",'LR',0,'L',$fill);
-$this->Cell(40,6,"col3",'LR',0,'R',$fill);
-$this->Cell(40,6,"col4",'LR',0,'R',$fill);
-$fill=!$fill;
-$this->Ln();
 $this->Cell(160,0,'','T');
 } 
+
+   function TablaColoresGoles($header, $data)
+{
+//Colores, ancho de línea y fuente en negrita
+$this->SetFillColor(20,143,20);
+$this->SetTextColor(255);
+$this->SetDrawColor(0,0,0);
+$this->SetLineWidth(.2);
+$this->SetFont('Arial','I', 12);
+//Cabecera
+
+for($i=0;$i<count($header);$i++)
+{
+	if(strlen($header[$i])>4)
+	{
+		$this->Cell(40,6,$header[$i],1,0,'C',true);
+	}
+	else
+	{
+		$this->Cell(15,6,$header[$i],1,0,'C',true);	
+	}	
+}
+$this->Ln();
+
+//Restauración de colores y fuentes
+$this->SetFillColor(182,255,188);
+$this->SetTextColor(0);
+$this->SetFont('');
+//Datos
+$fill = false;
+foreach($data as $row)
+{
+	//'NombreJugador', 'Nombre', 'Goles'
+	$this->Cell(40,6,$row['NombreJugador'],1,0,'C',$fill);
+	$this->Cell(40,6,$row['Nombre'],1,0,'C',$fill);
+	$this->Cell(15,6,$row['Goles'],1,0,'C',$fill);
+	$this->Ln();
+	$fill = !$fill;
+}
+
+$this->Cell(160,0,'','T');
+}
 
 }

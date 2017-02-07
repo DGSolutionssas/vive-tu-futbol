@@ -14,15 +14,17 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
         <br><br><br>
         <div class="jumbotron">
 			<div class="form-row">
-                <button type="button" class="btn btn-warning" onclick="limpiarPlantilla();"> Limpiar</button>
+                <button type="button" class="btn btn-warning" onclick="limpiarReporte();"> Limpiar</button>
             </div>
 			<div class="form-row">    
                 <label class='control-label'>Campeonato:</label>
                 <input autocomplete="off" type="text" id="txtCampeonato" name="txtCampeonato" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="block1" class="form-control">
             </div>
-            <button type="button" class="btn btn-success" onclick="generarReporte();"> Generar Reporte</button>
-            <script type="text/javascript" src="js/custom/reportes.js"></script>
-            </br></br>
+			</br>
+			<div>
+				<button type="button" class="btn btn-success" onclick="generarReporteGoles();"> Generar Reporte</button>
+            </div>
+			</br></br>
             <div id="divResultado" name="divResultado">
             </div>
         </div>

@@ -97,8 +97,8 @@
                                             <ul class="nav child_menu">
                                                 <li><a href="./ReportesCampeonatos.php">Campeonatos</a></li>
                                                 <li><a href="./Reportes.php">Equipos</a></li>
-                                                <li><a href="./Reportes.php">Jugadores</a></li>
-                                                <li><a href="./Reportes.php">Carnets</a></li>
+                                                <li><a href="./ReportesGoles.php">Goles</a></li>
+                                                <!-- <li><a href="./Reportes.php">Carnets</a></li> -->
                                             </ul>
                                         </li>
                                     </ul>

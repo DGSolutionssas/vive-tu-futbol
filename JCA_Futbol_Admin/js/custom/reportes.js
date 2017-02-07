@@ -63,6 +63,25 @@ function generarReporte()
     });
 }
 
+function generarReporteGoles()
+{
+	$('#myPleaseWait').modal('show');
+    jQuery.post('BL/ReportesBL.php', {action: 'generarReporteGoles', idCampeonato: idCampeonatoSeleccionado}, function (data) {
+        if (data.error === 1)
+        {
+        }
+        else
+        {
+           var divResultado=document.getElementById("divResultado");
+           var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
+           divResultado.innerHTML+=object; 
+            //var win = window.open('', '_blank');
+            //win.location.href = data;
+        }
+    });
+	$('#myPleaseWait').modal('hide');
+}
+
 function generarReporteCampeonato()
 {
 	$('#myPleaseWait').modal('show');

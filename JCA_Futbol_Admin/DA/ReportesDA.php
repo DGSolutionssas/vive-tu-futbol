@@ -14,9 +14,26 @@ class ReportesDA {
         require_once 'Connect.php';
         $this->db = new Connect();
     }
+	
+	function championshipNameById($idCampeonato) {
+		$query = "select c.Campeonato from campeonatos c 
+		where c.IdCampeonato = " . $idCampeonato . ";";
+		
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+		$nrows = mysqli_num_rows($resul);
 
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $_SESSION['nombreCampeonato'] = $row['Campeonato'];
+            }
+        }
+    }
+	
     function championshipReportById($idCampeonato) {
-        $query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre, 
+		//$query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre, 
+        $query = "SELECT EQ.Grupo, EQ.Nombre, 
 		COUNT(DISTINCT EN1.IdResultado) + COUNT(DISTINCT EN2.IdResultado) AS PJ, 
 		COUNT(CASE WHEN EN1.Goles1 > EN1.Goles2 THEN 1 END) + COUNT(CASE WHEN EN2.Goles2 > EN2.Goles1 THEN 1 END) AS PG, 
 		COUNT(CASE WHEN EN1.Goles1 = EN1.Goles2 THEN 1 END) + COUNT(CASE WHEN EN2.Goles2 = EN2.Goles1 THEN 1 END) AS PE, 
@@ -60,6 +77,34 @@ class ReportesDA {
             while ($row = mysqli_fetch_array($resul)) {
                 $jsonData[] = $row;
             }
+			
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
+	
+	function goalsReportById($idCampeonato) {
+        $query = "SELECT JU.NombreJugador, EQ.Nombre, rd.Goles 
+		FROM JUGADOR AS JU  
+		inner join tblequiposjugadores as tej on JU.IdJugador = tej.IdJugador 
+		INNER JOIN equipos AS EQ ON tej.IdEquipo = EQ.IdEquipo  
+		INNER JOIN campeonatos AS CA ON CA.IdCampeonato = EQ.IdCampeonato 
+		inner join resultados as re on CA.IdCampeonato = re.IdCampeonato 
+		inner join resultadodetalle as rd on re.IdResultado = rd.IdResultado 
+		where c.IdCampeonato = " . $idCampeonato . " " .
+		"ORDER BY rd.Goles DESC;";
+		
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+			
             return $jsonData;
         } else {
             return "";

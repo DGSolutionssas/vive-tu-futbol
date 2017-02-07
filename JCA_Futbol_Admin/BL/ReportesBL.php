@@ -9,35 +9,36 @@
 if (isset($_POST['action']) && !empty($_POST['action'])) {
     $action = $_POST['action'];
     require_once('../Utiles/MyPDF.php');
-	require_once('../Utiles/PDF_MySQL_Table.php');
+	//require_once('../Utiles/PDF_MySQL_Table.php');
 	require_once('../DA/ReportesDA.php');
 	$db = new ReportesDA();
 	
     switch ($action) {
-        case 'obtenerReporte' :	
-            $header=array('Columna 1','Columna 2','Columna 3','Columna 4');
-            $pdf = new MyPDF();
-            $pdf->AliasNbPages();
-            $pdf->AddPage();
-            $pdf->TablaColores($header);
-            $pdf->SetFont('Times', '', 12);
-            for ($i = 1; $i <= 5; $i++)
-                $pdf->Cell(0, 10, 'Jugador ' . $i, 0, 1);
-            $pdfString = $pdf->Output('', 'S');
-            $pdfBase64 = base64_encode($pdfString);			
-            echo 'data:application/pdf;base64,' . $pdfBase64;
-            break;
-		case 'generarReporteCampeonato' :
+        case 'generarReporteCampeonato' :
 			$idCampeonato = $_POST['idCampeonato'];
-			//$estadisticas = $db->championshipReportById($idCampeonato);
-			$header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
+			$estadisticas = $db->championshipReportById($idCampeonato);
+			$db->championshipNameById($idCampeonato);
+			//$header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
+			$header=array('Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
             $pdf = new MyPDF('L', 'mm', 'A4');
             $pdf->AliasNbPages();
             $pdf->AddPage();
-            //$pdf->TablaColores($header, $estadisticas);
-			$queryChampionship = queryChampionshipReportById($idCampeonato);
-			$pdf->Table($queryChampionship);
-            $pdf->SetFont('Times', '', 10);
+            $pdf->TablaColoresCampeonatos($header, $estadisticas);
+            $pdf->SetFont('Arial', '', 10);
+            $pdfString = $pdf->Output('', 'S');
+            $pdfBase64 = base64_encode($pdfString);			
+            echo 'data:application/pdf;base64, ' . $pdfBase64;
+            break;
+		case 'generarReporteGoles' :
+			$idCampeonato = $_POST['idCampeonato'];
+			$estadisticas = $db->goalsReportById($idCampeonato);
+			$db->championshipNameById($idCampeonato);
+			$header=array('NombreJugador', 'Nombre', 'Goles');
+            $pdf = new MyPDF('P', 'mm', 'A4');
+            $pdf->AliasNbPages();
+            $pdf->AddPage();
+            $pdf->TablaColoresGoles($header, $estadisticas);
+            $pdf->SetFont('Arial', '', 10);
             $pdfString = $pdf->Output('', 'S');
             $pdfBase64 = base64_encode($pdfString);			
             echo 'data:application/pdf;base64, ' . $pdfBase64;
