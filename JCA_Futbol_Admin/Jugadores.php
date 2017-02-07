@@ -84,22 +84,17 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             <label class='control-label'>Celular:</label>
                             <input autocomplete="off" type="text" id="txtCelular" name="txtCelular" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="number" data-parsley-error-message="El dato ingresado no esta en el formato corrrecto"  data-parsley-minlength="10" data-parsley-maxlength="10" data-parsley-minlength-message="No es un número de celular valido"  data-parsley-maxlength-message="No es un número de celular valido" data-parsley-group="block1" class="form-control">
                         </div>
-                        <div class="form-row">
-                            <label class='control-label'>Director Tecnico:</label>
-                            <input type="checkbox"id="chkDirectorTecnico" name="chkDirectorTecnico" class="form-control">
-                            
-                        </div>
-                        <div class="form-row" >
-                            <label class='control-label'>Delegado:</label>
-                            <input type="checkbox"id="chkDelegado" name="chkDelegado" class="form-control">
-                            
-                        </div>
-                        <div class="form-row" >
-                            <label class='control-label'>Representante Legal:</label>
-                            <input type="checkbox"id="chkRepresentanteLegal" name="chkRepresentanteLegal" class="form-control">
-                         </div>
-
-                        <div class="form-row">
+						<br>
+						<div class="form-group">
+							<label><input type="checkbox" id="chkDirectorTecnico" name="chkDirectorTecnico"  /> Director Tecnico</label>
+						</div>
+						<div class="form-group">
+							<label><input type="checkbox" id="chkDelegado" name="chkDelegado" /> Delegado</label>
+						</div>
+						<div class="form-group">
+							<label><input type="checkbox" id="chkRepresentanteLegal" name="chkRepresentanteLegal" /> Representante Legal</label>
+						</div>
+						<div class="form-row">
                         <label class='control-label'>Foto:</label>
                         <input type="file"  class="btn btn-warning"  name="archivoImage" id="archivoImage" />
                         <a id="btnCargar" type="submit" class="btn btn-success" name="btnCargar" onclick="uploadAjax();">
