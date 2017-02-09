@@ -31,28 +31,28 @@ class EquiposDA {
             return "";
         }
     }
-	
+
 	function eliminarEquipo($idEquipoEliminar)
     {
         $resul=mysqli_query($this->db->Connect(),"delete from equipos where IdEquipo = " . $idEquipoEliminar);
     }
-    
+
     function registrarEquipoCampeonato($idCampeonato, $nombreEquipo, $descripcionEquipo, $idGrupo)
     {
-        $resul = mysqli_query($this->db->Connect(), "INSERT INTO Equipos (IdCampeonato, Nombre, Descripcion, Grupo) VALUES ("
+        $resul = mysqli_query($this->db->Connect(), "INSERT INTO equipos (IdCampeonato, Nombre, Descripcion, Grupo) VALUES ("
                 . $idCampeonato . ","
                 . "'" . $nombreEquipo. "',"
                 . "'" . $descripcionEquipo . "',"
                 . $idGrupo . ")"
         );
     }
-    
+
     function actualizarEquipo($idEquipo, $nombreEquipo, $descripcionEquipo, $idGrupo)
     {
         $resul = mysqli_query($this->db->Connect(), "UPDATE equipos SET Nombre=". "'" . $nombreEquipo. "', Descripcion=". "'" . $descripcionEquipo . "', Grupo="  . $idGrupo . " WHERE IdEquipo=".$idEquipo);
     }
-    
-    
+
+
     function autocompletarEquipo($Equipo, $IdCampeonato) {
         $query = "SELECT idEquipo,Nombre FROM equipos WHERE Nombre LIKE '%" . $Equipo . "%' AND IdCampeonato = $IdCampeonato";
         mysqli_set_charset($this->db->Connect(), "utf8");

@@ -16,7 +16,7 @@ class CampeonatosDA {
     }
 
     function obtenerCampeonatos() {
-        $query = "SELECT IdCampeonato, Campeonato, Descripcion, Grupos, Equipos, CantidadJugadores FROM Campeonatos";
+        $query = "SELECT IdCampeonato, Campeonato, Descripcion, Grupos, Equipos, CantidadJugadores FROM campeonatos";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
@@ -38,7 +38,7 @@ class CampeonatosDA {
     }
 
     function obtenerGruposCampeonato($idCampeonato) {
-        $query = "SELECT Grupos FROM Campeonatos WHERE idCampeonato=" . $idCampeonato;
+        $query = "SELECT Grupos FROM campeonatos WHERE idCampeonato=" . $idCampeonato;
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
@@ -56,7 +56,7 @@ class CampeonatosDA {
     }
 
     function guardarCampeonato($dtoCampeonato) {
-        $resul = mysqli_query($this->db->Connect(), "INSERT INTO Campeonatos (Campeonato, Descripcion, Grupos, Equipos, CantidadJugadores) VALUES ("
+        $resul = mysqli_query($this->db->Connect(), "INSERT INTO campeonatos (Campeonato, Descripcion, Grupos, Equipos, CantidadJugadores) VALUES ("
                 . "'" . $dtoCampeonato->getCampeonato() . "',"
                 . "'" . $dtoCampeonato->getDescripcion() . "',"
                 . "" . $dtoCampeonato->getGrupos() . ","

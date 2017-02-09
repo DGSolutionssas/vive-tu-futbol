@@ -45,7 +45,7 @@ $(document).ready(function () {
         autoFocus: true,
         minLength: 1
     });
-   
+
 });
 function consultarEquiposCampeonato()
 {
@@ -94,9 +94,9 @@ function obtenerLineaEditar(lnk)
 {
 	var row=lnk.parentNode.parentNode;
 	var rowIndex=row.rowIndex-1;
-	idJugadorEditar=row.cells[1].innerHTML;	
+	idJugadorEditar=row.cells[1].innerHTML;
 	$('#VentanaEditar').modal('show');
-    document.getElementById("txtIdJugadorEditar").value = row.cells[1].innerHTML;	
+    document.getElementById("txtIdJugadorEditar").value = row.cells[1].innerHTML;
 	document.getElementById("txtNombreJugadorEditar").value=row.cells[2].innerHTML;
 	document.getElementById("txtDocumentoEditar").value=row.cells[3].innerHTML;
 	document.getElementById("txtCorreoElectronicoEditar").value=row.cells[4].innerHTML;
@@ -105,10 +105,10 @@ function obtenerLineaEditar(lnk)
     document.getElementById("chkDelegadoEditar").checked=row.cells[7].innerHTML.includes("checked");
     document.getElementById("chkRepresentanteLegalEditar").checked=row.cells[8].innerHTML.includes("checked");
     //if(row.cells[6].innerHTML.includes("checked"))
-	
+
 	document.getElementById("")
-	
-	
+
+
 }
 
 function Eliminar()
@@ -272,7 +272,7 @@ function cargarTablaFiltrada(idEquipoSeleccionado) {
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
                 "sDom": 'T<"clear">lfrtip',
-				"responsive":true,
+                "responsive":true,
                 "tableTools": {
                     "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
                     aButtons: [
@@ -390,6 +390,7 @@ console.log(verdadero);
     {
         {
             console.log("ingreso");
+
             var NombreJugador = document.getElementById("txtNombreJugador").value;
             var Documento = document.getElementById("txtDocumento").value;
             var CorreoElectronico = document.getElementById("txtCorreoElectronico").value;
@@ -437,7 +438,7 @@ console.log(verdadero);
             var UrlEditar = document.getElementById("archivoImageEditar").value;
             UrlEditar = UrlEditar.replace("C:\\fakepath\\","");
             var idJugadorEditar = document.getElementById("txtIdJugadorEditar").value;
-            
+
             var action = 'ActualizarJugador';
 
             jQuery.post('BL/JugadoresBL.php', {idJugadorEditar:idJugadorEditar ,NombreJugadorEditar: NombreJugadorEditar, DocumentoEditar: DocumentoEditar, CorreoElectronicoEditar: CorreoElectronicoEditar, CelularEditar: CelularEditar,DTEditar:DTEditar, DelegadoEditar:DelegadoEditar,RepresentanteLegalEditar:RepresentanteLegalEditar, UrlEditar:UrlEditar,action: action}, function (data) {
@@ -478,7 +479,7 @@ function uploadAjax()
             new PNotify({
                 title: 'Correcto!',
                 text: 'Archivo Cargado Correctamente '+ data.length ,
-                type: 'info' 
+                type: 'info'
 
              });
 

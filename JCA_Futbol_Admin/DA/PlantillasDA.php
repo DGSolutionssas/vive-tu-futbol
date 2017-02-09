@@ -17,9 +17,9 @@ class PlantillasDA {
 
     function obtenerJugadores($idCampeonato, $idEquipo1, $idEquipo2) {
         $query = "SELECT J.idJugador as IdJugador, J.Documento as Cedula, J.NombreJugador as Nombre, E.Nombre as Equipo
-		FROM tblequiposjugadores EJ 
-		INNER JOIN Equipos E ON EJ.IdEquipo=E.idEquipo
-		INNER JOIN Jugador J ON EJ.idJugador=J.IdJugador
+		FROM tblequiposjugadores EJ
+		INNER JOIN equipos E ON EJ.IdEquipo=E.idEquipo
+		INNER JOIN jugador J ON EJ.idJugador=J.IdJugador
         WHERE E.idCampeonato=$idCampeonato AND E.idEquipo IN ($idEquipo1,$idEquipo2) ORDER BY E.idEquipo DESC;";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);

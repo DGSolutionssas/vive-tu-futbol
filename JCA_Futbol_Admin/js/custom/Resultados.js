@@ -188,6 +188,7 @@ function cargarTabla() {
                 "bPaginate": true,
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
+                "responsive":true,
                 language: {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
@@ -303,7 +304,7 @@ function guardarResultado(){
 }
 
 function cargartablaJL() {
-    
+
     var IdEquipo1 = idEquipo1Seleccionado;
         $('#VentanaJL').modal('show');
         $.ajax({

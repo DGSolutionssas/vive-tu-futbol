@@ -16,10 +16,10 @@ class JugadoresDA {
     }
 
     function obtenerJugadores() {
-        
+
         //var imagen = 'CONCAT('<img src="Uploads/',Url,'"" class="img-circle profile_img2">')''''';
         $query = "SELECT J.IdJugador AS IdJugador, J.NombreJugador AS NombreJugador, J.Documento AS Documento, J.CorreoElectronico AS CorreoElectronico, J.Celular AS Celular, IF(J.DirectorTecnico=0,' ','checked' )AS DT, IF(J.Delegado=0,' ','checked') As Delegado, IF(J.RepresentanteLegal=0,' ','checked') As RepresentanteLegal,Url AS Url
-FROM Jugador J ";
+FROM jugador J ";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -35,10 +35,10 @@ FROM Jugador J ";
         }
     }
     function obtenerJugadoresFiltro($idEquipo) {
-        
+
         //var imagen = 'CONCAT('<img src="Uploads/',Url,'"" class="img-circle profile_img2">')''''';
         $query = "SELECT J.IdJugador AS IdJugador, J.NombreJugador AS NombreJugador, J.Documento AS Documento, J.CorreoElectronico AS CorreoElectronico, J.Celular AS Celular, IF(J.DirectorTecnico=0,' ','checked' )AS DT, IF(J.Delegado=0,' ','checked') As Delegado, IF(J.RepresentanteLegal=0,' ','checked') As RepresentanteLegal,Url AS Url
-        FROM Jugador J 
+        FROM jugador J
         INNER JOIN tblequiposjugadores T ON J.IdJugador = T.IdJugador
         WHERE T.IdEquipo = ".$idEquipo;
         mysqli_set_charset($this->db->Connect(), "utf8");
@@ -55,15 +55,15 @@ FROM Jugador J ";
             return "";
         }
     }
-	
+
 	function eliminarJugador($idJugadorEliminar)
     {
-        $resul=mysqli_query($this->db->Connect(),"delete from Jugador where IdJugador = " . $idJugadorEliminar);
+        $resul=mysqli_query($this->db->Connect(),"delete from jugador where IdJugador = " . $idJugadorEliminar);
     }
-    
+
     function registrarJugador($NombreJugador, $Documento, $CorreoElectronico, $Celular, $DirectorTecnico, $Delegado, $RepresentanteLegal,$Url,$idEquipoSeleccionado)
-    { 
-        $resul = mysqli_query($this->db->Connect(), "INSERT INTO Jugador (NombreJugador, Documento, CorreoElectronico, Celular, DirectorTecnico, Delegado, RepresentanteLegal,Url) VALUES ("
+    {
+        $resul = mysqli_query($this->db->Connect(), "INSERT INTO jugador (NombreJugador, Documento, CorreoElectronico, Celular, DirectorTecnico, Delegado, RepresentanteLegal,Url) VALUES ("
                 . "'" . $NombreJugador . "',"
                 . $Documento . ","
                 . "'" . $CorreoElectronico . "',"
@@ -77,20 +77,20 @@ FROM Jugador J ";
         );
     }
     function ActualizarJugador($idJugadorEditar,$NombreJugadorEditar, $DocumentoEditar, $CorreoElectronicoEditar, $CelularEditar, $DirectorTecnicoEditar, $DelegadoEditar, $RepresentanteLegalEditar,$UrlEditar)
-    { 
-        
+    {
+
        if($UrlEditar)
        {
-            $resul = mysqli_query($this->db->Connect(),  "UPDATE Jugador SET NombreJugador='" . $NombreJugadorEditar . "', Documento=" . $DocumentoEditar .", CorreoElectronico = '".$CorreoElectronicoEditar."', Celular=".$CelularEditar.", DirectorTecnico=".$DirectorTecnicoEditar.",Delegado=".$DelegadoEditar.", RepresentanteLegal=".$RepresentanteLegalEditar.", Url='".$UrlEditar."' WHERE IdJugador= ".$idJugadorEditar);
+            $resul = mysqli_query($this->db->Connect(),  "UPDATE jugador SET NombreJugador='" . $NombreJugadorEditar . "', Documento=" . $DocumentoEditar .", CorreoElectronico = '".$CorreoElectronicoEditar."', Celular=".$CelularEditar.", DirectorTecnico=".$DirectorTecnicoEditar.",Delegado=".$DelegadoEditar.", RepresentanteLegal=".$RepresentanteLegalEditar.", Url='".$UrlEditar."' WHERE IdJugador= ".$idJugadorEditar);
        }
        else
        {
-           $resul = mysqli_query($this->db->Connect(),  "UPDATE Jugador SET NombreJugador='" . $NombreJugadorEditar . "', Documento=" . $DocumentoEditar .", CorreoElectronico = '".$CorreoElectronicoEditar. "', Celular=".$CelularEditar.", DirectorTecnico=".$DirectorTecnicoEditar.",Delegado=".$DelegadoEditar.", RepresentanteLegal=".$RepresentanteLegalEditar." WHERE IdJugador= ".$idJugadorEditar);
+           $resul = mysqli_query($this->db->Connect(),  "UPDATE jugador SET NombreJugador='" . $NombreJugadorEditar . "', Documento=" . $DocumentoEditar .", CorreoElectronico = '".$CorreoElectronicoEditar. "', Celular=".$CelularEditar.", DirectorTecnico=".$DirectorTecnicoEditar.",Delegado=".$DelegadoEditar.", RepresentanteLegal=".$RepresentanteLegalEditar." WHERE IdJugador= ".$idJugadorEditar);
        }
     }
     function ConsultarEquipos($idCampeonato)
     {
-       $query = "SELECT IdEquipo, Nombre FROM Equipos WHERE IdCampeonato = " . $idCampeonato ;
+       $query = "SELECT IdEquipo, Nombre FROM equipos WHERE IdCampeonato = " . $idCampeonato ;
       //   $query = "SELECT IdEquipo, Nombre FROM Equipos ";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
@@ -109,5 +109,5 @@ FROM Jugador J ";
             return "";
         }
     }
-    
+
 }
