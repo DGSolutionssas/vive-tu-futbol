@@ -135,7 +135,7 @@ function Eliminar()
             });
             confirmModal.modal('hide');
              if(SessionPerfil != "JUGADOR"){
-                cargarTabla();
+                 cargarTablaFiltrada(idEquipoSeleccionado)
             }else{
                 cargarTablaFiltrada(idEquipoSession)
             }
@@ -428,7 +428,7 @@ console.log(verdadero);
                         type: 'success'
                     });
                     if(SessionPerfil != "JUGADOR"){
-                        cargarTabla();
+                        cargarTablaFiltrada(idEquipoSeleccionado);                        
                     }else{
                         cargarTablaFiltrada(idEquipoSession)
                     }
@@ -471,7 +471,7 @@ console.log(verdadero);
                         type: 'success'
                     });
                     if(SessionPerfil != "JUGADOR"){
-                        cargarTabla();
+                        cargarTablaFiltrada(idEquipoSeleccionado);
                     }else{
                         cargarTablaFiltrada(idEquipoSession)
                     }
