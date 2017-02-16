@@ -33,7 +33,6 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     response($.map(data, function (objeto) {
-                         document.getElementById("txtCampeonato").id = id;
                         return {
                             label: objeto.value,
                             value: objeto.value,
