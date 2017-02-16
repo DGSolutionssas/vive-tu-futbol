@@ -26,6 +26,9 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                     $_SESSION['nombreUsuario'] = $logins[0][2];
                     $_SESSION['idEquipo'] = $logins[0][3];
                     $_SESSION['IdCampeonato'] = $logins[0][4];
+                    $_SESSION['NombreEquipo'] = $logins[0][5];
+                    $_SESSION['NombreCampeonato'] = $logins[0][6];
+
 
                     echo json_encode(array('error' => '2', 'descripcion' => 'No existe el Usuario'));
 

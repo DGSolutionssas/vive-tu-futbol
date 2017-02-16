@@ -6,17 +6,26 @@
  * @copyright DG Solutions sas
  */
 session_start();
-require_once "./Header.php";
-if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
+
+if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] != "JUGADOR") 
+{
+    require_once "./Header.php";
     ?>
+   
+<script type="text/javascript">
+    <?php echo 'var SessionPerfil = '.json_encode($_SESSION['idPerfil']).';';
+    ?>
+</script>
+
     <div>   
+         <script type="text/javascript" src="js/custom/jugadores.js"></script>
         <br><br><br>
         <div class="jumbotron">
             <table width=100% cellpadding=10>
                 <tr>
                     <td>
                          <label >Campeonato:</label><br>
-                        <input autocomplete="off" style="width:50%;" type="text" id="txtCampeonato" name="txtCampeonato"> 
+                        <input autocomplete="off" style="width:50%;" type="text"  id="txtCampeonato" name="txtCampeonato"> 
                     </td>
                      <td>
                          <label >Equipo:</label><br>
@@ -24,12 +33,53 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     </td>
                 </tr>
             </table>
-
+            <?php
+}
+elseif (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] == "JUGADOR")
+{
+    
+    require_once './HeaderJugador.php';
+    ?>
+   <script type="text/javascript">
+    <?php echo 'var SessionPerfil = '.json_encode($_SESSION['idPerfil']).';';
+    ?>
+</script>
+<script type="text/javascript">
+    <?php echo 'var idEquipoSession = '.json_encode($_SESSION['idEquipo']).';';
+    ?>
+</script>
+<?php
+ ?>
+    <div>   
+         <script type="text/javascript" src="js/custom/jugadores.js"></script>
+         <script type="text/javascript">
+            <?php echo 'cargarTablaFiltrada(idEquipoSession);';
+            ?>
+            </script>
+        <br><br><br>
+        <div class="jumbotron">
+            <table width=100% cellpadding=10>
+                <tr>
+                    <td>
+                
+                         <label >Campeonato:</label><br>
+                        <input autocomplete="off" style="width:50%;" disabled type="text" value="<?php echo $_SESSION['NombreCampeonato'];?>" id="txtCampeonato" name="txtCampeonato"> 
+                    </td>
+                     <td>
+                         <label >Equipo:</label><br>
+                        <input autocomplete="off" style="width:50%;" disabled type="text" value="<?php echo $_SESSION['NombreEquipo'];?>" id="txtEquipo" name="txtEquipo"> 
+                    </td>
+                </tr>
+            </table>
+            <?php
+}
+if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
+    
+?>
               
             <br><br><br>
                                     
-            <button id="btnRegistrar" name="btnRegistrar" disabled= "true" type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Jugador</button>
-            <script type="text/javascript" src="js/custom/jugadores.js"></script>
+            <button id="btnRegistrar" name="btnRegistrar" disabled= "true" type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Jugador</button> 
             <br>
 			<div class="row">
             <table id="tableJugadores" class="display" width="100%" cellspacing="0">

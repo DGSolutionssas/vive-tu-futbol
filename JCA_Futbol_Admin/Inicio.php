@@ -7,13 +7,20 @@
  * @copyright DG Solutions sas
  */
 session_start();
-include_once './Header.php';
-if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
+if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] != "JUGADOR") {
+    include_once './Header.php';
     ?>
     <div>
     </div>
     <?php
-} else {
+} elseif (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] == "JUGADOR")
+{
+ include_once './HeaderJugador.php';
+    ?>
+    <div>
+    </div>
+    <?php
+}else{
     ?>
     <script type='text/javascript'>redireccionarInicio();</script>
     <?php

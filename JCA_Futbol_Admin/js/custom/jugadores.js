@@ -4,13 +4,19 @@
  * @created 12/01/2017
  * @copyright DG Solutions sas
  */
+
 var idJugadorEditar = "";
  var idJugadorEliminar = "";
  var idCampeonatoSeleccionado = "";
  var idEquipoSeleccionado = "";
 $(document).ready(function () {
+   if(SessionPerfil != "JUGADOR"){
     $('#myPleaseWait').modal('show');
     cargarTabla();
+}else
+{
+    document.getElementById("btnRegistrar").disabled = false;
+}
 });
 
 //Metodo que autocompleta el texto para el campeonato
@@ -27,10 +33,12 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     response($.map(data, function (objeto) {
+                         document.getElementById("txtCampeonato").id = id;
                         return {
                             label: objeto.value,
                             value: objeto.value,
                             id: objeto.id
+                            
                         }
                     }));
                 }
@@ -38,7 +46,7 @@ $(document).ready(function () {
         },
         select: function (event, ui) {
             idCampeonatoSeleccionado = ui.item.id;
-            document.getElementById("txtCampeonato").value = ui.item.value;
+            document.getElementById("txtCampeonato").value = ui.item.value;   
             consultarEquiposCampeonato();
             return false;
         },
@@ -73,7 +81,9 @@ function consultarEquiposCampeonato()
             },
             select: function (event, ui) {
                 idEquipoSeleccionado = ui.item.id;
-                document.getElementById("txtEquipo").value = ui.item.value;
+                
+                document.getElementById("txtEquipo").value = ui.item.value; 
+               
                 document.getElementById("btnRegistrar").disabled = false;
                 cargarTablaFiltrada(idEquipoSeleccionado);
                 return false;
@@ -125,7 +135,11 @@ function Eliminar()
                 type: 'success'
             });
             confirmModal.modal('hide');
-            cargarTabla();
+             if(SessionPerfil != "JUGADOR"){
+                cargarTabla();
+            }else{
+                cargarTablaFiltrada(idEquipoSession)
+            }
         }
     });
 }
@@ -414,7 +428,11 @@ console.log(verdadero);
                         text: 'Jugador Registrado Correctamente',
                         type: 'success'
                     });
-                    cargarTabla();
+                    if(SessionPerfil != "JUGADOR"){
+                        cargarTabla();
+                    }else{
+                        cargarTablaFiltrada(idEquipoSession)
+                    }
                 }
             });
         }
@@ -453,7 +471,11 @@ console.log(verdadero);
                         text: 'Jugador Actualizado Correctamente',
                         type: 'success'
                     });
-                    cargarTabla();
+                    if(SessionPerfil != "JUGADOR"){
+                        cargarTabla();
+                    }else{
+                        cargarTablaFiltrada(idEquipoSession)
+                    }
                 }
             });
         }

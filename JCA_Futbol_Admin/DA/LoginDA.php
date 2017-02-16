@@ -35,9 +35,10 @@ class LoginDA {
             }
             return $jsonData;
         } else {
-             $resul = mysqli_query($this->db->Connect(),"Select 'JUGADOR', J.IdJugador, J.NombreJugador, T.IdEquipo,E.IdCampeonato FROM jugador J 
+             $resul = mysqli_query($this->db->Connect(),"Select 'JUGADOR', J.IdJugador, J.NombreJugador, T.IdEquipo,E.IdCampeonato,E.Nombre,C.Campeonato FROM jugador J 
                 INNER JOIN tblequiposjugadores T ON T.IdJugador = J.IdJugador
                 INNER JOIN equipos E ON E.IdEquipo = T.IdEquipo
+                INNER JOIN campeonatos C ON C.IdCampeonato = E.IdCampeonato
                 WHERE J.Celular = '". trim(addslashes($usuario)) ."' AND CONCAT('A', J.Documento, '*') = '". trim($contrasena) ."'AND J.Delegado = 1");
              mysqli_set_charset($this->db->connect(), "utf8");
             $jsonData = array();
