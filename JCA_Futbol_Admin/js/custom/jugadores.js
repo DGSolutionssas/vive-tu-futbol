@@ -396,6 +396,10 @@ function cargarTablaFiltrada(idEquipoSeleccionado) {
 //Metodo que almacena el equipo en la base de datos
 function guardarJugador()
 {
+    
+     if(SessionPerfil === "JUGADOR"){
+         idEquipoSeleccionado=idEquipoSession;
+     }
 
     var verdadero = $('#form1').parsley().validate("block1", true);
 console.log(verdadero);
