@@ -35,10 +35,10 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 {
                     $arrayJugadores[$i]['Url'] = "<img src='img/user.png' class='img-circle profile_img2'>";
                 }
-                
+
             }
             echo json_encode($arrayJugadores);
-            break;   
+            break;
         case 'eliminarJugador':
             $Jugadores = $db->eliminarJugador($_POST['idJugadorEliminar']);
             echo '{"error": "2", "descripcion": "Se elimino correctamente el Jugador"}';
@@ -78,10 +78,18 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 {
                     $arrayJugadores[$i]['Url'] = "<img src='img/user.png' class='img-circle profile_img2'>";
                 }
-                
+
             }
             echo json_encode($arrayJugadores);
-            break;  
-        
+            break;
+            case 'cantidadJugadores':
+                $cantidadJugadores = $db->cantidadJugadores($_POST['idEquipoSeleccionado']);
+                $arrayCantidadJugadores = array();
+                for ($i = 0; $i < count($cantidadJugadores); $i++) {
+                    $arrayCantidadJugadores[$i]['CantidadRegistrados'] = $cantidadJugadores[$i]['CantidadRegistrados'];
+                    $arrayCantidadJugadores[$i]['CantidadMaxima'] = $cantidadJugadores[$i]['CantidadMaxima'];
+                }
+                echo json_encode($arrayCantidadJugadores, JSON_FORCE_OBJECT);
+                break;
     }
 }

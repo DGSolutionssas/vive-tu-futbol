@@ -110,4 +110,25 @@ FROM jugador J ";
         }
     }
 
+    function cantidadJugadores($idEquipoSeleccionado)
+    {
+
+      $query="SELECT COUNT(*) AS CantidadRegistrados,(SELECT C.CantidadJugadores FROM campeonatos C INNER JOIN equipos E ON C.idCampeonato = E.idCampeonato WHERE E.IdEquipo=".$idEquipoSeleccionado.") AS CantidadMaxima FROM tblequiposjugadores WHERE IdEquipo=".$idEquipoSeleccionado;
+        mysqli_set_charset($this->db->Connect(), "utf8");
+       $resul = mysqli_query($this->db->Connect(), $query);
+       $nrows = mysqli_num_rows($resul);
+
+       $return_arr = array();
+       if ($nrows > 0) {
+           while ($row = mysqli_fetch_array($resul, MYSQLI_ASSOC)) {
+               $row_array['CantidadRegistrados'] = $row['CantidadRegistrados'];
+               $row_array['CantidadMaxima'] = $row['CantidadMaxima'];
+
+               array_push($return_arr, $row_array);
+           }
+           return $return_arr;
+       } else {
+           return "";
+       }
+    }
 }

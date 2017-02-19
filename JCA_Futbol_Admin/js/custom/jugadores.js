@@ -37,7 +37,7 @@ $(document).ready(function () {
                             label: objeto.value,
                             value: objeto.value,
                             id: objeto.id
-                            
+
                         }
                     }));
                 }
@@ -45,7 +45,7 @@ $(document).ready(function () {
         },
         select: function (event, ui) {
             idCampeonatoSeleccionado = ui.item.id;
-            document.getElementById("txtCampeonato").value = ui.item.value;   
+            document.getElementById("txtCampeonato").value = ui.item.value;
             consultarEquiposCampeonato();
             return false;
         },
@@ -80,9 +80,9 @@ function consultarEquiposCampeonato()
             },
             select: function (event, ui) {
                 idEquipoSeleccionado = ui.item.id;
-                
-                document.getElementById("txtEquipo").value = ui.item.value; 
-               
+
+                document.getElementById("txtEquipo").value = ui.item.value;
+
                 document.getElementById("btnRegistrar").disabled = false;
                 cargarTablaFiltrada(idEquipoSeleccionado);
                 return false;
@@ -101,21 +101,21 @@ function obtenerLineaEliminar(lnk)
 }
 function obtenerLineaEditar(lnk)
 {
-	var row=lnk.parentNode.parentNode;
-	var rowIndex=row.rowIndex-1;
-	idJugadorEditar=row.cells[1].innerHTML;
-	$('#VentanaEditar').modal('show');
+    var row=lnk.parentNode.parentNode;
+    var rowIndex=row.rowIndex-1;
+    idJugadorEditar=row.cells[1].innerHTML;
+    $('#VentanaEditar').modal('show');
     document.getElementById("txtIdJugadorEditar").value = row.cells[1].innerHTML;
-	document.getElementById("txtNombreJugadorEditar").value=row.cells[2].innerHTML;
-	document.getElementById("txtDocumentoEditar").value=row.cells[3].innerHTML;
-	document.getElementById("txtCorreoElectronicoEditar").value=row.cells[4].innerHTML;
+    document.getElementById("txtNombreJugadorEditar").value=row.cells[2].innerHTML;
+    document.getElementById("txtDocumentoEditar").value=row.cells[3].innerHTML;
+    document.getElementById("txtCorreoElectronicoEditar").value=row.cells[4].innerHTML;
     document.getElementById("txtCelularEditar").value=row.cells[5].innerHTML;
     document.getElementById("chkDirectorTecnicoEditar").checked= row.cells[6].innerHTML.includes("checked");
     document.getElementById("chkDelegadoEditar").checked=row.cells[7].innerHTML.includes("checked");
     document.getElementById("chkRepresentanteLegalEditar").checked=row.cells[8].innerHTML.includes("checked");
     //if(row.cells[6].innerHTML.includes("checked"))
 
-	document.getElementById("")
+    document.getElementById("")
 
 
 }
@@ -159,7 +159,7 @@ function cargarTabla() {
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
                 "sDom": 'T<"clear">lfrtip',
-				"responsive":true,
+                "responsive":true,
                 "tableTools": {
                     "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
                     aButtons: [
@@ -393,16 +393,32 @@ function cargarTablaFiltrada(idEquipoSeleccionado) {
     });
 }
 
-//Metodo que almacena el equipo en la base de datos
-function guardarJugador()
+function cargarCantidadJugadores(idEquipoSeleccionado)
 {
-    
+  var action = 'cantidadJugadores';
+  var registrados="";
+  jQuery.post('BL/JugadoresBL.php', {idEquipoSeleccionado: idEquipoSeleccionado, action: action}, function (data) {
+      if (data.error === 1)
+      {
+          alert("ERROR");
+      } else
+      {
+          var obj = JSON.parse(data);
+          registrados= obj[0].CantidadRegistrados+"/"+obj[0].CantidadMaxima;
+          //document.getElementById("btnRegistrar").insertAdjacentHTML("afterbegin", " <span class='badge'>"+registrados+"</span>");
+          document.getElementById("btnRegistrar").innerHTML="Registrar Jugador <span class='badge'>"+registrados+"</span>";
+      }
+  });
+}
+
+//Metodo que almacena el equipo en la base de datos
+function guardarJugador(){
+
      if(SessionPerfil === "JUGADOR"){
          idEquipoSeleccionado=idEquipoSession;
      }
 
     var verdadero = $('#form1').parsley().validate("block1", true);
-console.log(verdadero);
     if (verdadero)
     {
         {
@@ -432,19 +448,18 @@ console.log(verdadero);
                         type: 'success'
                     });
                     if(SessionPerfil != "JUGADOR"){
-                        cargarTablaFiltrada(idEquipoSeleccionado);                        
+                        cargarTablaFiltrada(idEquipoSeleccionado);
                     }else{
                         cargarTablaFiltrada(idEquipoSession)
+                         cargarCantidadJugadores(idEquipoSession);
                     }
                 }
             });
         }
     }
 }
-function actualizarJugador()
-{
+function actualizarJugador(){
     var verdadero = $('#form1').parsley().validate("block2", true);
-console.log(verdadero);
     if (verdadero)
     {
         {
