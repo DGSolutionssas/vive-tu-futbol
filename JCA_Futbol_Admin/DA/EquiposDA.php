@@ -16,7 +16,7 @@ class EquiposDA {
     }
 
     function obtenerEquipos() {
-        $query = "SELECT E.idEquipo AS IdEquipo, C.Campeonato AS Campeonato, E.Nombre AS Nombre, E.Descripcion AS Descripcion, E.Puntos AS Puntos, E.Grupo AS Grupo FROM equipos E INNER JOIN campeonatos C ON E.idCampeonato=C.idCampeonato";
+        $query = "SELECT E.idEquipo AS IdEquipo,C.idCampeonato as IdCampeonato, C.Campeonato AS Campeonato, E.Nombre AS Nombre, E.Descripcion AS Descripcion, E.Puntos AS Puntos, E.Grupo AS Grupo FROM equipos E INNER JOIN campeonatos C ON E.idCampeonato=C.idCampeonato";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -31,19 +31,45 @@ class EquiposDA {
             return "";
         }
     }
-	
+
 	function eliminarEquipo($idEquipoEliminar)
     {
         $resul=mysqli_query($this->db->Connect(),"delete from equipos where IdEquipo = " . $idEquipoEliminar);
     }
-    
+
     function registrarEquipoCampeonato($idCampeonato, $nombreEquipo, $descripcionEquipo, $idGrupo)
     {
-        $resul = mysqli_query($this->db->Connect(), "INSERT INTO Equipos (IdCampeonato, Nombre, Descripcion, Grupo) VALUES ("
+        $resul = mysqli_query($this->db->Connect(), "INSERT INTO equipos (IdCampeonato, Nombre, Descripcion, Grupo) VALUES ("
                 . $idCampeonato . ","
                 . "'" . $nombreEquipo. "',"
                 . "'" . $descripcionEquipo . "',"
                 . $idGrupo . ")"
         );
+    }
+
+    function actualizarEquipo($idEquipo, $nombreEquipo, $descripcionEquipo, $idGrupo)
+    {
+        $resul = mysqli_query($this->db->Connect(), "UPDATE equipos SET Nombre=". "'" . $nombreEquipo. "', Descripcion=". "'" . $descripcionEquipo . "', Grupo="  . $idGrupo . " WHERE IdEquipo=".$idEquipo);
+    }
+
+
+    function autocompletarEquipo($Equipo, $IdCampeonato) {
+        $query = "SELECT idEquipo,Nombre FROM equipos WHERE Nombre LIKE '%" . $Equipo . "%' AND IdCampeonato = $IdCampeonato";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $return_arr = array();
+        if ($nrows > 0) {
+            while ($row =  mysqli_fetch_array($resul, MYSQLI_ASSOC)) {
+                $row_array['id'] = $row['idEquipo'];
+                $row_array['value'] = $row['Nombre'];
+
+                array_push($return_arr, $row_array);
+            }
+            return $return_arr;
+        } else {
+            return "";
+        }
     }
 }

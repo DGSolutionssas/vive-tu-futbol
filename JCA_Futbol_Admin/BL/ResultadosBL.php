@@ -37,6 +37,27 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
         case 'eliminarResultado':
             $resultados = $db->eliminarResultado($_POST['IdResultado']);
             echo '{"error": "2", "descripcion": "Se elimino correctamente el Campeonato"}';
-        break;       
+        break; 
+        case 'obtenerResultadosJL':
+            $resultadosJL = $db->obtenerResultadosJL($_POST['IdEquipo1']);
+            $arrayResultadosJL = array();
+            for ($i = 0; $i < count($resultadosJL); $i++) {
+                $arrayResultadosJL[$i]['id'] = $resultadosJL[$i]['id'];
+                $arrayResultadosJL[$i]['nombre'] = $resultadosJL[$i]['nombre'];
+            }
+            echo json_encode($arrayResultadosJL);
+            break;
+        case 'obtenerResultadosJL1':
+            $resultadosJL = $db->obtenerResultadosJL($_POST['IdEquipo2']);
+            $arrayResultadosJL = array();
+            for ($i = 0; $i < count($resultadosJL); $i++) {
+                $arrayResultadosJL[$i]['id'] = $resultadosJL[$i]['id'];
+                $arrayResultadosJL[$i]['nombre'] = $resultadosJL[$i]['nombre'];
+            }
+            echo json_encode($arrayResultadosJL);
+            break;
+        case 'registrarDetalle':
+            $resultado = $db->guardarDetalle($_POST['IdJugador'],$_POST['Amarilla'],$_POST['Azul'],$_POST['Roja'],$_POST['Goles']);
+            break;
     }   
 }

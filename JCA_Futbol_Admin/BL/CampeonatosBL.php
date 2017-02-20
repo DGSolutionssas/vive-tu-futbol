@@ -23,6 +23,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 $arrayCampeonatos[$i]['Descripcion'] = $campeonatos[$i]['Descripcion'];
                 $arrayCampeonatos[$i]['Grupos'] = $campeonatos[$i]['Grupos'];
                 $arrayCampeonatos[$i]['Equipos'] = $campeonatos[$i]['Equipos'];
+                $arrayCampeonatos[$i]['CantidadJugadores'] = $campeonatos[$i]['CantidadJugadores'];
             }
             echo json_encode($arrayCampeonatos);
             break;
@@ -31,6 +32,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $dtoCampeonato->setDescripcion($_POST['descripcion']);
             $dtoCampeonato->setGrupos($_POST['grupos']);
             $dtoCampeonato->setEquipos($_POST['equipos']);
+            $dtoCampeonato->setCantidadJugadores($_POST['cantidadjugadores']);
             $campeonatos = $db->guardarCampeonato($dtoCampeonato);
             break;
         case 'consultarGruposCampeonato':

@@ -92,6 +92,7 @@ function cargarTabla() {
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
                 "sDom": 'T<"clear">lfrtip',
+                "responsive":true,
                 "tableTools": {
                     "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
                     aButtons: [
@@ -189,8 +190,8 @@ function guardarFecha()
                 {
                     $('#VentanaRegistro').modal('hide');
                     new PNotify({
-                        title: 'Transaccion Exitos!',
-                        text: 'Fecha Registraa Correctamente',
+                        title: 'Transaccion Exitosa!',
+                        text: 'Fecha Registrada Correctamente',
                         type: 'success'
                     });
                     cargarTabla();

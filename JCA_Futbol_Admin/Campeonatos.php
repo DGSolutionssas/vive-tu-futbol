@@ -23,6 +23,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     <th>DESCRIPCION</th>
                     <th>GRUPOS</th>
                     <th>EQUIPOS</th>
+                    <th># JUGADORES</th>
                     <th></th>
                     </tr>
                 </thead>
@@ -54,11 +55,15 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         </div>
                         <div class="form-row">
                             <label class='control-label'>Grupos:</label>
-                            <input autocomplete="off" type="text" id="txtGrupos" name="txtGrupos" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="integer" data-parsley-type-message="Solo Números"  data-parsley-group="block1" class="form-control">
+                            <input autocomplete="off" type="text" id="txtGrupos" name="txtGrupos" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="integer" data-parsley-type-message="Solo Nï¿½meros"  data-parsley-group="block1" class="form-control">
                         </div>
                         <div class="form-row">
                             <label class='control-label'>Equipos:</label>
-                            <input autocomplete="off" type="text" id="txtEquipos" name="txtEquipos" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="integer" data-parsley-type-message="Solo Números" data-parsley-group="block1" class="form-control">
+                            <input autocomplete="off" type="text" id="txtEquipos" name="txtEquipos" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="integer" data-parsley-type-message="Solo Nï¿½meros" data-parsley-group="block1" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Cantidad Jugadores:</label>
+                            <input autocomplete="off" type="text" id="txtCantidadJugadores" name="txtCantidadJugadores" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="integer" data-parsley-type-message="Solo Numeros"  data-parsley-group="block1" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">

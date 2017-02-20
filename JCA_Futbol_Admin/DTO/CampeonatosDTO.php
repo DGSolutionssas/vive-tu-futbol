@@ -13,6 +13,7 @@ class CampeonatosDTO {
     private $_descripcion = null;
     private $_grupos = null;
     private $_equipos = null;
+    private $_cantidadJugadores = null;
 
     public function getIdCampeonato() {
         return $this->_idCampeonato;
@@ -52,6 +53,14 @@ class CampeonatosDTO {
 
     public function setEquipos($equipos) {
         $this->_equipos = $equipos;
+    }
+
+    public function getCantidadJugadores() {
+        return $this->_cantidadJugadores;
+    }
+
+    public function setCantidadJugadores($cantidadJugadores) {
+        $this->_cantidadJugadores = $cantidadJugadores;
     }
 
 }

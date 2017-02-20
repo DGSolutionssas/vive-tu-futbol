@@ -15,11 +15,10 @@ function obtenerLineaEliminar(lnk)
 
 function Eliminar()
 {
-    jQuery.post('BL/CampeonatosBL.php', {action: 'eliminarCampeonato',IdCampeonato: idCampeonatoEliminar}, function (data) {
+    jQuery.post('BL/CampeonatosBL.php', {action: 'eliminarCampeonato', IdCampeonato: idCampeonatoEliminar}, function (data) {
         if (data.error === 1)
         {
-        }
-        else
+        } else
         {
             new PNotify({
                 title: 'Transaccion Exitosa!',
@@ -46,6 +45,7 @@ function cargarTabla() {
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
                 "sDom": 'T<"clear">lfrtip',
+                "responsive":true,
                 "tableTools": {
                     "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
                     aButtons: [
@@ -84,7 +84,7 @@ function cargarTabla() {
                 data: data,
                 columns: [{
                         'data': 'IdCampeonato',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
@@ -99,19 +99,24 @@ function cargarTabla() {
                     },
                     {
                         'data': 'Grupos',
-                        "sClass": "justify",
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         'data': 'Equipos',
-                        "sClass": "justify",
+                        "sClass": "center",
+                        "width": "auto"
+                    },
+                    {
+                        'data': 'CantidadJugadores',
+                        "sClass": "center",
                         "width": "auto"
                     },
                     {
                         data: null,
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-plus"></i> Equipos</a><a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i> Eliminar </a>'
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-plus"></i> Equipos</a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');
@@ -199,9 +204,11 @@ function guardarCampeonato()
         var descripcion = document.getElementById("txtDescripcion").value;
         var grupos = document.getElementById("txtGrupos").value;
         var equipos = document.getElementById("txtEquipos").value;
+        var cantidadJugadores = document.getElementById("txtCantidadJugadores").value;
+        var equipostotal = grupos * equipos;
         var action = 'registrarCampeonato';
 
-        jQuery.post('BL/CampeonatosBL.php', {campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipos, action: action}, function (data) {
+        jQuery.post('BL/CampeonatosBL.php', {campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipostotal, action: action, cantidadjugadores:cantidadJugadores}, function (data) {
             if (data.error === 1)
             {
             } else

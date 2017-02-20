@@ -19,9 +19,9 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 <thead>
                     <tr>
                     <th>ID</th>
-					<th>CAMPEONATO</th>
-                    <th>NOMBRE</th>
+					<th>NOMBRE</th>
                     <th>FECHA</th>
+                    <th>CAMPEONATO</th>
                     <th></th>
                     </tr>
                 </thead>

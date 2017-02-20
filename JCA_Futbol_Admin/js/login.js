@@ -2,6 +2,7 @@ function Login() {
     var txtUsuario = document.getElementById("txtUsuario").value;
     var txtContrasena = document.getElementById("txtContrasena").value;
     var action = 'iniciarSesion';
+	
 
     $.ajax({
             data: {
