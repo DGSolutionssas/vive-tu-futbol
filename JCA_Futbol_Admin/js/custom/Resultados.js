@@ -268,7 +268,7 @@ function cargarTabla() {
                         data: null,
                         className: "auto",
                         bSortable: false,
-                        defaultContent: '<a href="#" title="Ver Detalles" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick=""><i class="fa fa-plus"></i>Detalles</a><a href="#" data-dismiss="modal" title="Editar" class="btn btn-success btn-xs" OnClick="return obtenerLineaEditar(this)"><i class="fa fa-pencil-square-o"></i></a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
+                        defaultContent: '<a href="#" title="Ver Detalles" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="ObtenerDetalles(this)"><i class="fa fa-plus"></i>Detalles</a><a href="#" data-dismiss="modal" title="Editar" class="btn btn-success btn-xs" OnClick="return obtenerLineaEditar(this)"><i class="fa fa-pencil-square-o"></i></a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');
@@ -801,12 +801,13 @@ $(document).ready(function() {
 
 function cargartablaEditarJL() {
     var IdResultado = idResultadoEditar;
+    var IdEquipo1 = idEquipo1SeleccionadoEditar;
         $('#VentanaJLEditar').modal('show');
         $.ajax({
             type: "post",
             dataType: "json",
             url: "BL/ResultadosBL.php",
-            data: {action: 'obtenerResultadosEditarJL',IdResultado:IdResultado},
+            data: {action: 'obtenerResultadosEditarJL',IdResultado:IdResultado,IdEquipo:IdEquipo1},
             success: function(data) {
                 $('#tableJLEditar').dataTable({
                     "iDisplayLength": 10,
@@ -845,12 +846,11 @@ function cargartablaEditarJL() {
                             "width": "auto"
                         },
                         {
-                            'data': 'Goles',
-                            "sDefaultContent": "",
+                            //'data': 'Goles',
                             render: function(data, type, row) {
+                                //data = 'amarilla';
                                 if (type === 'display') {
-                                    //return '<input maxlength="2" size="1px" id="txtgoles" name="txtgoles
-                                    return '<input maxlength="3" size="1px" id="txtgoles'+row.id+'" name="txtgoles">';
+                                    return '<input maxlength="3" size="1px" id="txtgoles'+row.id+'" name="txtgoles" data = "goles">';
                                 }
                                 return data;
                             },
@@ -858,9 +858,9 @@ function cargartablaEditarJL() {
                             "width": "auto"
                         },
                         {
-                            "sDefaultContent": "Edit",
+                            
                             "width": "auto",
-                            'data': 'active',
+                            'data': 'amarilla',
                             render: function(data, type, row) {
                                 if (type === 'display') {
                                     return '<input type="checkbox" id="checkAmarilla'+row.id+'" class="editor-active">';
@@ -871,7 +871,7 @@ function cargartablaEditarJL() {
                         {
                             "sDefaultContent": "Edit",
                             "width": "auto",
-                            'data': 'active',
+                            'data': 'azul',
                             render: function(data, type, row) {
                                 if (type === 'display') {
                                     return '<input type="checkbox" id="checkAzul'+row.id+'" class="editor-active">';
@@ -882,7 +882,7 @@ function cargartablaEditarJL() {
                         {
                             "sDefaultContent": "Edit",
                             "width": "auto",
-                            'data': 'active',
+                            'data': 'roja',
                             render: function(data, type, row) {
                                 if (type === 'display') {
                                     return '<input type="checkbox" id="checkRoja'+row.id+'" class="editor-active">';
@@ -915,12 +915,13 @@ function cargartablaEditarJL() {
 
 function cargartablaEditarJL1() {
     var IdResultado = idResultadoEditar;
+    var IdEquipo2 = idEquipo2SeleccionadoEditar;
         $('#VentanaJL1Editar').modal('show');
         $.ajax({
             type: "post",
             dataType: "json",
             url: "BL/ResultadosBL.php",
-            data: {action: 'obtenerResultadosEditarJL1',IdResultado:IdResultado},
+            data: {action: 'obtenerResultadosEditarJL',IdResultado:IdResultado, IdEquipo:IdEquipo2},
             success: function(data) {
                 $('#tableJL1Editar').dataTable({
                     "iDisplayLength": 10,
@@ -1024,4 +1025,29 @@ function cargartablaEditarJL1() {
 
             }
         });
+}
+
+function terminarregistroEditar() {
+    $('#VentanaJL1Editar').modal('hide');
+    $('#VentanaJLEditar').modal('hide');
+    $('#VentanaEditarRegistro').modal('hide');
+    cargarTabla();
+}
+
+function ObtenerDetalles(lnk){
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    IdResultadoDetalle = row.cells[0].innerHTML;
+    $('#VerDetalles').modal('show');
+    FechaDetalle = document.getElementById("FechaDetalle").value = row.cells[1].innerHTML;
+    CampeonatoDetalle = document.getElementById("CampeonatoDetalle").value = row.cells[2].innerHTML;
+    Equipo1Detalle= document.getElementById("Equipo1Detalle").value = row.cells[3].innerHTML;
+    document.getElementById("GolesE1Detalle").value = row.cells[5].innerHTML;
+    Equipo2Detalle = document.getElementById("Equipo2Detalle").value = row.cells[4].innerHTML;
+    document.getElementById("GolesE2Detalle").value = row.cells[6].innerHTML;
+}
+
+function terminarconsulta(){
+    $('#VerDetalles').modal('hide');
+    cargarTabla();
 }

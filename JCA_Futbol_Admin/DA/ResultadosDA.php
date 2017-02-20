@@ -99,14 +99,13 @@ class ResultadosDA {
     }
     
     function guardarResultadoEditado($IdResultado, $idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2) {
-
-		$resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha='" . $idFecha . "', IdCampeonato='" . $idCampeonato . "', IdEquipo1='"  . $IdEquipo1 . "', IdEquipo2='" . $IdEquipo2 . "', Goles1='" . $Goles1 . "', Goles2='"  . $Goles2 . "' WHERE IdResultado=".$IdResultado);
+            $resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha='" . $idFecha . "', IdCampeonato='" . $idCampeonato . "', IdEquipo1='"  . $IdEquipo1 . "', IdEquipo2='" . $IdEquipo2 . "', Goles1='" . $Goles1 . "', Goles2='"  . $Goles2 . "' WHERE IdResultado=".$IdResultado);
         //$resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha=". "'" . $idFecha . "', IdCampeonato=". "'" . //$idCampeonato . "', IdEquipo1="  . $IdEquipo1 . "', IdEquipo2="  . $IdEquipo2 . "', Goles1="  . $Goles1 . "', Goles2="  . $Goles2 //. " WHERE IdResultado=".$IdResultado);
         }
 
     
-    function obtenerResultadoseditadosJL($IdResultado) {
-        $query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado";
+    function obtenerResultadoseditadosJL($IdResultado, $IdEquipo) {
+        $query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado AND RD.IdEquipo = $IdEquipo ";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);

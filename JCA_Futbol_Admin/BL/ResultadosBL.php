@@ -66,24 +66,17 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $resultado = $db->guardarResultadoEditado($_POST['IdResultado'],$_POST['IdFecha'],$_POST['IdCampeonato'],$_POST['IdEquipo1'],$_POST['IdEquipo2'],$_POST['Goles1'],$_POST['Goles2']);
             break;
         case 'obtenerResultadosEditarJL':
-            $resultadosJLeditados = $db->obtenerResultadoseditadosJL($_POST['IdResultado']);
+            $resultadosJLeditados = $db->obtenerResultadoseditadosJL($_POST['IdResultado'], $_POST['IdEquipo']);
             $arrayResultadosJLeditados = array();
             for ($i = 0; $i < count($resultadosJLeditados); $i++) {
                 $arrayResultadosJLeditados[$i]['id'] = $resultadosJLeditados[$i]['id'];
                 $arrayResultadosJLeditados[$i]['nombre'] = $resultadosJLeditados[$i]['nombre'];
+                $arrayResultadosJLeditados[$i]['Goles'] = $resultadosJLeditados[$i]['Goles'];
+                $arrayResultadosJLeditados[$i]['amarilla'] = $resultadosJLeditados[$i]['amarilla'];
+                $arrayResultadosJLeditados[$i]['azul'] = $resultadosJLeditados[$i]['azul'];
+                $arrayResultadosJLeditados[$i]['roja'] = $resultadosJLeditados[$i]['roja'];                
             }
             echo json_encode($arrayResultadosJLeditados);
             break;
-        
-        case 'obtenerResultadosEditarJL1':
-            $resultadosJLeditados = $db->obtenerResultadoseditadosJL1($_POST['IdResultado']);
-            $arrayResultadosJLeditados = array();
-            for ($i = 0; $i < count($resultadosJLeditados); $i++) {
-                $arrayResultadosJLeditados[$i]['id'] = $resultadosJLeditados[$i]['id'];
-                $arrayResultadosJLeditados[$i]['nombre'] = $resultadosJLeditados[$i]['nombre'];
-            }
-            echo json_encode($arrayResultadosJLeditados);
-            break;
-        
     }   
 }

@@ -293,6 +293,44 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 </div>
             </div>
         
+        <div id="VerDetalles" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Cancelar</span>
+                        </button>
+                        <h4 class="modal-title" id="H3" align="center">
+                            <p>DETALLES</p>
+                        </h4>
+                    </div>
+                    <table id="tabledetalles" class="display table table-hover table-bordered jambo_table">
+                        <thead align="center">
+                            <tr>
+                            <th colspan="2" align="center" id="CampeonatoDetalle"></th>
+                            <th colspan="2" align="center" id="FechaDetalle"></th>
+                            </tr>
+                        </thead>
+                        <tr>
+                        <th><h2><input id="Equipo1Detalle" readonly style="border:none" type="text" align="center"></h2></th>
+                        <th><h2><input id="GolesE1Detalle" readonly style="border:none" type="text" align="center" size="2"></h2></th>
+                        <th><h2><input id="GolesE2Detalle" readonly style="border:none" type="text" align="center" size="2"></h2></th>
+                        <th><h2><input id="Equipo2Detalle" readonly style="border:none" type="text"align="center"></h2></th>
+                        </tr>
+                        </table>
+                    <br><br><br><br><br><br><br>
+                    <div class="modal-footer">
+                        <div class='form-row'>
+                            <a id="btnContinuar" class="btn btn-success" onclick = "terminarconsulta()"> Salir </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
             <div id="dvResultado"></div>
             <?php
         } else {
