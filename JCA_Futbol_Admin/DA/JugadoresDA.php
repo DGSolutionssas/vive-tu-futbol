@@ -58,7 +58,8 @@ FROM jugador J ";
 
 	function eliminarJugador($idJugadorEliminar)
     {
-        $resul=mysqli_query($this->db->Connect(),"delete from jugador where IdJugador = " . $idJugadorEliminar);
+        $resul=mysqli_query($this->db->Connect(),"DELETE FROM jugador WHERE IdJugador = " . $idJugadorEliminar);
+        $resul2=mysqli_query($this->db->Connect(),"DELETE FROM tblequiposjugadores WHERE IdJugador =  " . $idJugadorEliminar);
     }
 
     function registrarJugador($NombreJugador, $Documento, $CorreoElectronico, $Celular, $DirectorTecnico, $Delegado, $RepresentanteLegal,$Url,$idEquipoSeleccionado)

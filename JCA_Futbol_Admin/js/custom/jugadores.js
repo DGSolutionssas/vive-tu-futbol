@@ -13,9 +13,6 @@ $(document).ready(function () {
    if(SessionPerfil != "JUGADOR"){
     $('#myPleaseWait').modal('show');
     cargarTabla();
-}else
-{
-    document.getElementById("btnRegistrar").disabled = false;
 }
 });
 
@@ -135,9 +132,10 @@ function Eliminar()
             });
             confirmModal.modal('hide');
              if(SessionPerfil != "JUGADOR"){
-                 cargarTablaFiltrada(idEquipoSeleccionado)
+                 cargarTablaFiltrada(idEquipoSeleccionado);
             }else{
-                cargarTablaFiltrada(idEquipoSession)
+                cargarTablaFiltrada(idEquipoSession);
+                cargarCantidadJugadores(idEquipoSession);
             }
         }
     });
@@ -407,6 +405,13 @@ function cargarCantidadJugadores(idEquipoSeleccionado)
           registrados= obj[0].CantidadRegistrados+"/"+obj[0].CantidadMaxima;
           //document.getElementById("btnRegistrar").insertAdjacentHTML("afterbegin", " <span class='badge'>"+registrados+"</span>");
           document.getElementById("btnRegistrar").innerHTML="Registrar Jugador <span class='badge'>"+registrados+"</span>";
+          if( obj[0].CantidadMaxima>= obj[0].CantidadRegistrados )
+          {
+            document.getElementById("btnRegistrar").disabled = true;
+          }else
+          {
+            document.getElementById("btnRegistrar").disabled = false;
+          }
       }
   });
 }
