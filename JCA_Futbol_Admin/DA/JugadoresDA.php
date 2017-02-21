@@ -110,6 +110,28 @@ FROM jugador J ";
             return "";
         }
     }
+     function AutoCompletarEquipos($idCampeonato, $Equipo)
+    {
+       $query = "SELECT IdEquipo, Nombre FROM equipos WHERE IdCampeonato = " . $idCampeonato ." AND Nombre LIKE '%" . $Equipo . "%'" ;
+      //   $query = "SELECT IdEquipo, Nombre FROM Equipos ";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $return_arr = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul, MYSQLI_ASSOC)) {
+                $row_array['id'] = $row['IdEquipo'];
+                $row_array['value'] = $row['Nombre'];
+
+                array_push($return_arr, $row_array);
+            }
+            return $return_arr;
+        } else {
+            return "";
+        }
+    }
+    
 
     function cantidadJugadores($idEquipoSeleccionado)
     {

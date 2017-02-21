@@ -49,6 +49,11 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
         case 'registrarJugador':
             $Jugadores = $db->registrarJugador($_POST['NombreJugador'], $_POST['Documento'], $_POST['CorreoElectronico'], $_POST['Celular'], $_POST['DT'], $_POST['Delegado'], $_POST['RepresentanteLegal'], $_POST['Url'],$_POST['idEquipoSeleccionado']);
             break;
+        case 'AutoCompletarEquipos':
+            $Equipo = $_POST['term'];
+            $Equipos = $db->AutoCompletarEquipos($_POST['idCampeonato'],$Equipo);
+            echo json_encode($Equipos);
+            break;
         case 'consultarEquipos':
             $Equipos = $db->ConsultarEquipos($_POST['idCampeonato']);
             echo json_encode($Equipos);

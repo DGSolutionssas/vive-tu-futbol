@@ -47,7 +47,7 @@ $(document).ready(function () {
             return false;
         },
         autoFocus: true,
-        minLength: 1
+        minLength: 3
     });
 
 });
@@ -62,7 +62,7 @@ function consultarEquiposCampeonato()
                     data: {
                         term: request.term,
                         idCampeonato: idCampeonatoSeleccionado,
-                        action: 'consultarEquipos'
+                        action: 'AutoCompletarEquipos'
                     },
                     success: function (data) {
                         response($.map(data, function (objeto) {
@@ -85,7 +85,7 @@ function consultarEquiposCampeonato()
                 return false;
             },
             autoFocus: true,
-            minLength: 1
+            minLength: 3
         });
     }
 
