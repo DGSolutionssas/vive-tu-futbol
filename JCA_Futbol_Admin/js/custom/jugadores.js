@@ -403,9 +403,11 @@ function cargarCantidadJugadores(idEquipoSeleccionado)
       {
           var obj = JSON.parse(data);
           registrados= obj[0].CantidadRegistrados+"/"+obj[0].CantidadMaxima;
+          var CantidadRegistrados = obj[0].CantidadRegistrados;
+          var CantidadMaxima = obj[0].CantidadMaxima;
           //document.getElementById("btnRegistrar").insertAdjacentHTML("afterbegin", " <span class='badge'>"+registrados+"</span>");
           document.getElementById("btnRegistrar").innerHTML="Registrar Jugador <span class='badge'>"+registrados+"</span>";
-          if( obj[0].CantidadMaxima>= obj[0].CantidadRegistrados )
+          if( parseInt(CantidadRegistrados) >= parseInt(CantidadMaxima))
           {
             document.getElementById("btnRegistrar").disabled = true;
           }else
