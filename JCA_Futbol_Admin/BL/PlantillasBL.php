@@ -59,7 +59,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 }
                 $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
                 $objWriter->save('../Utiles/PlanillaFutbol5_Generada.xlsx');
-                echo '{"error": "2", "url": "http://127.0.0.1:8082/JCA_Futbol_Admin/Utiles/PlanillaFutbol5_Generada.xlsx"}';
+                echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol5_Generada.xlsx"}';
             }
             if ($_POST['idTipoPlantilla'] == "2") {
                 $idCampeonato = $_POST['idCampeonato'];
@@ -103,7 +103,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 }
                 $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
                 $objWriter->save('../Utiles/PlanillaFutbol8_Generada.xlsx');
-                echo '{"error": "2", "url": "http://127.0.0.1:8082/JCA_Futbol_Admin/Utiles/PlanillaFutbol8_Generada.xlsx"}';
+                echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol8_Generada.xlsx"}';
             }
             if ($_POST['idTipoPlantilla'] == "3") {
                   $idCampeonato = $_POST['idCampeonato'];
@@ -149,7 +149,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 }
                 $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
                 $objWriter->save('../Utiles/PlanillaFutbol5Empresas_Generada.xlsx');
-                echo '{"error": "2", "url": "http://127.0.0.1:8082/JCA_Futbol_Admin/Utiles/PlanillaFutbol5Empresas_Generada.xlsx"}';
+                echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol5Empresas_Generada.xlsx"}';
             }
             break;
     }
