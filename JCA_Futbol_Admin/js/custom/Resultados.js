@@ -3,22 +3,38 @@ var idCampeonatoSeleccionado = "";
 var idFechaSeleccionado = "";
 var idEquipo1Seleccionado = "";
 var idEquipo2Seleccionado = "";
+var idCampeonatoSeleccionadoEditar = "";
+var idFechaSeleccionadoEditar = "";
+var idEquipo1SeleccionadoEditar = "";
+var idEquipo2SeleccionadoEditar = "";
+var idResultadoEditar = "";
 
 $(document).ready(function() {
     $('#myPleaseWait').modal('show');
     cargarTabla();
 });
 
-function obtenerLineaEliminar(lnk)
-{
+function obtenerLineaEliminar(lnk){
     var row = lnk.parentNode.parentNode;
     var rowIndex = row.rowIndex - 1;
     idResultadoEliminar = row.cells[0].innerHTML;
     VentanaEliminar('Confirmar Eliminacion', '¿Esta seguro de eliminar el ID <b>' + idResultadoEliminar + '</b>?', 'SI', 'NO');
 }
 
-function Eliminar()
-{
+function obtenerLineaEditar(lnk){
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    idResultadoEditar = row.cells[0].innerHTML;
+    $('#VentanaEditarRegistro').modal('show');
+    idFechaSeleccionadoEditar = document.getElementById("txtIdFechaEditar").value = row.cells[1].innerHTML;
+    idCampeonatoSeleccionadoEditar = document.getElementById("txtIdCampeonatoEditar").value = row.cells[2].innerHTML;
+    idEquipo1SeleccionadoEditar= document.getElementById("txtIdEquipo1Editar").value = row.cells[3].innerHTML;
+    document.getElementById("txtGoles1Editar").value = row.cells[5].innerHTML;
+    idEquipo2SeleccionadoEditar = document.getElementById("txtIdEquipo2Editar").value = row.cells[4].innerHTML;
+    document.getElementById("txtGoles2Editar").value = row.cells[6].innerHTML;
+}
+
+function Eliminar(){
     jQuery.post('BL/ResultadosBL.php', {action: 'eliminarResultado', IdResultado: idResultadoEliminar}, function(data) {
         if (data.error === 1)
         {
@@ -35,7 +51,6 @@ function Eliminar()
         }
     });
 }
-
 //---------------------------
 //para autocompletar el campeonato
 //----------------------------
@@ -253,7 +268,7 @@ function cargarTabla() {
                         data: null,
                         className: "auto",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick=""><i class="fa fa-plus"></i>Detalles</a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
+                        defaultContent: '<a href="#" title="Ver Detalles" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="ObtenerDetalles(this)"><i class="fa fa-plus"></i>Detalles</a><a href="#" data-dismiss="modal" title="Editar" class="btn btn-success btn-xs" OnClick="return obtenerLineaEditar(this)"><i class="fa fa-pencil-square-o"></i></a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');
@@ -281,8 +296,8 @@ function guardarResultado(){
         var Goles1 = document.getElementById("txtGoles1").value;
         var Goles2 = document.getElementById("txtGoles2").value;
         var action = 'registrarResultado';
-		var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
-		var equipo1=document.getElementById("txtcargaequipo2").value = equipo1=document.getElementById("txtIdEquipo2").value;
+	var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
+	var equipo2=document.getElementById("txtcargaequipo2").value = equipo2=document.getElementById("txtIdEquipo2").value;
 
         jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, action: action}, function(data) {
             if (data.error === 1)
@@ -304,7 +319,6 @@ function guardarResultado(){
 }
 
 function cargartablaJL() {
-
     var IdEquipo1 = idEquipo1Seleccionado;
         $('#VentanaJL').modal('show');
         $.ajax({
@@ -354,7 +368,7 @@ function cargartablaJL() {
                             render: function(data, type, row) {
                                 if (type === 'display') {
                                     //return '<input maxlength="2" size="1px" id="txtgoles" name="txtgoles
-                                    return '<input maxlength="2" size="1px" id="txtgoles'+row.id+'" name="txtgoles" value="0">';
+                                    return '<input maxlength="2" size="1px" id="txtgolese1'+row.id+'" name="txtgoles" value="0">';
                                 }
                                 return data;
                             },
@@ -367,7 +381,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" id="checkAmarilla'+row.id+'" class="editor-active">';
+                                    return '<input type="checkbox" id="checkAmarillae1'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -378,7 +392,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" id="checkAzul'+row.id+'" class="editor-active">';
+                                    return '<input type="checkbox" id="checkAzule1'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -389,7 +403,7 @@ function cargartablaJL() {
                             'data': 'active',
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    return '<input type="checkbox" id="checkRoja'+row.id+'" class="editor-active">';
+                                    return '<input type="checkbox" id="checkRojae1'+row.id+'" class="editor-active">';
                                 }
                                 return data;
                             }
@@ -399,7 +413,7 @@ function cargartablaJL() {
                         width: "auto",
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" id="guardarJ1" class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
+                        defaultContent: '<a href="#" id="guardarJ1" class="btn btn-warning btn-xs" Title="Guardar" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
                     }
                     ],
                 });
@@ -467,7 +481,490 @@ function cargartablaJL1() {
                             render: function(data, type, row) {
                                 if (type === 'display') {
                                     //return '<input maxlength="2" size="1px" id="txtgoles" name="txtgoles\n\
-                                    return '<input maxlength="2" size="1px" id="txtgoles'+row.id+'" name="txtgoles" value="0">';
+                                    return '<input maxlength="2" size="1px" id="txtgolese2'+row.id+'" name="txtgoles" value="0">';
+                                }
+                                return data;
+                            },
+                            "orderable": "false",
+                            "width": "auto"
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                    return '<input type="checkbox" id="checkAmarillae2'+row.id+'" class="editor-active">';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                    return '<input type="checkbox" id="checkAzule2'+row.id+'" class="editor-active">';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                    return '<input type="checkbox" id="checkRojae2'+row.id+'" class="editor-active">';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                        data: null,
+                        width: "auto",
+                        className: "center",
+                        bSortable: false,
+                        defaultContent: '<a href="#" id="guardarJl" class="btn btn-warning btn-xs" OnClick="return registrardetalle1(this)"><i class="fa fa-floppy-o"></i></a>'
+                    }
+                    ],
+                });
+                $('#myPleaseWait').modal('hide');
+            },
+            error: function() {
+                $('#myPleaseWait').modal('hide');
+                new PNotify({
+                    title: 'Error!',
+                    text: 'Por favor intentelo nuevamente.<br><b>Si el problema persiste contacte al Administrador</b>',
+                    type: 'error'
+                });
+
+            }
+        });
+}
+
+function registrardetalle(lnk) {
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    var IdJugador = row.cells[0].innerHTML;
+    var IdEquipo1 = idEquipo1Seleccionado;
+    Goles = document.getElementById('txtgolese1' + IdJugador).value;
+    Amarilla = document.getElementById('checkAmarillae1' + IdJugador).checked;
+    Azul = document.getElementById('checkAzule1' + IdJugador).checked;
+    Roja = document.getElementById('checkRojae1' + IdJugador).checked;
+    var action = 'registrarDetalle';
+    jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo1, action: action}, function(data) {
+        if (data.error === 1)
+        {
+            //alert("se jodio esta vaina");
+        }
+        else
+        {
+            Goles = document.getElementById('txtgolese1' + IdJugador).disabled = true;
+            Amarilla = document.getElementById('checkAmarillae1' + IdJugador).disabled = true;
+            Azul = document.getElementById('checkAzule1' + IdJugador).disabled = true;
+            Roja = document.getElementById('checkRojae1' + IdJugador).disabled = true;
+            new PNotify({
+                title: 'Transaccion Exitosa!',
+                text: 'Resultado Registrado Correctamente',
+                type: 'success'
+            });
+            //checkSubmit();
+        }
+    });
+}
+
+function registrardetalle1(lnk) {
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    var IdJugador = row.cells[0].innerHTML;
+    var IdEquipo2 = idEquipo2Seleccionado;
+    Goles = document.getElementById('txtgolese2' + IdJugador).value;
+    Amarilla = document.getElementById('checkAmarillae2' + IdJugador).checked;
+    Azul = document.getElementById('checkAzule2' + IdJugador).checked;
+    Roja = document.getElementById('checkRojae2' + IdJugador).checked;
+    var action = 'registrarDetalle';
+    jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo2, action: action}, function(data) {
+        if (data.error === 1)
+        {
+            //alert("se jodio esta vaina");
+        }
+        else
+        {
+            Goles = document.getElementById('txtgolese2' + IdJugador).disabled = true;
+            Amarilla = document.getElementById('checkAmarillae2' + IdJugador).disabled = true;
+            Azul = document.getElementById('checkAzule2' + IdJugador).disabled = true;
+            Roja = document.getElementById('checkRojae2' + IdJugador).disabled = true;
+            new PNotify({
+                title: 'Transaccion Exitosa!',
+                text: 'Resultado Registrado Correctamente',
+                type: 'success'
+            });
+            //checkSubmit();
+        }
+    });
+}
+
+function terminarregistro() {
+    $('#VentanaJL1').modal('hide');
+    $('#VentanaJL').modal('hide');
+    $('#VentanaRegistro').modal('hide');
+    cargarTabla();
+}
+
+/*function checkSubmit() {
+    //document.getElementById("guardarJ1").value = "Enviando...";
+    document.getElementById("guardarJ1").disabled = true;
+    return true;
+}*/
+
+function actualizarresultado() {
+    var verdadero = $('#form1').parsley().validate("blockeditar", true);
+    if (verdadero)
+    {
+        var IdResultadoEditar = idResultadoEditar;
+        var IdFechaEditar = idFechaSeleccionadoEditar;
+        var IdCampeonatoEditar = idCampeonatoSeleccionadoEditar;
+        var IdEquipo1Editar = idEquipo1SeleccionadoEditar;
+        var IdEquipo2Editar = idEquipo2SeleccionadoEditar;
+        var Goles1Editar = document.getElementById("txtGoles1Editar").value;
+        var Goles2Editar = document.getElementById("txtGoles2Editar").value;
+        //alert(IdResultadoEditar + " , " + IdFechaEditar+ " , " +IdCampeonatoEditar+ " , " +IdEquipo1Editar+ " , " +IdEquipo2Editar+ " , " +Goles1Editar+ " , " +Goles2Editar );
+        var action = 'registrarResultadoeditado';
+        var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
+	//var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
+
+        jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, action: action}, function(data) {
+            if (data.error === 1)
+            {
+            }
+            else
+            {
+                //$('#VentanaRegistro').modal('hide');
+                new PNotify({
+                    title: 'Transaccion Exitosa!',
+                    text: 'Resultado Registrado Correctamente',
+                    type: 'success'
+                });
+                cargarTabla();
+            }
+        });
+        cargartablaEditarJL();
+    }   
+}
+
+//---------------------------
+//para autocompletar el campeonato en Edicion
+//----------------------------
+$(document).ready(function() {
+    $('#txtIdCampeonatoEditar').autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: 'BL/CampeonatosBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarCampeonato'
+                },
+                success: function(data) {
+                    response($.map(data, function(objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id,
+                        }
+                    }));
+                }
+            });
+        },
+        select: function(event, ui) {
+            idCampeonatoSeleccionadoEditar = ui.item.id;
+            document.getElementById("txtIdCampeonatoEditar").value = ui.item.value;
+            document.getElementById("txtIdEquipo1Editar").disabled = false;
+            document.getElementById("txtGoles1Editar").disabled = false;
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
+//---------------------------
+//para autocompletar la Fecha en Edicion
+//----------------------------
+$(document).ready(function() {
+    $('#txtIdFechaEditar').autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: 'BL/FechasBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarFechas'
+                },
+                success: function(data) {
+                    response($.map(data, function(objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function(event, ui) {
+            idFechaSeleccionadoEditar = ui.item.id;
+            document.getElementById("txtIdFechaEditar").value = ui.item.value;
+            document.getElementById("txtIdCampeonatoEditar").disabled = false;
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
+//---------------------------
+//para autocompletar el equipo 1 En edicion
+//----------------------------
+$(document).ready(function() {
+    $('#txtIdEquipo1Editar').autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: 'BL/EquiposBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarEquipo',
+                    IdCampeonato: idCampeonatoSeleccionadoEditar
+                },
+                success: function(data) {
+                    response($.map(data, function(objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function(event, ui) {
+            idEquipo1SeleccionadoEditar = ui.item.id;
+            document.getElementById("txtIdEquipo1Editar").value = ui.item.value;
+            document.getElementById("txtIdEquipo2Editar").disabled = false;
+            document.getElementById("txtGoles2Editar").disabled = false;
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
+//---------------------------
+//para autocompletar el equipo 2 en Edicion
+//----------------------------
+$(document).ready(function() {
+    $('#txtIdEquipo2Editar').autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: 'BL/EquiposBL.php',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    term: request.term,
+                    action: 'autoCompletarEquipo',
+                    IdCampeonato: idCampeonatoSeleccionadoEditar
+                },
+                success: function(data) {
+                    response($.map(data, function(objeto) {
+                        return {
+                            label: objeto.value,
+                            value: objeto.value,
+                            id: objeto.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function(event, ui) {
+            idEquipo2SeleccionadoEditar = ui.item.id;
+            document.getElementById("txtIdEquipo2Editar").value = ui.item.value;
+            document.getElementById("ContinuaEdicion").disabled = false;
+            return false;
+        },
+        autoFocus: true,
+        minLength: 3
+    });
+});
+
+function cargartablaEditarJL() {
+    var IdResultado = idResultadoEditar;
+    var IdEquipo1 = idEquipo1SeleccionadoEditar;
+        $('#VentanaJLEditar').modal('show');
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "BL/ResultadosBL.php",
+            data: {action: 'obtenerResultadosEditarJL',IdResultado:IdResultado,IdEquipo:IdEquipo1},
+            success: function(data) {
+                $('#tableJLEditar').dataTable({
+                    "iDisplayLength": 10,
+                    "bProcessing": true,
+                    "bPaginate": false,
+                    "bDestroy": true,
+                    "sPaginationType": "full_numbers",
+                    language: {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "<b>Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros</b>",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "<b>Buscar : </b>",
+                        //"sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        /*"oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }*/
+                    },
+                    data: data,
+                    columns: [{
+                            'data': 'id',
+                            "sClass": "justify",
+                            "width": "auto",
+                            //"visible": false
+                        },
+                        {
+                            'data': 'nombre',
+                            "sClass": "justify",
+                            "width": "auto"
+                        },
+                        {
+                            //'data': 'Goles',
+                            render: function(data, type, row) {
+                                //data = 'amarilla';
+                                if (type === 'display') {
+                                    return '<input maxlength="3" size="1px" id="txtgoles'+row.id+'" name="txtgoles" data = "goles">';
+                                }
+                                return data;
+                            },
+                            "orderable": "false",
+                            "width": "auto"
+                        },
+                        {
+                            
+                            "width": "auto",
+                            'data': 'amarilla',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                    return '<input type="checkbox" id="checkAmarilla'+row.id+'" class="editor-active">';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            'data': 'azul',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                    return '<input type="checkbox" id="checkAzul'+row.id+'" class="editor-active">';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            'data': 'roja',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                    return '<input type="checkbox" id="checkRoja'+row.id+'" class="editor-active">';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                        data: null,
+                        width: "auto",
+                        className: "center",
+                        bSortable: false,
+                        defaultContent: '<a href="#" id="guardarJ1" class="btn btn-warning btn-xs" Title="Guardar" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
+                    }
+                    ],
+                });
+                $('#myPleaseWait').modal('hide');
+            },
+            error: function() {
+                $('#myPleaseWait').modal('hide');
+                new PNotify({
+                    title: 'Error!',
+                    text: 'Por favor intentelo nuevamente.<br><b>Si el problema persiste contacte al Administrador</b>',
+                    type: 'error'
+                });
+
+            }
+        });
+}
+
+function cargartablaEditarJL1() {
+    var IdResultado = idResultadoEditar;
+    var IdEquipo2 = idEquipo2SeleccionadoEditar;
+        $('#VentanaJL1Editar').modal('show');
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "BL/ResultadosBL.php",
+            data: {action: 'obtenerResultadosEditarJL',IdResultado:IdResultado, IdEquipo:IdEquipo2},
+            success: function(data) {
+                $('#tableJL1Editar').dataTable({
+                    "iDisplayLength": 10,
+                    "bProcessing": true,
+                    "bPaginate": false,
+                    "bDestroy": true,
+                    "sPaginationType": "full_numbers",
+                    language: {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "<b>Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros</b>",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "<b>Buscar : </b>",
+                        //"sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        /*"oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }*/
+                    },
+                    data: data,
+                    columns: [{
+                            'data': 'id',
+                            "sClass": "justify",
+                            "width": "auto",
+                            //"visible": false
+                        },
+                        {
+                            'data': 'nombre',
+                            "sClass": "justify",
+                            "width": "auto"
+                        },
+                        {
+                            "sDefaultContent": "",
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                    //return '<input maxlength="2" size="1px" id="txtgoles" name="txtgoles\n\
+                                    return '<input maxlength="2" size="1px" id="txtgoles'+row.id+'" name="txtgoles">';
                                 }
                                 return data;
                             },
@@ -512,7 +1009,7 @@ function cargartablaJL1() {
                         width: "auto",
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" id="guardarJ1" class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
+                        defaultContent: '<a href="#" id="guardarJl" class="btn btn-warning btn-xs" OnClick="return registrardetalle(this)"><i class="fa fa-floppy-o"></i></a>'
                     }
                     ],
                 });
@@ -530,46 +1027,27 @@ function cargartablaJL1() {
         });
 }
 
-function registrardetalle(lnk) {
-    var row = lnk.parentNode.parentNode;
-    var rowIndex = row.rowIndex - 1;
-    var IdJugador = row.cells[0].innerHTML;
-    //alert (rowIndex);
-    Goles = document.getElementById('txtgoles' + IdJugador).value;
-    Amarilla = document.getElementById('checkAmarilla' + IdJugador).checked;
-    Azul = document.getElementById('checkAzul' + IdJugador).checked;
-    Roja = document.getElementById('checkRoja' + IdJugador).checked;
-    var action = 'registrarDetalle';
-    jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, action: action}, function(data) {
-        if (data.error === 1)
-        {
-            //alert("se jodio esta vaina");
-        }
-        else
-        {
-            Goles = document.getElementById('txtgoles' + IdJugador).disabled = true;
-            Amarilla = document.getElementById('checkAmarilla' + IdJugador).disabled = true;
-            Azul = document.getElementById('checkAzul' + IdJugador).disabled = true;
-            Roja = document.getElementById('checkRoja' + IdJugador).disabled = true;
-            new PNotify({
-                title: 'Transaccion Exitosa!',
-                text: 'Resultado Registrado Correctamente',
-                type: 'success'
-            });
-            //checkSubmit();
-        }
-    });
-}
-
-function terminarregistro() {
-    $('#VentanaJL1').modal('hide');
-    $('#VentanaJL').modal('hide');
-    $('#VentanaRegistro').modal('hide');
+function terminarregistroEditar() {
+    $('#VentanaJL1Editar').modal('hide');
+    $('#VentanaJLEditar').modal('hide');
+    $('#VentanaEditarRegistro').modal('hide');
     cargarTabla();
 }
 
-function checkSubmit() {
-    //document.getElementById("guardarJ1").value = "Enviando...";
-    document.getElementById("guardarJ1").disabled = true;
-    return true;
+function ObtenerDetalles(lnk){
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    IdResultadoDetalle = row.cells[0].innerHTML;
+    $('#VerDetalles').modal('show');
+    FechaDetalle = document.getElementById("FechaDetalle").value = row.cells[1].innerHTML;
+    CampeonatoDetalle = document.getElementById("CampeonatoDetalle").value = row.cells[2].innerHTML;
+    Equipo1Detalle= document.getElementById("Equipo1Detalle").value = row.cells[3].innerHTML;
+    document.getElementById("GolesE1Detalle").value = row.cells[5].innerHTML;
+    Equipo2Detalle = document.getElementById("Equipo2Detalle").value = row.cells[4].innerHTML;
+    document.getElementById("GolesE2Detalle").value = row.cells[6].innerHTML;
+}
+
+function terminarconsulta(){
+    $('#VerDetalles').modal('hide');
+    cargarTabla();
 }

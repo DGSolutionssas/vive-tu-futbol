@@ -137,7 +137,8 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             </h4>
                         </div>
                         <div class="modal-body">
-                            <div align="center"><h2><input id='txtcargaequipo2' readonly='readonly' style="border:none"></h2></div><table id="tableJL1" class="display table table-hover table-bordered jambo_table">
+                            <div align="center"><h2><input id='txtcargaequipo2' readonly='readonly' style="border:none"></h2></div>
+                            <table id="tableJL1" class="display table table-hover table-bordered jambo_table">
                                 <thead>
                                     <tr>
                                     <th>ID</th>
@@ -161,6 +162,174 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     </div>
                 </div>
             </div>
+        
+        <div id="VentanaEditarRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Cancelar</span>
+                        </button>
+                        <h4 class="modal-title" id="H3">
+                            <p>EDITAR RESULTADO</p>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <label class='control-label'>Fecha:</label>
+                            <input autocomplete="off" type="text" id="txtIdFechaEditar" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Campeonato:</label>
+                            <input autocomplete="off" type="text" id="txtIdCampeonatoEditar" disabled="disabled" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
+                        </div>
+                        <div class='input-result'>
+                            <label class='control-label'>Equipo 1:</label>
+                            <input autocomplete="off" type="text" id="txtIdEquipo1Editar" disabled="disabled" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
+                        </div>
+                        <div class='input-score'>
+                            <label class='control-label'>Goles:</label>
+                            <input autocomplete="off" type="number" id="txtGoles1Editar" disabled="disabled" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
+                        </div>
+                        <div class='input-result'>
+                            <label class='control-label'>Equipo 2:</label>
+                            <input autocomplete="off" type="text" id="txtIdEquipo2Editar" disabled="disabled" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
+                        </div>
+                        <div class='input-score'>
+                            <label class='control-label'>Goles:</label>
+                            <input autocomplete="off" type="number" id="txtGoles2Editar"  disabled="disabled" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
+                        </div>
+                    </div>
+                    <br><br><br><br><br><br><br>
+                    <div class="modal-footer">
+                        <div class='form-row'>
+                            <button id="ContinuaEdicion" disabled="disabled" class="btn btn-success" onclick = "actualizarresultado()">Siguiente</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="VentanaJLEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Cancelar</span>
+                            </button>
+                            <h4 class="modal-title" id="H3">
+                                REGISTRAR DETALLES
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center"><h2><input id='txtcargaequipo1Editar' readonly='readonly' style="border:none"></h2></div>
+                            <table id="tableJLEditar" class="display table table-hover table-bordered jambo_table">
+                                <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>NOMBRE</th>
+                                    <th>GOLES</th>
+                                    <th>T. AMARILLA</th>
+                                    <th>T. AZUL</th>
+                                    <th>T. ROJA</th>
+                                    <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div></div>
+                        </div>
+
+                        <br>
+                        <div class="modal-footer">
+                            <div class='form-row'>
+                                <a id="btnContinue" class="btn btn-success" onclick = "cargartablaEditarJL1()">Siguiente</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div id="VentanaJL1Editar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Cancelar</span>
+                            </button>
+                            <h4 class="modal-title" id="H3">
+                                REGISTRAR DETALLES
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center"><h2><input id='txtcargaequipo2' readonly='readonly' style="border:none"></h2></div>
+                            <table id="tableJL1Editar" class="display table table-hover table-bordered jambo_table">
+                                <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>NOMBRE</th>
+                                    <th>GOLES</th>
+                                    <th>T. AMARILLA</th>
+                                    <th>T. AZUL</th>
+                                    <th>T. ROJA</th>
+                                    <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        <br>
+                        <div class="modal-footer">
+                            <div class='form-row'>
+                                <a id="btnGuardar" class="btn btn-success" name="btnGuardar" onclick = "terminarregistroEditar()"> Terminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div id="VerDetalles" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Cancelar</span>
+                        </button>
+                        <h4 class="modal-title" id="H3" align="center">
+                            <p>DETALLES</p>
+                        </h4>
+                    </div>
+                    <table id="tabledetalles" class="display table table-hover table-bordered jambo_table">
+                        <thead align="center">
+                            <tr>
+                            <th colspan="2" align="center" id="CampeonatoDetalle"></th>
+                            <th colspan="2" align="center" id="FechaDetalle"></th>
+                            </tr>
+                        </thead>
+                        <tr>
+                        <th><h2><input id="Equipo1Detalle" readonly style="border:none" type="text" align="center"></h2></th>
+                        <th><h2><input id="GolesE1Detalle" readonly style="border:none" type="text" align="center" size="2"></h2></th>
+                        <th><h2><input id="GolesE2Detalle" readonly style="border:none" type="text" align="center" size="2"></h2></th>
+                        <th><h2><input id="Equipo2Detalle" readonly style="border:none" type="text"align="center"></h2></th>
+                        </tr>
+                        </table>
+                    <br><br><br><br><br><br><br>
+                    <div class="modal-footer">
+                        <div class='form-row'>
+                            <a id="btnContinuar" class="btn btn-success" onclick = "terminarconsulta()"> Salir </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         
             <div id="dvResultado"></div>
             <?php

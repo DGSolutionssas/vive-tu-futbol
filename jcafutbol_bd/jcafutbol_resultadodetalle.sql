@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-01-2017 a las 01:08:09
+-- Tiempo de generación: 20-02-2017 a las 04:58:46
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 7.0.13
 
@@ -33,7 +33,8 @@ CREATE TABLE `resultadodetalle` (
   `Amarilla` int(11) NOT NULL,
   `Azul` int(11) NOT NULL,
   `Roja` int(11) NOT NULL,
-  `Goles` int(11) NOT NULL
+  `Goles` int(11) NOT NULL,
+  `IdEquipo` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='tabla con los detalles del partido, goles y tarjeta';
 
 --
@@ -54,7 +55,7 @@ ALTER TABLE `resultadodetalle`
 -- AUTO_INCREMENT de la tabla `resultadodetalle`
 --
 ALTER TABLE `resultadodetalle`
-  MODIFY `IdJuegoLimpio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdJuegoLimpio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

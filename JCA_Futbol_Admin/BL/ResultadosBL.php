@@ -57,7 +57,26 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             echo json_encode($arrayResultadosJL);
             break;
         case 'registrarDetalle':
-            $resultado = $db->guardarDetalle($_POST['IdJugador'],$_POST['Amarilla'],$_POST['Azul'],$_POST['Roja'],$_POST['Goles']);
+            $resultado = $db->guardarDetalle($_POST['IdJugador'],$_POST['Amarilla'],$_POST['Azul'],$_POST['Roja'],$_POST['Goles'],$_POST['IdEquipo']);
+            break;
+        case 'registrarResultadoeditado':
+            $file = fopen("archivo.txt", "a");
+            fwrite($file, "IdFecha : " . $_POST['IdFecha'] . PHP_EOL);
+            fclose($file);
+            $resultado = $db->guardarResultadoEditado($_POST['IdResultado'],$_POST['IdFecha'],$_POST['IdCampeonato'],$_POST['IdEquipo1'],$_POST['IdEquipo2'],$_POST['Goles1'],$_POST['Goles2']);
+            break;
+        case 'obtenerResultadosEditarJL':
+            $resultadosJLeditados = $db->obtenerResultadoseditadosJL($_POST['IdResultado'], $_POST['IdEquipo']);
+            $arrayResultadosJLeditados = array();
+            for ($i = 0; $i < count($resultadosJLeditados); $i++) {
+                $arrayResultadosJLeditados[$i]['id'] = $resultadosJLeditados[$i]['id'];
+                $arrayResultadosJLeditados[$i]['nombre'] = $resultadosJLeditados[$i]['nombre'];
+                $arrayResultadosJLeditados[$i]['Goles'] = $resultadosJLeditados[$i]['Goles'];
+                $arrayResultadosJLeditados[$i]['amarilla'] = $resultadosJLeditados[$i]['amarilla'];
+                $arrayResultadosJLeditados[$i]['azul'] = $resultadosJLeditados[$i]['azul'];
+                $arrayResultadosJLeditados[$i]['roja'] = $resultadosJLeditados[$i]['roja'];                
+            }
+            echo json_encode($arrayResultadosJLeditados);
             break;
     }   
 }

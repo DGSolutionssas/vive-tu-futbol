@@ -7,17 +7,17 @@
  */
 session_start();
 
-if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] != "JUGADOR") 
+if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] != "JUGADOR")
 {
     require_once "./Header.php";
     ?>
-   
+
 <script type="text/javascript">
     <?php echo 'var SessionPerfil = '.json_encode($_SESSION['idPerfil']).';';
     ?>
 </script>
 
-    <div>   
+    <div>
          <script type="text/javascript" src="js/custom/jugadores.js"></script>
         <br><br><br>
         <div class="jumbotron">
@@ -25,11 +25,11 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SE
                 <tr>
                     <td>
                          <label >Campeonato:</label><br>
-                        <input autocomplete="off" style="width:50%;" type="text"  id="txtCampeonato" name="txtCampeonato"> 
+                        <input autocomplete="off" style="width:50%;" type="text"  id="txtCampeonato" name="txtCampeonato">
                     </td>
                      <td>
                          <label >Equipo:</label><br>
-                        <input autocomplete="off" style="width:50%;" type="text" id="txtEquipo" name="txtEquipo"> 
+                        <input autocomplete="off" style="width:50%;" type="text" id="txtEquipo" name="txtEquipo">
                     </td>
                 </tr>
             </table>
@@ -37,7 +37,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SE
 }
 elseif (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] == "JUGADOR")
 {
-    
+
     require_once './HeaderJugador.php';
     ?>
    <script type="text/javascript">
@@ -50,7 +50,7 @@ elseif (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && 
 </script>
 <?php
  ?>
-    <div>   
+    <div>
          <script type="text/javascript" src="js/custom/jugadores.js"></script>
          <script type="text/javascript">
             <?php echo 'cargarTablaFiltrada(idEquipoSession);';
@@ -61,25 +61,23 @@ elseif (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && 
             <table width=100% cellpadding=10>
                 <tr>
                     <td>
-                
-                         <label >Campeonato:</label><br>
-                        <input autocomplete="off" style="width:50%;" disabled type="text" value="<?php echo $_SESSION['NombreCampeonato'];?>" id="txtCampeonato" name="txtCampeonato"> 
+                        <label >Campeonato:</label><br>
+                        <input autocomplete="off" style="width:50%;" disabled type="text" value="<?php echo $_SESSION['NombreCampeonato'];?>" id="txtCampeonato" name="txtCampeonato">
                     </td>
                      <td>
                          <label >Equipo:</label><br>
-                        <input autocomplete="off" style="width:50%;" disabled type="text" value="<?php echo $_SESSION['NombreEquipo'];?>" id="txtEquipo" name="txtEquipo"> 
+                        <input autocomplete="off" style="width:50%;" disabled type="text" value="<?php echo $_SESSION['NombreEquipo'];?>" id="txtEquipo" name="txtEquipo">
                     </td>
                 </tr>
             </table>
             <?php
 }
 if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
-    
+
 ?>
-              
-            <br><br><br>
-                                    
-            <button id="btnRegistrar" name="btnRegistrar" disabled= "true" type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Jugador</button> 
+
+            <br><br>
+            <button id="btnRegistrar" name="btnRegistrar" disabled= "true" type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Jugador</button>
             <br>
 			<div class="row">
             <table id="tableJugadores" class="display" width="100%" cellspacing="0">
@@ -127,7 +125,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         </div>
                         <div class="form-row">
                             <label class='control-label'>E-Mail:</label>
-                            <input autocomplete="off" type="text" id="txtCorreoElectronico" name="txtCorreoElectronico" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="email" data-parsley-error-message="No es un E-mail Valido" data-parsley-group="block1" 
+                            <input autocomplete="off" type="text" id="txtCorreoElectronico" name="txtCorreoElectronico" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="email" data-parsley-error-message="No es un E-mail Valido" data-parsley-group="block1"
                             class="form-control">
                         </div>
                          <div class="form-row">
@@ -149,8 +147,8 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <input type="file"  class="btn btn-warning"  name="archivoImage" id="archivoImage" />
                         <a id="btnCargar" type="submit" class="btn btn-success" name="btnCargar" onclick="uploadAjax();">
                             <span class="fa fa-cloud-upload"></span> Cargar Imagen</a>
-                        </div>    
-                                
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <div class='form-row'>
@@ -184,7 +182,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         </div>
                         <div class="form-row">
                             <label class='control-label'>E-Mail:</label>
-                            <input autocomplete="off" type="text" id="txtCorreoElectronicoEditar" name="txtCorreoElectronicoEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="email" data-parsley-error-message="No es un E-mail Valido" data-parsley-group="block2" 
+                            <input autocomplete="off" type="text" id="txtCorreoElectronicoEditar" name="txtCorreoElectronicoEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="email" data-parsley-error-message="No es un E-mail Valido" data-parsley-group="block2"
                             class="form-control">
                         </div>
                          <div class="form-row">
@@ -194,12 +192,12 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <div class="form-row">
                             <label class='control-label'>Director Tecnico:</label>
                             <input type="checkbox"id="chkDirectorTecnicoEditar" name="chkDirectorTecnicoEditar" class="form-control">
-                            
+
                         </div>
                         <div class="form-row" >
                             <label class='control-label'>Delegado:</label>
                             <input type="checkbox"id="chkDelegadoEditar" name="chkDelegadoEditar" class="form-control">
-                            
+
                         </div>
                         <div class="form-row" >
                             <label class='control-label'>Representante Legal:</label>
@@ -211,8 +209,8 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <input type="file"  class="btn btn-warning"  name="archivoImageEditar" id="archivoImageEditar" />
                         <a id="btnCargar" type="submit" class="btn btn-success" name="btnCargar" onclick="uploadAjax();">
                             <span class="fa fa-cloud-upload"></span> Cargar Imagen</a>
-                        </div>    
-                                
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <div class='form-row'>
@@ -222,14 +220,17 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 </div>
             </div>
         </div>
-		
+
         <div id="dvResultado"></div>
     </div>
+    <?php if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] == "JUGADOR")
+    {
+       echo '<script type="text/javascript">cargarCantidadJugadores('.json_encode($_SESSION['idEquipo']).');</script>';
+    }
+    ?>
     <?php
 } else {
     ?><script type='text/javascript'>redireccionarInicio();</script>
     <?php
 }
 require_once './Footer.php';
-
-
