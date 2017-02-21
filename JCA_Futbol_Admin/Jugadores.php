@@ -136,9 +136,22 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
 						<div class="form-group">
 							<label><input type="checkbox" id="chkDirectorTecnico" name="chkDirectorTecnico"  /> Director Tecnico</label>
 						</div>
+                         <?php
+                        if ($_SESSION['idPerfil'] == "JUGADOR"){
+                            ?>
 						<div class="form-group">
-							<label><input type="checkbox" id="chkDelegado" name="chkDelegado" /> Delegado</label>
+							<label><input type="checkbox" disabled id="chkDelegado" name="chkDelegado" /> Delegado</label>
 						</div>
+                        <?php
+                        }else 
+                        {
+                            ?>
+                            <div class="form-group">
+							<label><input type="checkbox" id="chkDelegado" name="chkDelegado" /> Delegado</label>
+						    </div>
+                            <?php
+                        }
+                        ?>
 						<div class="form-group">
 							<label><input type="checkbox" id="chkRepresentanteLegal" name="chkRepresentanteLegal" /> Representante Legal</label>
 						</div>
@@ -194,11 +207,26 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             <input type="checkbox"id="chkDirectorTecnicoEditar" name="chkDirectorTecnicoEditar" class="form-control">
 
                         </div>
+                         <?php
+                        if ($_SESSION['idPerfil'] == "JUGADOR"){
+                            ?>
                         <div class="form-row" >
+                            <label class='control-label'>Delegado:</label>
+                            <input type="checkbox"id="chkDelegadoEditar" disabled name="chkDelegadoEditar" class="form-control">
+
+                        </div>
+                         <?php
+                        }else 
+                        {
+                            ?>
+                             <div class="form-row" >
                             <label class='control-label'>Delegado:</label>
                             <input type="checkbox"id="chkDelegadoEditar" name="chkDelegadoEditar" class="form-control">
 
                         </div>
+                            <?php
+                        }
+                        ?>
                         <div class="form-row" >
                             <label class='control-label'>Representante Legal:</label>
                             <input type="checkbox"id="chkRepresentanteLegalEditar" name="chkRepresentanteLegalEditar" class="form-control">
