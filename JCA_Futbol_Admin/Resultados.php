@@ -295,7 +295,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
         
         <div id="VerDetalles" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">
@@ -314,12 +314,38 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             </tr>
                         </thead>
                         <tr>
-                        <th><h2><input id="Equipo1Detalle" readonly style="border:none" type="text" align="center"></h2></th>
-                        <th><h2><input id="GolesE1Detalle" readonly style="border:none" type="text" align="center" size="2"></h2></th>
-                        <th><h2><input id="GolesE2Detalle" readonly style="border:none" type="text" align="center" size="2"></h2></th>
-                        <th><h2><input id="Equipo2Detalle" readonly style="border:none" type="text"align="center"></h2></th>
+                        <th><h2 align="center"><input id="Equipo1Detalle" readonly style="border:none" type="text" align="center"></h2></th>
+                        <th><h2 align="center"><input id="GolesE1Detalle" readonly style="border:none" type="text" align="center" size="2"></h2></th>
+                        <th><h2 align="center"><input id="GolesE2Detalle" readonly style="border:none" type="text" align="center" size="2"></h2></th>
+                        <th><h2 align="center"><input id="Equipo2Detalle" readonly style="border:none" type="text" align="center"></h2></th>
                         </tr>
+                        <tr>
+                        <th colspan="2">
+                        
+                        <table id="tabledetallesgolese1" class="display table table-hover table-bordered jambo_table">
+                            <thead>
+                                <th>NOMBRE</th>
+                                <th>GOLES</th>
+                                <th>AMARILLA</th>
+                                <th>AZUL</th>
+                                <th>ROJA</th>
+                            </thead>
                         </table>
+                        </th>
+                        <th colspan="2">
+                        
+                        <table id="tabledetallesgolese2" class="display table table-hover table-bordered jambo_table">
+                            <thead>
+                                <th>NOMBRE</th>
+                                <th>GOLES</th>
+                                <th>AMARILLA</th>
+                                <th>AZUL</th>
+                                <th>ROJA</th>
+                            </thead>
+                        </table>
+                        </th>
+                        </tr>
+                    </table> 
                     <br><br><br><br><br><br><br>
                     <div class="modal-footer">
                         <div class='form-row'>

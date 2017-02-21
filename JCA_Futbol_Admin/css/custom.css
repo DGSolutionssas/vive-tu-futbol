@@ -6438,3 +6438,8 @@ table.dataTable thead th{
 .dropdown-menu{
 	top:48% !important;
 }
+
+.modal-xl {
+    width: 90%;
+   max-width:1200px;
+}

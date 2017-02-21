@@ -78,5 +78,29 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             }
             echo json_encode($arrayResultadosJLeditados);
             break;
+        case 'obtenerresultadosdetallese1':
+            $resultadosgolese1 = $db->obtenerResultadosdetallee1($_POST['IdResultado'], $_POST['IdEquipo']);
+            $arrayResultadosgolese1 = array();
+            for ($i = 0; $i < count($resultadosgolese1); $i++) {
+                $arrayResultadosgolese1[$i]['Name'] = $resultadosgolese1[$i]['Name'];
+                $arrayResultadosgolese1[$i]['Goals'] = $resultadosgolese1[$i]['Goals'];
+                $arrayResultadosgolese1[$i]['amarilla'] = $resultadosgolese1[$i]['amarilla'];
+                $arrayResultadosgolese1[$i]['azul'] = $resultadosgolese1[$i]['azul'];
+                $arrayResultadosgolese1[$i]['roja'] = $resultadosgolese1[$i]['roja'];
+            }
+            echo json_encode($arrayResultadosgolese1);
+            break;
+        case 'obtenerresultadosdetallese2':
+            $resultadosgolese1 = $db->obtenerResultadosdetallee2($_POST['IdResultado'], $_POST['IdEquipo']);
+            $arrayResultadosgolese1 = array();
+            for ($i = 0; $i < count($resultadosgolese1); $i++) {
+                $arrayResultadosgolese1[$i]['Name'] = $resultadosgolese1[$i]['Name'];
+                $arrayResultadosgolese1[$i]['Goals'] = $resultadosgolese1[$i]['Goals'];
+                $arrayResultadosgolese1[$i]['amarilla'] = $resultadosgolese1[$i]['amarilla'];
+                $arrayResultadosgolese1[$i]['azul'] = $resultadosgolese1[$i]['azul'];
+                $arrayResultadosgolese1[$i]['roja'] = $resultadosgolese1[$i]['roja'];
+            }
+            echo json_encode($arrayResultadosgolese1);
+            break;
     }   
 }

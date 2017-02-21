@@ -1045,6 +1045,152 @@ function ObtenerDetalles(lnk){
     document.getElementById("GolesE1Detalle").value = row.cells[5].innerHTML;
     Equipo2Detalle = document.getElementById("Equipo2Detalle").value = row.cells[4].innerHTML;
     document.getElementById("GolesE2Detalle").value = row.cells[6].innerHTML;
+    $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "BL/ResultadosBL.php",
+            data: {action: 'obtenerresultadosdetallese1',IdResultado:IdResultadoDetalle, IdEquipo:Equipo1Detalle},
+            success: function(data) {
+                $('#tabledetallesgolese1').dataTable({
+                    "bPaginate": false,
+                    "bFilter": false,
+                    "bInfo":false,
+                    "bAutoWidth": false,
+                    data: data,
+                    columns: [{
+                            'data': 'Name',
+                            "sClass": "justify",
+                            "width": "70%",
+                            "bSortable": false
+                            //"visible": false
+                        },
+                        {
+                            'data': 'Goals',
+                            "sClass": "justify",
+                            "bSortable": false,
+                            "width": "auto"
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            "bSortable": false,
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                        if(row.amarilla === '1')
+                                            return '<input type="checkbox" class="editor-active" checked disabled>';
+                                        else
+                                            return '<input type="checkbox" class="editor-active" disabled>';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            "bSortable": false,
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                        if(row.azul === '1')
+                                            return '<input type="checkbox" class="editor-active" checked disabled>';
+                                        else
+                                            return '<input type="checkbox" class="editor-active" disabled>';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            "bSortable": false,
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                        if(row.roja === '1')
+                                            return '<input type="checkbox" class="editor-active" checked disabled>';
+                                        else
+                                            return '<input type="checkbox" class="editor-active" disabled>';
+                                }
+                                return data;
+                            }
+                        }],
+                });  
+            },
+        });
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "BL/ResultadosBL.php",
+            data: {action: 'obtenerresultadosdetallese2',IdResultado:IdResultadoDetalle, IdEquipo:Equipo2Detalle},
+            success: function(data) {
+                $('#tabledetallesgolese2').dataTable({
+                    "bPaginate": false,
+                    "bFilter": false,
+                    "bInfo":false,
+                    "bAutoWidth": false,
+                    data: data,
+                    columns: [{
+                            'data': 'Name',
+                            "sClass": "justify",
+                            "width": "auto",
+                            "bSortable": false
+                            //"visible": false
+                        },
+                        {
+                            'data': 'Goals',
+                            "sClass": "justify",
+                            "bSortable": false,
+                            "width": "auto"
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            "bSortable": false,
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                        if(row.amarilla === '1')
+                                            return '<input type="checkbox" class="editor-active" checked disabled>';
+                                        else
+                                            return '<input type="checkbox" class="editor-active" disabled >';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            "bSortable": false,
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                        if(row.azul === '1')
+                                            return '<input type="checkbox" class="editor-active" checked disabled>';
+                                        else
+                                            return '<input type="checkbox" class="editor-active" disabled>';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "sDefaultContent": "Edit",
+                            "width": "auto",
+                            "bSortable": false,
+                            'data': 'active',
+                            render: function(data, type, row) {
+                                if (type === 'display') {
+                                        if(row.roja === '1')
+                                            return '<input type="checkbox" class="editor-active" checked disabled>';
+                                        else
+                                            return '<input type="checkbox" class="editor-active" disabled>';
+                                }
+                                return data;
+                            }
+                        }],
+                });  
+            },
+        });
 }
 
 function terminarconsulta(){

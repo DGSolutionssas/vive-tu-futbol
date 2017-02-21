@@ -137,5 +137,40 @@ class ResultadosDA {
             return "";
         }
     }
-   
+    
+    function obtenerResultadosdetallee1($IdResultado, $IdEquipo){
+        $query = "SELECT J.NombreJugador AS Name, RD.Goles AS Goals, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado AND (Select IdEquipo FROM Equipos WHERE Nombre = '$IdEquipo')=RD.IdEquipo ";
+        //($query);
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
+    
+    function obtenerResultadosdetallee2($IdResultado, $IdEquipo){
+        $query = "SELECT J.NombreJugador AS Name, RD.Goles AS Goals, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado AND (Select IdEquipo FROM Equipos WHERE Nombre = '$IdEquipo')=RD.IdEquipo ";
+        //($query);
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
 }
