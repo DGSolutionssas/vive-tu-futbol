@@ -16,7 +16,7 @@ class ReportesDA {
     }
 
 	function championshipNameById($idCampeonato) {
-		$query = "select c.Campeonato from campeonatos c
+		$query = "select c.Campeonato, c.Grupos from campeonatos c
 		where c.IdCampeonato = " . $idCampeonato . ";";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
@@ -27,11 +27,12 @@ class ReportesDA {
         if ($nrows > 0) {
             while ($row = mysqli_fetch_array($resul)) {
                 $_SESSION['nombreCampeonato'] = $row['Campeonato'];
+				$_SESSION['Grupos'] = $row['Grupos'];
             }
         }
     }
 
-    function championshipReportById($idCampeonato) {
+    function championshipReportById($idCampeonato, $grupo) {
 		//$query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre,
         $query = "SELECT EQ.Grupo, EQ.Nombre,
 		COUNT(DISTINCT EN1.IdResultado) + COUNT(DISTINCT EN2.IdResultado) AS PJ,
@@ -65,7 +66,7 @@ class ReportesDA {
 		LEFT OUTER JOIN resultados AS EN2 ON EQ.IdEquipo = EN2.IdEquipo2
 		inner join campeonatos as c on EQ.IdCampeonato = c.IdCampeonato
 		where c.IdCampeonato = " . $idCampeonato . " " .
-		"GROUP BY EQ.Nombre, EQ.IdCampeonato, EQ.Grupo, EN1.IdEquipo1, EQ.IdEquipo
+		"and EQ.Grupo = " . $grupo . " GROUP BY EQ.Nombre, EQ.IdCampeonato, EQ.Grupo, EN1.IdEquipo1, EQ.IdEquipo
 		order by ptos desc;";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
@@ -85,16 +86,17 @@ class ReportesDA {
     }
 
 	function goalsReportById($idCampeonato) {
-        $query = "SELECT JU.NombreJugador, EQ.Nombre, rd.Goles
-		FROM jugador AS JU  
-		inner join tblequiposjugadores as tej on JU.IdJugador = tej.IdJugador
-		INNER JOIN equipos AS EQ ON tej.IdEquipo = EQ.IdEquipo
-		INNER JOIN campeonatos AS CA ON CA.IdCampeonato = EQ.IdCampeonato
-		inner join resultados as re on CA.IdCampeonato = re.IdCampeonato
-		inner join resultadodetalle as rd on re.IdResultado = rd.IdResultado
+        $query = "select j.NombreJugador, e.Nombre as nombreEquipo, rd.Goles
+		from resultados r
+		inner join resultadodetalle rd on r.IdResultado = rd.IdResultado
+		inner join jugador j on rd.IdJugador = j.IdJugador
+		inner join tblequiposjugadores er on j.IdJugador = er.IdJugador
+		inner join equipos e on er.IdEquipo = e.IdEquipo
+		inner join campeonatos c on e.IdCampeonato = c.IdCampeonato
 		where c.IdCampeonato = " . $idCampeonato . " " .
-		"ORDER BY rd.Goles DESC;";
-
+		"order by rd.Goles desc;";
+		
+		
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);

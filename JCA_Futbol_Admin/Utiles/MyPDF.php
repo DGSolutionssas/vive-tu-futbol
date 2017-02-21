@@ -60,7 +60,7 @@ for($i=0;$i<count($header);$i++)
 {
 	if(strlen($header[$i])>4)
 	{
-		$this->Cell(40,6,$header[$i],1,0,'C',true);
+		$this->Cell(55,6,$header[$i],1,0,'C',true);
 	}
 	else
 	{
@@ -79,8 +79,8 @@ foreach($data as $row)
 {
 	//'Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS'
 	//$this->Cell(40,6,$row['Campeonato'],1,0,'C',$fill);
-	$this->Cell(40,6,$row['Grupo'],1,0,'C',$fill);
-	$this->Cell(40,6,$row['Nombre'],1,0,'C',$fill);
+	$this->Cell(55,6,$row['Grupo'],1,0,'C',$fill);
+	$this->Cell(55,6,$row['Nombre'],1,0,'C',$fill);
 	$this->Cell(15,6,$row['PJ'],1,0,'C',$fill);
 	$this->Cell(15,6,$row['PG'],1,0,'C',$fill);
 	$this->Cell(15,6,$row['PE'],1,0,'C',$fill);
@@ -94,8 +94,9 @@ foreach($data as $row)
 	$this->Ln();
 	$fill = !$fill;
 }
+$this->Ln();
 
-$this->Cell(160,0,'','T');
+//$this->Cell(160,0,'','T');
 } 
 
    function TablaColoresGoles($header, $data)
@@ -110,13 +111,13 @@ $this->SetFont('Arial','I', 12);
 
 for($i=0;$i<count($header);$i++)
 {
-	if(strlen($header[$i])>4)
+	if(strlen($header[$i])>5)
 	{
-		$this->Cell(40,6,$header[$i],1,0,'C',true);
+		$this->Cell(60,6,$header[$i],1,0,'C',true);
 	}
 	else
 	{
-		$this->Cell(15,6,$header[$i],1,0,'C',true);	
+		$this->Cell(20,6,$header[$i],1,0,'C',true);	
 	}	
 }
 $this->Ln();
@@ -130,14 +131,14 @@ $fill = false;
 foreach($data as $row)
 {
 	//'NombreJugador', 'Nombre', 'Goles'
-	$this->Cell(40,6,$row['NombreJugador'],1,0,'C',$fill);
-	$this->Cell(40,6,$row['Nombre'],1,0,'C',$fill);
-	$this->Cell(15,6,$row['Goles'],1,0,'C',$fill);
+	$this->Cell(60,6,$row['NombreJugador'],1,0,'C',$fill);
+	$this->Cell(60,6,$row['nombreEquipo'],1,0,'C',$fill);
+	$this->Cell(20,6,$row['Goles'],1,0,'C',$fill);
 	$this->Ln();
 	$fill = !$fill;
 }
 
-$this->Cell(160,0,'','T');
+//$this->Cell(160,0,'','T');
 }
 
 }

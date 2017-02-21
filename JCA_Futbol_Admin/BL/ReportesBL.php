@@ -16,15 +16,18 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
     switch ($action) {
         case 'generarReporteCampeonato' :
 			$idCampeonato = $_POST['idCampeonato'];
-			$estadisticas = $db->championshipReportById($idCampeonato);
 			$db->championshipNameById($idCampeonato);
+			$grupos = $_SESSION['Grupos'];
 			//$header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
-			$header=array('Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
             $pdf = new MyPDF('L', 'mm', 'A4');
             $pdf->AliasNbPages();
             $pdf->AddPage();
-            $pdf->TablaColoresCampeonatos($header, $estadisticas);
             $pdf->SetFont('Arial', '', 10);
+			for($i = 1; $i<=$grupos;$i++){
+				$estadisticas = $db->championshipReportById($idCampeonato, $i);
+				$header=array('Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
+				$pdf->TablaColoresCampeonatos($header, $estadisticas);
+			}
             $pdfString = $pdf->Output('', 'S');
             $pdfBase64 = base64_encode($pdfString);			
             echo 'data:application/pdf;base64, ' . $pdfBase64;
@@ -33,7 +36,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 			$idCampeonato = $_POST['idCampeonato'];
 			$estadisticas = $db->goalsReportById($idCampeonato);
 			$db->championshipNameById($idCampeonato);
-			$header=array('NombreJugador', 'Nombre', 'Goles');
+			$header=array('NombreJugador', 'nombreEquipo', 'Goles');
             $pdf = new MyPDF('P', 'mm', 'A4');
             $pdf->AliasNbPages();
             $pdf->AddPage();
