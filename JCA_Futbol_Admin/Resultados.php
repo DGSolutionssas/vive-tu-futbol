@@ -103,10 +103,9 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                                     <th>ID</th>
                                     <th>NOMBRE</th>
                                     <th>GOLES</th>
-                                    <th>T. AMARILLA</th>
-                                    <th>T. AZUL</th>
-                                    <th>T. ROJA</th>
-                                    <th></th>
+                                    <th>AMARILLA</th>
+                                    <th>AZUL</th>
+                                    <th>ROJA</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -116,7 +115,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <br>
                         <div class="modal-footer">
                             <div class='form-row'>
-                                <a id="btnContinue" class="btn btn-success" onclick = "cargartablaJL1()">Siguiente</a>
+                                <a id="btnContinue" class="btn btn-success" onclick = "registrardetalle()">Siguiente</a>
                             </div>
                         </div>
                     </div>
@@ -144,10 +143,9 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                                     <th>ID</th>
                                     <th>NOMBRE</th>
                                     <th>GOLES</th>
-                                    <th>T. AMARILLA</th>
-                                    <th>T. AZUL</th>
-                                    <th>T. ROJA</th>
-                                    <th></th>
+                                    <th>AMARILLA</th>
+                                    <th>AZUL</th>
+                                    <th>ROJA</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -156,7 +154,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <br>
                         <div class="modal-footer">
                             <div class='form-row'>
-                                <a id="btnGuardar" class="btn btn-success" name="btnGuardar" onclick = "terminarregistro()"> Terminar</a>
+                                <a id="btnGuardar" class="btn btn-success" name="btnGuardar" onclick = "registrardetalle1()"> Terminar</a>
                             </div>
                         </div>
                     </div>
