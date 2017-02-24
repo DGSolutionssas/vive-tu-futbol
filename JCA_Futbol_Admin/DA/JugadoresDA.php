@@ -64,7 +64,9 @@ FROM jugador J ";
 
     function registrarJugador($NombreJugador, $Documento, $CorreoElectronico, $Celular, $DirectorTecnico, $Delegado, $RepresentanteLegal,$Url,$idEquipoSeleccionado)
     {
-        $resul = mysqli_query($this->db->Connect(), "INSERT INTO jugador (NombreJugador, Documento, CorreoElectronico, Celular, DirectorTecnico, Delegado, RepresentanteLegal,Url) VALUES ("
+		$mysqli = $this->db->Connect();
+		
+		$query = "INSERT INTO jugador (NombreJugador, Documento, CorreoElectronico, Celular, DirectorTecnico, Delegado, RepresentanteLegal,Url) VALUES ("
                 . "'" . $NombreJugador . "',"
                 . $Documento . ","
                 . "'" . $CorreoElectronico . "',"
@@ -72,10 +74,11 @@ FROM jugador J ";
                 . $DirectorTecnico . ","
                 . $Delegado . ","
                 . $RepresentanteLegal . ","
-                . "'" . $Url . "')"
-        );
-        $resul = mysqli_query($this->db->Connect(), "INSERT INTO tblequiposjugadores(IdEquipo, IdJugador) VALUES ( ". $idEquipoSeleccionado . ",(SELECT MAX(IdJugador) AS IdJugador FROM jugador))"
-        );
+                . "'" . $Url . "')";
+				
+		$mysqli->query($query);
+		
+		$resul = mysqli_query($this->db->Connect(), "INSERT INTO tblequiposjugadores(IdEquipo, IdJugador) VALUES ( ". $idEquipoSeleccionado . ",".$mysqli->insert_id.")");
     }
     function ActualizarJugador($idJugadorEditar,$NombreJugadorEditar, $DocumentoEditar, $CorreoElectronicoEditar, $CelularEditar, $DirectorTecnicoEditar, $DelegadoEditar, $RepresentanteLegalEditar,$UrlEditar)
     {

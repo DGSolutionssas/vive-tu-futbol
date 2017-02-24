@@ -111,10 +111,6 @@ function obtenerLineaEditar(lnk)
     document.getElementById("chkDelegadoEditar").checked=row.cells[7].innerHTML.includes("checked");
     document.getElementById("chkRepresentanteLegalEditar").checked=row.cells[8].innerHTML.includes("checked");
     //if(row.cells[6].innerHTML.includes("checked"))
-
-    document.getElementById("")
-
-
 }
 
 function Eliminar()
@@ -157,7 +153,7 @@ function cargarTabla() {
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
                 "sDom": 'T<"clear">lfrtip',
-                "responsive":true,
+                "responsive":false,
                 "tableTools": {
                     "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
                     aButtons: [
@@ -283,7 +279,7 @@ function cargarTablaFiltrada(idEquipoSeleccionado) {
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
                 "sDom": 'T<"clear">lfrtip',
-                "responsive":true,
+                "responsive":false,
                 "tableTools": {
                     "sSwfPath": "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf",
                     aButtons: [
@@ -497,7 +493,7 @@ function actualizarJugador(){
                         type: 'success'
                     });
                     if(SessionPerfil != "JUGADOR"){
-                        cargarTablaFiltrada(idEquipoSeleccionado);
+						cargarTabla();
                     }else{
                         cargarTablaFiltrada(idEquipoSession)
                     }
