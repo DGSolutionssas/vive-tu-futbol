@@ -96,7 +96,7 @@
                                         <li><a href="#"><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-right"></span></a>
                                             <ul class="nav child_menu">
                                                 <li><a href="./ReportesCampeonatos.php">Campeonatos</a></li>
-                                                <li><a href="./Reportes.php">Equipos</a></li>
+                                                <li><a href="./ReportesCampeonatosFairPlay.php">Juego Limpio</a></li>
                                                 <li><a href="./ReportesGoles.php">Goles</a></li>
                                                 <!-- <li><a href="./Reportes.php">Carnets</a></li> -->
                                             </ul>

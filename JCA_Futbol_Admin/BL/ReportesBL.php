@@ -21,12 +21,32 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 			//$header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
             $pdf = new MyPDF('L', 'mm', 'A4');
             $pdf->AliasNbPages();
-            $pdf->AddPage();
+            
             $pdf->SetFont('Arial', '', 10);
 			for($i = 1; $i<=$grupos;$i++){
+				$pdf->AddPage();
 				$estadisticas = $db->championshipReportById($idCampeonato, $i);
 				$header=array('Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
 				$pdf->TablaColoresCampeonatos($header, $estadisticas);
+			}
+            $pdfString = $pdf->Output('', 'S');
+            $pdfBase64 = base64_encode($pdfString);			
+            echo 'data:application/pdf;base64, ' . $pdfBase64;
+            break;
+		case 'generarReporteJuegoLimpioCampeonato' :
+			$idCampeonato = $_POST['idCampeonato'];
+			$db->championshipNameById($idCampeonato);
+			$grupos = $_SESSION['Grupos'];
+			//$header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
+            $pdf = new MyPDF('L', 'mm', 'A4');
+            $pdf->AliasNbPages();
+            
+            $pdf->SetFont('Arial', '', 10);
+			for($i = 1; $i<=$grupos;$i++){
+				$pdf->AddPage();
+				$estadisticas = $db->championshipFairPlayReportById($idCampeonato, $i);
+				$header=array('Grupo', 'Equipo', 'PTOS');
+				$pdf->TablaColoresFairPlayCampeonatos($header, $estadisticas);
 			}
             $pdfString = $pdf->Output('', 'S');
             $pdfBase64 = base64_encode($pdfString);			
