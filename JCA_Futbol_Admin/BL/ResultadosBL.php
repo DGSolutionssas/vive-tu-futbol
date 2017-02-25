@@ -102,5 +102,13 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             }
             echo json_encode($arrayResultadosgolese1);
             break;
+        case 'EliminarJugadorDetalle':
+            $eliminarjd = $db->eliminarJD($_POST['IdResultado'], $_POST['IdJugador']);
+            echo '{"error": "2", "descripcion": "Se elimino correctamente el Campeonato"}';
+            break;
+        case 'registrarDetalleEditado':
+            $registrardetallee1 = $db->registrardetallee1($_POST['IdResultado'], $_POST['IdJugador'], $_POST['Amarilla'], $_POST['Azul'], $_POST['Roja'], $_POST['Goles'], $_POST['IdEquipo']);
+            break;
     }   
+
 }

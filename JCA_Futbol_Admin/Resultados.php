@@ -212,7 +212,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
         
         <div id="VentanaJLEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                  aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">
@@ -231,9 +231,9 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                                     <th>ID</th>
                                     <th>NOMBRE</th>
                                     <th>GOLES</th>
-                                    <th>T. AMARILLA</th>
-                                    <th>T. AZUL</th>
-                                    <th>T. ROJA</th>
+                                    <th>AMARILLA</th>
+                                    <th>AZUL</th>
+                                    <th>ROJA</th>
                                     <th></th>
                                     </tr>
                                 </thead>
@@ -244,7 +244,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <br>
                         <div class="modal-footer">
                             <div class='form-row'>
-                                <a id="btnContinue" class="btn btn-success" onclick = "cargartablaEditarJL1()">Siguiente</a>
+                                <a id="btnContinue" class="btn btn-success" onclick = "registrardetalleeditado()">Siguiente</a>
                             </div>
                         </div>
                     </div>
@@ -253,7 +253,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
         
         <div id="VentanaJL1Editar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                  aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">
@@ -265,16 +265,16 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             </h4>
                         </div>
                         <div class="modal-body">
-                            <div align="center"><h2><input id='txtcargaequipo2' readonly='readonly' style="border:none"></h2></div>
+                            <div align="center"><h2><input id='txtcargaequipo2Editar' readonly='readonly' style="border:none"></h2></div>
                             <table id="tableJL1Editar" class="display table table-hover table-bordered jambo_table">
                                 <thead>
                                     <tr>
                                     <th>ID</th>
                                     <th>NOMBRE</th>
                                     <th>GOLES</th>
-                                    <th>T. AMARILLA</th>
-                                    <th>T. AZUL</th>
-                                    <th>T. ROJA</th>
+                                    <th>AMARILLA</th>
+                                    <th>AZUL</th>
+                                    <th>ROJA</th>
                                     <th></th>
                                     </tr>
                                 </thead>
@@ -284,7 +284,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <br>
                         <div class="modal-footer">
                             <div class='form-row'>
-                                <a id="btnGuardar" class="btn btn-success" name="btnGuardar" onclick = "terminarregistroEditar()"> Terminar</a>
+                                <a id="btnGuardar" class="btn btn-success" name="btnGuardar" onclick = "registrardetalleeditado1()"> Terminar</a>
                             </div>
                         </div>
                     </div>

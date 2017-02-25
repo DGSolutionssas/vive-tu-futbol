@@ -45,6 +45,7 @@ class ResultadosDA {
 
     function eliminarResultado($IdResultado) {
         $resul = mysqli_query($this->db->Connect(), "delete from resultados where IdResultado = " . $IdResultado);
+        $resul = mysqli_query($this->db->Connect(), "delete from resultadodetalle where IdResultado = " . $IdResultado);
     }
 
     function obtenerResultadosJL($IdEquipo1) {
@@ -103,9 +104,13 @@ class ResultadosDA {
         //$resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha=". "'" . $idFecha . "', IdCampeonato=". "'" . //$idCampeonato . "', IdEquipo1="  . $IdEquipo1 . "', IdEquipo2="  . $IdEquipo2 . "', Goles1="  . $Goles1 . "', Goles2="  . $Goles2 //. " WHERE IdResultado=".$IdResultado);
         }
 
-    
     function obtenerResultadoseditadosJL($IdResultado, $IdEquipo) {
-        $query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado AND RD.IdEquipo = $IdEquipo ";
+        //$query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado AND RD.IdEquipo = $IdEquipo ";
+        $query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD 
+        INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = " . $IdResultado . " AND IdEquipo = " . $IdEquipo .  " UNION
+        SELECT J.idJugador AS id, J.NombreJugador AS nombre, 0 AS Goles, 0 AS amarilla, 0 AS Azul, 0 AS Roja
+        FROM jugador J INNER JOIN tblequiposjugadores EJ ON J.idJugador=EJ.idJugador
+        WHERE EJ.IdEquipo=$IdEquipo AND J.idjugador NOT IN (SELECT RD.IdJugador AS id FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado)";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -122,7 +127,12 @@ class ResultadosDA {
     }
     
     function obtenerResultadoseditadosJL1($IdResultado) {
-        $query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado";
+        //$query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado";
+        $query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD 
+        INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = " . $IdResultado . " AND IdEquipo = " . $IdEquipo .  " UNION
+        SELECT J.idJugador AS id, J.NombreJugador AS nombre, 0 AS Goles, 0 AS amarilla, 0 AS Azul, 0 AS Roja
+        FROM jugador J INNER JOIN tblequiposjugadores EJ ON J.idJugador=EJ.idJugador
+        WHERE EJ.IdEquipo=$IdEquipo AND J.idjugador NOT IN (SELECT RD.IdJugador AS id FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado)";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -171,6 +181,30 @@ class ResultadosDA {
             return $jsonData;
         } else {
             return "";
+        }
+    }
+    
+    function eliminarJD($IdResultado, $IdJugador){
+        $resul = mysqli_query($this->db->Connect(), "delete from resultadodetalle where IdResultado = ". $IdResultado . " AND IdJugador = ". $IdJugador);
+        echo($resul);
+    }
+    
+    function registrardetallee1 ($IdResultado, $IdJugador, $Amarilla, $Azul, $Roja, $Goles, $IdEquipo){
+        $query = "SELECT * FROM resultadodetalle WHERE IdResultado = $IdResultado AND IdEquipo = $IdEquipo AND IdJugador = $IdJugador ";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+        echo ($nrows);
+        if ($nrows > 0){
+            $query2 = "UPDATE resultadodetalle SET Amarilla = " .$Amarilla . ", Azul = " . $Azul . ", Roja = " . $Roja . ", Goles = " . $Goles . " WHERE IdJugador = " . $IdJugador . " AND IdEquipo =" . $IdEquipo . " AND IdResultado = " . $IdResultado;
+            $resul = mysqli_query($this->db->Connect(), $query2); 
+            echo ($query2);
+        }
+        else{
+            $query1 = mysqli_query($this->db->Connect(), "INSERT INTO resultadodetalle (IdJugador, IdResultado, Amarilla, Azul, Roja, Goles, IdEquipo) VALUES ("
+            . $IdJugador . "," . $IdResultado. "," . $Amarilla . "," . $Azul . "," . $Roja . "," . $Goles . "," . $IdEquipo . ")"
+            );
+            echo ($query1);
         }
     }
 }

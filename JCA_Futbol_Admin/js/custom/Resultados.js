@@ -533,13 +533,14 @@ function registrardetalle(lnk) {
         var rowIndex = row.rowIndex - 1;
         var IdJugador = row.cells[0].innerHTML;
         var IdEquipo1 = idEquipo1Seleccionado;
+        var IdResultado = idResultadoEditar;
         Goles = document.getElementById('txtgolese1' + IdJugador).value;
         Amarilla = document.getElementById('checkAmarillae1' + IdJugador).checked;
         Azul = document.getElementById('checkAzule1' + IdJugador).checked;
         Roja = document.getElementById('checkRojae1' + IdJugador).checked;
         if(Goles > 0 || Amarilla || Azul  || Roja ){
             var action = 'registrarDetalle';
-            jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo1, action: action}, function (data) {
+            jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultado, IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo1, action: action}, function (data) {
             if (data.error === 1)
             {
                 //alert("se jodio esta vaina");
@@ -611,7 +612,7 @@ function actualizarresultado() {
         //alert(IdResultadoEditar + " , " + IdFechaEditar+ " , " +IdCampeonatoEditar+ " , " +IdEquipo1Editar+ " , " +IdEquipo2Editar+ " , " +Goles1Editar+ " , " +Goles2Editar );
         var action = 'registrarResultadoeditado';
         var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
-	//var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
+	var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
 
         jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, action: action}, function(data) {
             if (data.error === 1)
@@ -832,10 +833,10 @@ function cargartablaEditarJL() {
                             "sDefaultContent": "Edit",
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    if(row.Goles > 0)
-                                        return '<input maxlength="2" size="1px" id="txtgolese1'+row.id+'">';
+                                    if(parseInt(row.Goles) > 0)
+                                        return '<input maxlength="2" size="1px" id="txtgolese1'+row.id+'" value="'+row.Goles+'">';
                                     else
-                                        return '<input maxlength="2" size="1px" id="txtgolese1'+row.id+'"value="0">';
+                                        return '<input maxlength="2" size="1px" id="txtgolese1'+row.id+'" value="0">';
                                 }
                                 return data;
                             },
@@ -850,7 +851,7 @@ function cargartablaEditarJL() {
                                         if(row.amarilla === '1')
                                             return '<input type="checkbox" id="checkAmarillae1'+row.id+'" class="editor-active" checked >';
                                         else
-                                            return '<input type="checkbox" checkAmarillae1'+row.id+'" class="editor-active" >';
+                                            return '<input type="checkbox" id="checkAmarillae1'+row.id+'" class="editor-active" >';
                                 }
                                 return data;
                             }
@@ -890,7 +891,7 @@ function cargartablaEditarJL() {
                         width: "auto",
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" id="guardarJ1" class="btn btn-warning btn-xs" Title="Guardar" OnClick="return registrardetalleeditado(this)"><i class="fa fa-floppy-o"></i></a>'
+                        defaultContent: '<a href="#" id="Eliminar" class="btn btn-danger btn-xs" Title="Eliminar" OnClick="return EliminarJugadorDetalle(this)"><i class="fa fa-trash-o"></i></a>'
                         }],
                 });
                 $('#myPleaseWait').modal('hide');
@@ -962,13 +963,14 @@ function cargartablaEditarJL1() {
                             "sDefaultContent": "",
                             render: function(data, type, row) {
                                 if (type === 'display') {
-                                    if(row.Goles > 0)
-                                        return '<input maxlength="2" size="1px" id="txtgolese2'+row.id+'" >';
+                                    if(parseInt(row.Goles) > 0){
+                                        return '<input maxlength="2" size="1px" id="txtgolese2'+row.id+'" value="'+row.Goles+'">';
+                                    }
                                     else
-                                        return '<input maxlength="2" size="1px" id="txtgolese2'+row.id+'" value="0">';
+                                        return '<input maxlength="3" size="1px" id="txtgolese2'+row.id+'" value="0">';
                                 }
                                 return data;
-                            },
+                            }
                         },
                         {
                             "sDefaultContent": "Edit",
@@ -1020,7 +1022,7 @@ function cargartablaEditarJL1() {
                         width: "auto",
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" id="guardarJl" class="btn btn-warning btn-xs" OnClick="return registrardetalleeditado1(this)"><i class="fa fa-floppy-o"></i></a>'
+                        defaultContent: '<a href="#" id="Eliminar" class="btn btn-danger btn-xs" Title="Eliminar" OnClick="return EliminarJugadorDetalle1(this)"><i class="fa fa-trash-o"></i></a>'
                     }
                     ],
                 });
@@ -1039,63 +1041,115 @@ function cargartablaEditarJL1() {
 }
 
 function registrardetalleeditado(lnk) {
+    var tabla = document.getElementById('tableJLEditar').rows.length -1;
+    for(i = 1; i <= tabla; i++){
+        var row = document.getElementById('tableJLEditar').rows[i];
+        //var row = lnk.parentNode.parentNode;
+        var rowIndex = row.rowIndex - 1;
+        var IdJugador = row.cells[0].innerHTML;
+        var IdEquipo1 = idEquipo1SeleccionadoEditar;
+        var IdResultado = idResultadoEditar;
+        Goles = document.getElementById('txtgolese1' + IdJugador).value;
+        Amarilla = document.getElementById('checkAmarillae1' + IdJugador).checked;
+        Azul = document.getElementById('checkAzule1' + IdJugador).checked;
+        Roja = document.getElementById('checkRojae1' + IdJugador).checked;
+        if(Goles > 0 || Amarilla || Azul  || Roja ){
+            var action = 'registrarDetalleEditado';
+            jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultado, IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo1, action: action}, function (data) {
+            if (data.error === 1)
+            {
+                //alert("se jodio esta vaina");
+            } else
+            {
+                    new PNotify({
+                    title: 'Transaccion Exitosa!',
+                    text: 'Resultado Registrado Correctamente',
+                    type: 'success'
+                });
+                cargartablaEditarJL1();
+            }
+        });
+        } 
+    }
+}
+
+function registrardetalleeditado1(lnk) {
+    var tabla = document.getElementById('tableJL1Editar').rows.length -1;
+    for(i = 1; i <= tabla; i++){
+        var row = document.getElementById('tableJL1Editar').rows[i];
+        //var row = lnk.parentNode.parentNode;
+        var rowIndex = row.rowIndex - 1;
+        
+        var IdJugador = row.cells[0].innerHTML;
+        var IdEquipo2 = idEquipo2SeleccionadoEditar;
+        var IdResultado = idResultadoEditar;
+        Goles = document.getElementById('txtgolese2' + IdJugador).value;
+        Amarilla = document.getElementById('checkAmarillae2' + IdJugador).checked;
+        Azul = document.getElementById('checkAzule2' + IdJugador).checked;
+        Roja = document.getElementById('checkRojae2' + IdJugador).checked;
+        if(Goles > 0 || Amarilla || Azul  || Roja ){
+                var action = 'registrarDetalleEditado';
+                jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultado, IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo2, action: action}, function (data) {
+                if (data.error === 1)
+                {
+                    //alert("se jodio esta vaina");
+                } else
+                {
+                        new PNotify({
+                        title: 'Transaccion Exitosa!',
+                        text: 'Resultado Registrado Correctamente',
+                        type: 'success'
+                    });
+                    terminarregistroEditar();
+                }
+            });
+        }
+    }
+}
+
+function EliminarJugadorDetalle(lnk){
+    var IdResultadoEditar = idResultadoEditar;
     var row = lnk.parentNode.parentNode;
     var rowIndex = row.rowIndex - 1;
     var IdJugador = row.cells[0].innerHTML;
-    var IdEquipo2 = idEquipo2Seleccionado;
-    Goles = document.getElementById('txtgolese1' + IdJugador).value;
-    Amarilla = document.getElementById('checkAmarillae1' + IdJugador).checked;
-    Azul = document.getElementById('checkAzule1' + IdJugador).checked;
-    Roja = document.getElementById('checkRojae1' + IdJugador).checked;
-    var action = 'registrarDetalle';
-    jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo2, action: action}, function(data) {
+    var action = 'EliminarJugadorDetalle';
+    jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdJugador: IdJugador, action: action}, function(data) {
         if (data.error === 1)
         {
             //alert("se jodio esta vaina");
         }
         else
         {
-            Goles = document.getElementById('txtgolese1' + IdJugador).disabled = true;
-            Amarilla = document.getElementById('checkAmarillae1' + IdJugador).disabled = true;
-            Azul = document.getElementById('checkAzule1' + IdJugador).disabled = true;
-            Roja = document.getElementById('checkRojae1' + IdJugador).disabled = true;
             new PNotify({
                 title: 'Transaccion Exitosa!',
                 text: 'Resultado Registrado Correctamente',
                 type: 'success'
             });
-            //checkSubmit();
+            
+            cargartablaEditarJL();
         }
     });
 }
 
-function registrardetalleeditado1(lnk) {
+function EliminarJugadorDetalle1(lnk){
+    var IdResultadoEditar = idResultadoEditar;
     var row = lnk.parentNode.parentNode;
     var rowIndex = row.rowIndex - 1;
     var IdJugador = row.cells[0].innerHTML;
-    var IdEquipo2 = idEquipo2Seleccionado;
-    Goles = document.getElementById('txtgolese2' + IdJugador).value;
-    Amarilla = document.getElementById('checkAmarillae2' + IdJugador).checked;
-    Azul = document.getElementById('checkAzule2' + IdJugador).checked;
-    Roja = document.getElementById('checkRojae2' + IdJugador).checked;
-    var action = 'registrarDetalle';
-    jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo2, action: action}, function(data) {
+    var action = 'EliminarJugadorDetalle';
+    jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdJugador: IdJugador, action: action}, function(data) {
         if (data.error === 1)
         {
             //alert("se jodio esta vaina");
         }
         else
         {
-            Goles = document.getElementById('txtgolese2' + IdJugador).disabled = true;
-            Amarilla = document.getElementById('checkAmarillae2' + IdJugador).disabled = true;
-            Azul = document.getElementById('checkAzule2' + IdJugador).disabled = true;
-            Roja = document.getElementById('checkRojae2' + IdJugador).disabled = true;
             new PNotify({
                 title: 'Transaccion Exitosa!',
                 text: 'Resultado Registrado Correctamente',
                 type: 'success'
             });
-            //checkSubmit();
+            cargartablaEditarJL1();
         }
     });
 }
@@ -1133,7 +1187,7 @@ function ObtenerDetalles(lnk){
                     columns: [{
                             'data': 'Name',
                             "sClass": "justify",
-                            "width": "70%",
+                            "width": "auto",
                             "bSortable": false
                             //"visible": false
                         },
