@@ -69,13 +69,19 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
     case 'generarCarnetJugador':
         $idJugadorGenerarCarnet=$_POST['idJugadorGenerarCarnet'];
         $datosJugador=$db->datosJugador($idJugadorGenerarCarnet);
+        for ($i = 0; $i < count($datosJugador); $i++) {
+            $datos=$datosJugador[$i]['Campeonato'].'|'.$datosJugador[$i]['Equipo'].'|'.$datosJugador[$i]['NombreJugador'].'|'.$datosJugador[$i]['Documento'];
+          break;
+        }
         $header=array('');
         $pdf=new MyPDF('P','mm','A4');
         $pdf->AliasNbPages();
         $pdf->AddPage();
-        $pdf->generarCarnetJugador($datosJugador);
+        $pdf->generarCarnetJugador($datos);
         $pdf->SetFont('Arial', '', 10);
+        $pdfString="";
         $pdfString = $pdf->Output('', 'S');
+        $pdfBase64="";
         $pdfBase64 = base64_encode($pdfString);
           echo 'data:application/pdf;base64, ' . $pdfBase64;
     break;

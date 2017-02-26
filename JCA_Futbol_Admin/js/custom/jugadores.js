@@ -575,22 +575,34 @@ function consultarEquipos()
 
 function generarCarnet(lnk)
 {
-    var row = lnk.parentNode.parentNode;
-    var rowIndex = row.rowIndex - 1;
-    idJugadorGenerarCarnet = row.cells[1].innerHTML;
-  
-    $('#myPleaseWait').modal('show');
-     jQuery.post('BL/ReportesBL.php', {action: 'generarCarnetJugador', idJugadorGenerarCarnet: idJugadorGenerarCarnet}, function (data) {
-          if (data.error === 1)
-          {
-          }
-          else
-          {
-			  $('#VentanaGenerarCarnet').modal('show');
-             var divCarnet=document.getElementById("divCarnet");
-             var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-             divCarnet.innerHTML+=object;
-          }
-      });
-  	$('#myPleaseWait').modal('hide');
+  $('#myPleaseWait').modal('show');
+  var row = lnk.parentNode.parentNode;
+  var rowIndex = row.rowIndex - 1;
+  idJugadorGenerarCarnet = row.cells[1].innerHTML;
+
+    $.ajax({
+        type: "POST",
+        url: 'BL/ReportesBL.php',
+        data: {action: 'generarCarnetJugador', idJugadorGenerarCarnet: idJugadorGenerarCarnet}
+      })
+      .done(function (data, textStatus, jqXHR) {
+                if (data.error === 1)
+                {
+                  $('#myPleaseWait').modal('hide');
+                } else
+                {
+              $('#VentanaGenerarCarnet').modal('show');
+                  var divCarnet1=document.getElementById("divCarnet");
+                  divCarnet1.innerHTML="";
+
+                   var divCarnet=document.getElementById("divCarnet");
+                   var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
+                   divCarnet.innerHTML+=object;
+                   $('#myPleaseWait').modal('hide');
+                }          })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                if (console && console.log) {
+                    console.log("La solicitud a fallado: " + textStatus);
+                }
+            });
 }

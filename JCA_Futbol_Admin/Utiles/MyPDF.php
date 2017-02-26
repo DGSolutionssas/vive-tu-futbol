@@ -188,21 +188,22 @@ foreach($data as $row)
 
 //$this->Cell(160,0,'','T');
 
-function generarCarnetJugador($datosJugador)
+function generarCarnetJugador($datos)
 {
+    $datosJugador = explode("|", $datos);
     $this->Image('../img/Frontal.jpg', 70, 8, 65);
     $this->SetTextColor(0);
     $this->SetXY(91	, 23);
-    $this->Cell(0, 0, substr($datosJugador[0]['Campeonato'],0,15), 0, 0, 'L');
+    $this->Cell(0, 0, substr($datosJugador[0],0,15), 0, 0, 'L');
     $this->Ln();
     $this->SetXY(77.4, 31.3);
-    $this->Cell(0, 0,substr($datosJugador[0]['Equipo'],0,25), 0, 0, 'L');
+    $this->Cell(0, 0,substr($datosJugador[1],0,25), 0, 0, 'L');
     $this->Ln();
     $this->SetXY(77.8, 35.6);
-    $this->Cell(0, 0, substr($datosJugador[0]['NombreJugador'],0,25), 0, 0, 'L');
+    $this->Cell(0, 0, substr($datosJugador[2],0,25), 0, 0, 'L');
     $this->Ln();
     $this->SetXY(77.4, 39.7);
-    $this->Cell(0, 0, $datosJugador[0]['Documento'], 0, 0, 'L');
+    $this->Cell(0, 0, $datosJugador[3], 0, 0, 'L');
     $this->Image('../img/Reverso.jpg', 70, 70, 65);
 }
 

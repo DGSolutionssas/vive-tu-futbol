@@ -155,6 +155,7 @@ class ReportesDA {
               INNER JOIN campeonatos C ON E.IdCampeonato=C.IdCampeonato
               WHERE J.IdJugador=$idJugador
               LIMIT 1";
+
       mysqli_set_charset($this->db->Connect(), "utf8");
       $resul = mysqli_query($this->db->Connect(), $query);
       $nrows = mysqli_num_rows($resul);
