@@ -94,6 +94,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     <th>REPRESENTANTE</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                     </tr>
                 </thead>
             </table>
@@ -248,8 +249,36 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 </div>
             </div>
         </div>
+		
+		
+		
+		 <div id="VentanaGenerarCarnet" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Cancelar</span>
+                        </button>
+                        <h4 class="modal-title" id="H3">
+                            <p>GENERACION CARNET</p>
+                        </h4>
+                    </div>
+                    <div id="divCarnet" name="divCarnet" class="modal-body">
+                       
 
-        <div id="dvResultado"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		
+        <div id="divResultado" name="divResultado">
+        </div>
+		
+		
+		
     </div>
     <?php if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && $_SESSION['idPerfil'] == "JUGADOR")
     {

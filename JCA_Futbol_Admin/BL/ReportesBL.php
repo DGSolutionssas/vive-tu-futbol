@@ -12,7 +12,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 	//require_once('../Utiles/PDF_MySQL_Table.php');
 	require_once('../DA/ReportesDA.php');
 	$db = new ReportesDA();
-	
+
     switch ($action) {
         case 'generarReporteCampeonato' :
 			$idCampeonato = $_POST['idCampeonato'];
@@ -21,7 +21,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 			//$header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
             $pdf = new MyPDF('L', 'mm', 'A4');
             $pdf->AliasNbPages();
-            
+
             $pdf->SetFont('Arial', '', 10);
 			for($i = 1; $i<=$grupos;$i++){
 				$pdf->AddPage();
@@ -30,7 +30,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 				$pdf->TablaColoresCampeonatos($header, $estadisticas);
 			}
             $pdfString = $pdf->Output('', 'S');
-            $pdfBase64 = base64_encode($pdfString);			
+            $pdfBase64 = base64_encode($pdfString);
             echo 'data:application/pdf;base64, ' . $pdfBase64;
             break;
 		case 'generarReporteJuegoLimpioCampeonato' :
@@ -40,7 +40,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 			//$header=array('Campeonato', 'Grupo', 'Nombre', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'JL', 'PW', 'PTOS');
             $pdf = new MyPDF('L', 'mm', 'A4');
             $pdf->AliasNbPages();
-            
+
             $pdf->SetFont('Arial', '', 10);
 			for($i = 1; $i<=$grupos;$i++){
 				$pdf->AddPage();
@@ -49,7 +49,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 				$pdf->TablaColoresFairPlayCampeonatos($header, $estadisticas);
 			}
             $pdfString = $pdf->Output('', 'S');
-            $pdfBase64 = base64_encode($pdfString);			
+            $pdfBase64 = base64_encode($pdfString);
             echo 'data:application/pdf;base64, ' . $pdfBase64;
             break;
 		case 'generarReporteGoles' :
@@ -63,8 +63,21 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $pdf->TablaColoresGoles($header, $estadisticas);
             $pdf->SetFont('Arial', '', 10);
             $pdfString = $pdf->Output('', 'S');
-            $pdfBase64 = base64_encode($pdfString);			
+            $pdfBase64 = base64_encode($pdfString);
             echo 'data:application/pdf;base64, ' . $pdfBase64;
             break;
+    case 'generarCarnetJugador':
+        $idJugadorGenerarCarnet=$_POST['idJugadorGenerarCarnet'];
+        $datosJugador=$db->datosJugador($idJugadorGenerarCarnet);
+        $header=array('');
+        $pdf=new MyPDF('P','mm','A4');
+        $pdf->AliasNbPages();
+        $pdf->AddPage();
+        $pdf->generarCarnetJugador($datosJugador);
+        $pdf->SetFont('Arial', '', 10);
+        $pdfString = $pdf->Output('', 'S');
+        $pdfBase64 = base64_encode($pdfString);
+          echo 'data:application/pdf;base64, ' . $pdfBase64;
+    break;
     }
 }

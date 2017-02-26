@@ -13,13 +13,17 @@ class MyPDF extends FPDF {
 
 // Cabecera de página
     function Header() {
-		$tituloReporte = $_SESSION['nombreCampeonato'];
-		
-        $this->Image('../img/Logo.jpg', 10, 8, 33);
-        $this->SetFont('Arial', 'B', 15);
-        $this->Cell(80);
-        $this->Cell(30, 23, $tituloReporte, 0, 0, 'C');
-        $this->Ln(40);
+      if (isset($_SESSION['nombreCampeonato'])){
+		        $tituloReporte = $_SESSION['nombreCampeonato'];
+            $this->Image('../img/Logo.jpg', 10, 8, 33);
+            $this->Cell(30, 23, $tituloReporte, 0, 0, 'C');
+            $this->SetFont('Arial', 'B', 15);
+          }
+          else {
+            $this->SetFont('Arial', 'B', 6);
+          }
+          $this->Cell(80);
+          $this->Ln(40);
     }
 
     function Footer() {
@@ -27,14 +31,14 @@ class MyPDF extends FPDF {
         $this->SetFont('Arial', 'I', 8);
         $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }
-    
+
     function TablaBasica($header)
    {
     //Cabecera
     foreach($header as $col)
     $this->Cell(40,7,$col,1);
     $this->Ln();
-   
+
       $this->Cell(40,5,"hola",1);
       $this->Cell(40,5,"hola2",1);
       $this->Cell(40,5,"hola3",1);
@@ -44,8 +48,8 @@ class MyPDF extends FPDF {
       $this->Cell(40,5,"linea 2",1);
       $this->Cell(40,5,"linea 3",1);
       $this->Cell(40,5,"linea 4",1);
-   } 
-   
+   }
+
    function TablaColoresCampeonatos($header, $data)
 {
 //Colores, ancho de línea y fuente en negrita
@@ -64,8 +68,8 @@ for($i=0;$i<count($header);$i++)
 	}
 	else
 	{
-		$this->Cell(15,6,$header[$i],1,0,'C',true);	
-	}	
+		$this->Cell(15,6,$header[$i],1,0,'C',true);
+	}
 }
 $this->Ln();
 
@@ -117,8 +121,8 @@ for($i=0;$i<count($header);$i++)
 	}
 	else
 	{
-		$this->Cell(15,6,$header[$i],1,0,'C',true);	
-	}	
+		$this->Cell(15,6,$header[$i],1,0,'C',true);
+	}
 }
 $this->Ln();
 
@@ -141,7 +145,7 @@ $this->Ln();
 
 //$this->Cell(160,0,'','T');
 }
- 
+
    function TablaColoresGoles($header, $data)
 {
 //Colores, ancho de línea y fuente en negrita
@@ -160,8 +164,8 @@ for($i=0;$i<count($header);$i++)
 	}
 	else
 	{
-		$this->Cell(15,6,$header[$i],1,0,'C',true);	
-	}	
+		$this->Cell(15,6,$header[$i],1,0,'C',true);
+	}
 }
 $this->Ln();
 
@@ -180,8 +184,26 @@ foreach($data as $row)
 	$this->Ln();
 	$fill = !$fill;
 }
+}
 
 //$this->Cell(160,0,'','T');
+
+function generarCarnetJugador($datosJugador)
+{
+    $this->Image('../img/Frontal.jpg', 70, 8, 65);
+    $this->SetTextColor(0);
+    $this->SetXY(91	, 23);
+    $this->Cell(0, 0, substr($datosJugador[0]['Campeonato'],0,15), 0, 0, 'L');
+    $this->Ln();
+    $this->SetXY(77.4, 31.3);
+    $this->Cell(0, 0,substr($datosJugador[0]['Equipo'],0,25), 0, 0, 'L');
+    $this->Ln();
+    $this->SetXY(77.8, 35.6);
+    $this->Cell(0, 0, substr($datosJugador[0]['NombreJugador'],0,25), 0, 0, 'L');
+    $this->Ln();
+    $this->SetXY(77.4, 39.7);
+    $this->Cell(0, 0, $datosJugador[0]['Documento'], 0, 0, 'L');
+    $this->Image('../img/Reverso.jpg', 70, 70, 65);
 }
 
 }
