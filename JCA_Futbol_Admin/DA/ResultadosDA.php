@@ -49,7 +49,7 @@ class ResultadosDA {
     }
 
     function obtenerResultadosJL($IdEquipo1) {
-        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.Idjugador=J.idjugador WHERE EJ.idEquipo= $IdEquipo1 ";
+        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.IdJugador=J.IdJugador WHERE EJ.IdEquipo= $IdEquipo1 ";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -66,7 +66,7 @@ class ResultadosDA {
     }
 
     function obtenerResultadosJL1($IdEquipo2) {
-        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.Idjugador=J.idjugador WHERE EJ.idEquipo= $IdEquipo2 ";
+        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.IdJugador=J.IdJugador WHERE EJ.IdEquipo= $IdEquipo2 ";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -108,9 +108,9 @@ class ResultadosDA {
         //$query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado AND RD.IdEquipo = $IdEquipo ";
         $query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD 
         INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = " . $IdResultado . " AND IdEquipo = " . $IdEquipo .  " UNION
-        SELECT J.idJugador AS id, J.NombreJugador AS nombre, 0 AS Goles, 0 AS amarilla, 0 AS Azul, 0 AS Roja
-        FROM jugador J INNER JOIN tblequiposjugadores EJ ON J.idJugador=EJ.idJugador
-        WHERE EJ.IdEquipo=$IdEquipo AND J.idjugador NOT IN (SELECT RD.IdJugador AS id FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado)";
+        SELECT J.IdJugador AS id, J.NombreJugador AS nombre, 0 AS Goles, 0 AS Amarilla, 0 AS Azul, 0 AS Roja
+        FROM jugador J INNER JOIN tblequiposjugadores EJ ON J.IdJugador=EJ.IdJugador
+        WHERE EJ.IdEquipo=$IdEquipo AND J.IdJugador NOT IN (SELECT RD.IdJugador AS id FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado)";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -130,9 +130,9 @@ class ResultadosDA {
         //$query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado";
         $query = "SELECT RD.IdJugador AS id, J.NombreJugador AS nombre, RD.Goles AS Goles, RD.Amarilla AS amarilla, RD.Azul AS azul, RD.Roja AS roja FROM resultadodetalle RD 
         INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = " . $IdResultado . " AND IdEquipo = " . $IdEquipo .  " UNION
-        SELECT J.idJugador AS id, J.NombreJugador AS nombre, 0 AS Goles, 0 AS amarilla, 0 AS Azul, 0 AS Roja
-        FROM jugador J INNER JOIN tblequiposjugadores EJ ON J.idJugador=EJ.idJugador
-        WHERE EJ.IdEquipo=$IdEquipo AND J.idjugador NOT IN (SELECT RD.IdJugador AS id FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado)";
+        SELECT J.IdJugador AS id, J.NombreJugador AS nombre, 0 AS Goles, 0 AS Amarilla, 0 AS Azul, 0 AS Roja
+        FROM jugador J INNER JOIN tblequiposjugadores EJ ON J.IdJugador=EJ.IdJugador
+        WHERE EJ.IdEquipo=$IdEquipo AND J.Idjugador NOT IN (SELECT RD.IdJugador AS id FROM resultadodetalle RD INNER JOIN jugador J ON RD.IdJugador=J.IdJugador WHERE RD.IdResultado = $IdResultado)";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
