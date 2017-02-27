@@ -1069,7 +1069,11 @@ function registrardetalleeditado(lnk) {
                 cargartablaEditarJL1();
             }
         });
-        } 
+        }
+        else{
+            //alert("Si ingreso");
+            cargartablaEditarJL1();
+        }
     }
 }
 
@@ -1103,6 +1107,10 @@ function registrardetalleeditado1(lnk) {
                     terminarregistroEditar();
                 }
             });
+        }
+        else{
+            //alert("Si ingreso");
+            terminarregistroEditar();
         }
     }
 }
@@ -1172,6 +1180,8 @@ function ObtenerDetalles(lnk){
     document.getElementById("GolesE1Detalle").value = row.cells[5].innerHTML;
     Equipo2Detalle = document.getElementById("Equipo2Detalle").value = row.cells[4].innerHTML;
     document.getElementById("GolesE2Detalle").value = row.cells[6].innerHTML;
+    //var tabla = $('#tabledetallesgolese1').dataTable();
+    //tabla.empty();
     $.ajax({
             type: "post",
             dataType: "json",
@@ -1182,8 +1192,8 @@ function ObtenerDetalles(lnk){
                     "bPaginate": false,
                     "bFilter": false,
                     "bInfo":false,
+                    "bDestroy":true,
                     "bAutoWidth": false,
-					"bDestroy": true,
                     data: data,
                     columns: [{
                             'data': 'Name',
@@ -1256,8 +1266,8 @@ function ObtenerDetalles(lnk){
                     "bPaginate": false,
                     "bFilter": false,
                     "bInfo":false,
+                    "bDestroy":true,
                     "bAutoWidth": false,
-					"bDestroy": true,
                     data: data,
                     columns: [{
                             'data': 'Name',
@@ -1317,7 +1327,7 @@ function ObtenerDetalles(lnk){
                                 return data;
                             }
                         }],
-                });  
+                });
             },
         });
 }
