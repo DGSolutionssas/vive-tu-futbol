@@ -1183,6 +1183,7 @@ function ObtenerDetalles(lnk){
                     "bFilter": false,
                     "bInfo":false,
                     "bAutoWidth": false,
+					"bDestroy": true,
                     data: data,
                     columns: [{
                             'data': 'Name',
@@ -1256,6 +1257,7 @@ function ObtenerDetalles(lnk){
                     "bFilter": false,
                     "bInfo":false,
                     "bAutoWidth": false,
+					"bDestroy": true,
                     data: data,
                     columns: [{
                             'data': 'Name',
