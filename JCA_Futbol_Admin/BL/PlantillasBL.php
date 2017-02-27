@@ -60,8 +60,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
                 $objWriter->save('../Utiles/PlanillaFutbol5_Generada.xlsx');
                 echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol5_Generada.xlsx"}';
-            }
-            if ($_POST['idTipoPlantilla'] == "2") {
+            }else if ($_POST['idTipoPlantilla'] == "2") {
                 $idCampeonato = $_POST['idCampeonato'];
                 $idEquipo1 = $_POST['idEquipo1'];
                 $idEquipo2 = $_POST['idEquipo2'];
@@ -84,20 +83,20 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 
                 for ($i = 0; $i < count($jugadores); $i++) {
                     if ($jugadores[$i]['Equipo'] == $equipo1) {
-                        $plantilla->getActiveSheet()->setCellValue('B' . $indicadorCeldaEquipo1, substr($jugadores[$i]['Cedula'], strlen($jugadores[$i]['Cedula']) - 4, 4))
+                        $plantilla->getActiveSheet()->setCellValue('F' . $indicadorCeldaEquipo1, substr($jugadores[$i]['Cedula'], strlen($jugadores[$i]['Cedula']) - 4, 4))
                                 //->setCellValue('G' . $indicadorCeldaEquipo1, $jugadores[$i]['Nombres'] . " " . $jugadores[$i]['Apellidos']);
-                                ->setCellValue('G' . $indicadorCeldaEquipo1, $jugadores[$i]['Nombre']);
+                                ->setCellValue('D' . $indicadorCeldaEquipo1, $jugadores[$i]['Nombre']);
                         ++$indicadorCeldaEquipo1;
                     }
                 }
 
-                $indicadorCeldaEquipo2 = 41;
+                $indicadorCeldaEquipo2 = 14;
 
                 for ($i = 0; $i < count($jugadores); $i++) {
                     if ($jugadores[$i]['Equipo'] == $equipo2) {
-                        $plantilla->getActiveSheet()->setCellValue('B' . $indicadorCeldaEquipo2, substr($jugadores[$i]['Cedula'], strlen($jugadores[$i]['Cedula']) - 4, 4))
+                        $plantilla->getActiveSheet()->setCellValue('M' . $indicadorCeldaEquipo2, substr($jugadores[$i]['Cedula'], strlen($jugadores[$i]['Cedula']) - 4, 4))
                                 //->setCellValue('G' . $indicadorCeldaEquipo2, $jugadores[$i]['Nombres'] . " " . $jugadores[$i]['Apellidos']);
-                                ->setCellValue('G' . $indicadorCeldaEquipo2, $jugadores[$i]['Nombre']);
+                                ->setCellValue('K' . $indicadorCeldaEquipo2, $jugadores[$i]['Nombre']);
                         ++$indicadorCeldaEquipo2;
                     }
                 }
@@ -105,7 +104,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 $objWriter->save('../Utiles/PlanillaFutbol8_Generada.xlsx');
                 echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol8_Generada.xlsx"}';
             }
-            if ($_POST['idTipoPlantilla'] == "3") {
+			else if ($_POST['idTipoPlantilla'] == "3") {
                   $idCampeonato = $_POST['idCampeonato'];
                 $idEquipo1 = $_POST['idEquipo1'];
                 $idEquipo2 = $_POST['idEquipo2'];
