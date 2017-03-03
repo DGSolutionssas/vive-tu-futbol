@@ -28,7 +28,7 @@ $(document).ready(function () {
             idCampeonatoSeleccionado = ui.item.id;
             document.getElementById("txtCampeonato").value = ui.item.value;
             document.getElementById("txtCampeonato").disabled = true;
-            
+
             return false;
         },
         autoFocus: true,
@@ -56,7 +56,7 @@ function generarReporte()
         {
            var divResultado=document.getElementById("divResultado");
            var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-           divResultado.innerHTML+=object; 
+           divResultado.innerHTML+=object;
             //var win = window.open('', '_blank');
             //win.location.href = data;
         }
@@ -74,7 +74,7 @@ function generarReporteGoles()
         {
            var divResultado=document.getElementById("divResultado");
            var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-           divResultado.innerHTML+=object; 
+           divResultado.innerHTML+=object;
             //var win = window.open('', '_blank');
             //win.location.href = data;
         }
@@ -93,7 +93,7 @@ function generarReporteCampeonato()
         {
            var divResultado=document.getElementById("divResultado");
            var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-           divResultado.innerHTML+=object; 
+           divResultado.innerHTML+=object;
             //var win = window.open('', '_blank');
             //win.location.href = data;
         }
@@ -112,10 +112,28 @@ function generarReporteFairPlayCampeonato()
         {
            var divResultado=document.getElementById("divResultado");
            var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-           divResultado.innerHTML+=object; 
+           divResultado.innerHTML+=object;
             //var win = window.open('', '_blank');
             //win.location.href = data;
         }
     });
 	$('#myPleaseWait').modal('hide');
+}
+
+
+
+function generarReporteAmonestados()
+{
+  $('#myPleaseWait').modal('show');
+  var action="generarReporteAmonestados";
+  jQuery.post('BL/PlantillasBL.php', {action: action, idCampeonato: idCampeonatoSeleccionado}, function (data) {
+      if (data.error === 1)
+      {
+      }else
+      {
+          var obj = JSON.parse(data);
+          window.location.href = obj.url;
+      }
+  });
+
 }

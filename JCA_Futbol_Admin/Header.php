@@ -16,7 +16,7 @@
         <link rel="stylesheet" type="text/css" href="css/animate.min.css"/>
         <link rel="stylesheet" type="text/css" href="css/custom.css"/>
         <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/parsley/parsley.min.js"></script>		
+        <script type="text/javascript" src="js/parsley/parsley.min.js"></script>
         <script type="text/javascript" src="js/Chart.min.js"></script>
         <script type="text/javascript" src="js//switch/bootstrap-switch.js"></script>
         <script type="text/javascript" src="js/jquery-ui.js"></script>
@@ -31,21 +31,21 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
-			
+
         <!-- Calendar -->
         <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css"/>
 <script type="text/javascript" charset="utf8" src="js/jquery-1.11.1.min.js"></script>
 
 		<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-		
+
         <script type="text/javascript" src="js/datatables/tools/js/dataTables.tableTools.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css"/>
 <link rel="stylesheet" type="text/css" href="css/dataTables.responsive.css">
 <script type="text/javascript" language="javascript" src="js/dataTables.responsive.js"></script>
 
 
-	
-			
+
+
 
         <noscript>Tu navegador no soporta JavaScript!</noscript>
 
@@ -98,12 +98,13 @@
                                                 <li><a href="./ReportesCampeonatos.php">Campeonatos</a></li>
                                                 <li><a href="./ReportesCampeonatosFairPlay.php">Juego Limpio</a></li>
                                                 <li><a href="./ReportesGoles.php">Goles</a></li>
+                                                <li><a href="./ReportesAmonestados.php">Amonestados</a></li>
                                                 <!-- <li><a href="./Reportes.php">Carnets</a></li> -->
                                             </ul>
                                         </li>
                                     </ul>
                                 </div>
-                            </div>  
+                            </div>
                             <!-- /sidebar menu -->
                             <!-- /menu footer buttons -->
                             <!-- /menu footer buttons -->

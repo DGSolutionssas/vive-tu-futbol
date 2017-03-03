@@ -11,7 +11,9 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
     require_once '../Utiles/Classes/PHPExcel/IOFactory.php';
     require_once '../Utiles/Classes/PHPExcel.php';
     require_once('../DA/PlantillasDA.php');
+    require_once('../DA/FechasDA.php');
     $db = new PlantillasDA();
+    $dbFechas=new FechasDA();
 
     switch ($action) {
         case 'generarPlantilla' :
@@ -150,6 +152,30 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 $objWriter->save('../Utiles/PlanillaFutbol5Empresas_Generada.xlsx');
                 echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol5Empresas_Generada.xlsx"}';
             }
+            break;
+
+            case 'generarReporteAmonestados':
+            $idCampeonato = $_POST['idCampeonato'];
+
+            $ruta = "../Utiles/ReporteAmonestados.xlsx";
+            $plantilla = PHPExcel_IOFactory::createReader('Excel2007');
+            $plantilla = $plantilla->load($ruta); // Empty Sheet
+            $plantilla->setActiveSheetIndex(0);
+
+            $fechas = $dbFechas->obtenerFechasCampeonato($idCampeonato);
+            $arrayFechas = array();
+            $indicarCeldaFechas = 2;
+            $indicadorLetra=67;//Letra C
+            $plantilla->getActiveSheet();
+
+            for ($i = 0; $i < count($fechas); $i++) {
+              $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetra) . $indicarCeldaFechas, $fechas[$i]['nombrefecha']);
+                    ++$indicadorLetra;
+                }
+            $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
+            $objWriter->save('../Utiles/ReporteAmonestados_Generada.xlsx');
+            echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol5_Generada.xlsx"}';
+
             break;
     }
 }

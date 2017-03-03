@@ -31,12 +31,12 @@ class FechasDA {
             return "";
         }
     }
-	
+
 	function eliminarFecha($idFechaEliminar)
     {
         $resul=mysqli_query($this->db->Connect(),"delete from fechas where idFecha = " . $idFechaEliminar);
     }
-    
+
     function registrarFecha($idCampeonato, $nombreFecha, $fecha)
     {
 		echo "entra a guardar fecha en bd ";
@@ -65,6 +65,23 @@ class FechasDA {
                 array_push($return_arr, $row_array);
             }
             return $return_arr;
+        } else {
+            return "";
+        }
+    }
+
+    function obtenerFechasCampeonato($idCampeonato) {
+        $query = "select f.idfecha as idfecha, f.nombre_fecha as nombrefecha from fechas f inner join campeonatos c on f.idCampeonato = $idCampeonato ORDER BY f.idfecha ASC ";
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+            return $jsonData;
         } else {
             return "";
         }
