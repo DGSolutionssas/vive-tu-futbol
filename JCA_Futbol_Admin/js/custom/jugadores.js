@@ -250,7 +250,15 @@ function cargarTabla() {
                         data: null,
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-info btn-xs" Title="Carnet" OnClick="return generarCarnet(this)"><i class="fa fa-credit-card"></i></a>'
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                    if(SessionPerfil != "JUGADOR")
+                                        return '<a href="#" data-dismiss="modal" class="btn btn-info btn-xs" Title="Carnet" OnClick="return generarCarnet(this)"><i class="fa fa-credit-card"></i></a>';
+                                    else
+                                        return '';
+                            }
+                            return data;
+                        }
                     }
                   ],
             });
@@ -383,7 +391,15 @@ function cargarTablaFiltrada(idEquipoSeleccionado) {
                         data: null,
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-info btn-xs" Title="Carnet" OnClick="return generarCarnet(this)"><i class="fa fa-credit-card"></i></a>'
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                    if(SessionPerfil != "JUGADOR")
+                                        return '<a href="#" data-dismiss="modal" class="btn btn-info btn-xs" Title="Carnet" OnClick="return generarCarnet(this)"><i class="fa fa-credit-card"></i></a>';
+                                    else
+                                        return '';
+                            }
+                            return data;
+                        }
                     }
                   ],
             });
