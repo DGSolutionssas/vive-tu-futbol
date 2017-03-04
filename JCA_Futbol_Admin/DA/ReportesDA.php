@@ -65,6 +65,35 @@ class ReportesDA {
             return "";
         }
     }
+	
+	function fairPlayReportPlayers($idCampeonato) {
+        $query = "select f.IdFecha, e.Nombre as Equipo, j.NombreJugador, 
+		CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END as Amarilla,
+		CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END as Roja,
+		CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END as Azul
+		from resultadodetalle rd
+		inner join resultados r on rd.IdResultado = r.IdResultado
+		inner join equipos e on rd.IdEquipo = e.IdEquipo
+		inner join jugador j on rd.IdJugador = j.IdJugador
+		inner join fechas f on r.IdFecha = f.IdFecha
+		where f.idCampeonato = " . $idCampeonato . 
+		" order by f.nombre_fecha asc;";
+
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
 
     function championshipReportById($idCampeonato, $grupo) {
 		//$query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre,

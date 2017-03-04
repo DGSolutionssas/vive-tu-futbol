@@ -12,8 +12,10 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
     require_once '../Utiles/Classes/PHPExcel.php';
     require_once('../DA/PlantillasDA.php');
     require_once('../DA/FechasDA.php');
+	require_once('../DA/ReportesDA.php');
     $db = new PlantillasDA();
     $dbFechas=new FechasDA();
+	$dbRep=new ReportesDA();
 
     switch ($action) {
         case 'generarPlantilla' :
@@ -169,9 +171,21 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $plantilla->getActiveSheet();
 
             for ($i = 0; $i < count($fechas); $i++) {
-              $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetra) . $indicarCeldaFechas, $fechas[$i]['nombrefecha']);
-                    ++$indicadorLetra;
+				$plantilla->getActiveSheet()->setCellValue(chr($indicadorLetra) . $indicarCeldaFechas, $fechas[$i]['nombrefecha']);
+				++$indicadorLetra;
+			}
+			
+			$juegolimpio = $dbRep->fairPlayReportPlayers($idCampeonato);
+			
+			for ($i = 0; $i < count($fechas); $i++) {
+				for ($j = 0; $j < count($juegolimpio); $j++) {
+					if(intval($fechas[$i]['idfecha']) ==  intval($juegolimpio[$j]['IdFecha'])){
+						$plantilla->getActiveSheet()->setCellValue(chr($indicadorLetra) . $indicarCeldaFechas, $juegolimpio[$j]['Equipo']);
+						++$indicadorLetra;
+					}
                 }
+			}
+			
             $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
             $objWriter->save('../Utiles/ReporteAmonestados_Generada.xlsx');
             echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol5_Generada.xlsx"}';
