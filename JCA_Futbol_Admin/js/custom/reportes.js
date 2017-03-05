@@ -130,11 +130,12 @@ function generarReporteAmonestados()
   jQuery.post('BL/PlantillasBL.php', {action: action, idCampeonato: idCampeonatoSeleccionado,nombreCampeonato:nombreCampeonato}, function (data) {
       if (data.error === 1)
       {
+        $('#myPleaseWait').modal('hide');
       }else
       {
           var obj = JSON.parse(data);
           window.location.href = obj.url;
+          $('#myPleaseWait').modal('hide');
       }
   });
-
 }
