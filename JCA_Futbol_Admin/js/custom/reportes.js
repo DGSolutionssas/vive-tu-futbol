@@ -125,8 +125,9 @@ function generarReporteFairPlayCampeonato()
 function generarReporteAmonestados()
 {
   $('#myPleaseWait').modal('show');
+  var nombreCampeonato=document.getElementById("txtCampeonato").value;
   var action="generarReporteAmonestados";
-  jQuery.post('BL/PlantillasBL.php', {action: action, idCampeonato: idCampeonatoSeleccionado}, function (data) {
+  jQuery.post('BL/PlantillasBL.php', {action: action, idCampeonato: idCampeonatoSeleccionado,nombreCampeonato:nombreCampeonato}, function (data) {
       if (data.error === 1)
       {
       }else

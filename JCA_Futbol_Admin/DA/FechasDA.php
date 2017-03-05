@@ -71,7 +71,9 @@ class FechasDA {
     }
 
     function obtenerFechasCampeonato($idCampeonato) {
-        $query = "select f.idfecha as idfecha, f.nombre_fecha as nombrefecha from fechas f inner join campeonatos c on f.idCampeonato = $idCampeonato ORDER BY f.idfecha ASC ";
+        $query = "	SELECT f.idfecha AS idfecha, f.nombre_fecha AS nombrefecha FROM fechas f
+		INNER JOIN campeonatos c ON f.idCampeonato = c.idCampeonato
+		WHERE f.idcampeonato=$idCampeonato ORDER BY f.idfecha ASC  ";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);

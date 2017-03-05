@@ -65,9 +65,9 @@ class ReportesDA {
             return "";
         }
     }
-	
+
 	function fairPlayReportPlayers($idCampeonato) {
-        $query = "select f.IdFecha, e.Nombre as Equipo, j.NombreJugador, 
+        $query = "select f.IdFecha, UPPER(e.Nombre) as Equipo, UPPER(j.NombreJugador) AS NombreJugador,
 		CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END as Amarilla,
 		CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END as Roja,
 		CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END as Azul
@@ -76,7 +76,7 @@ class ReportesDA {
 		inner join equipos e on rd.IdEquipo = e.IdEquipo
 		inner join jugador j on rd.IdJugador = j.IdJugador
 		inner join fechas f on r.IdFecha = f.IdFecha
-		where f.idCampeonato = " . $idCampeonato . 
+		where f.idCampeonato = " . $idCampeonato .
 		" order by f.nombre_fecha asc;";
 
         mysqli_set_charset($this->db->Connect(), "utf8");

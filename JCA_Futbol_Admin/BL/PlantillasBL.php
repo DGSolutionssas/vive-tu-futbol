@@ -158,6 +158,9 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 
             case 'generarReporteAmonestados':
             $idCampeonato = $_POST['idCampeonato'];
+            $nombreCampeonato = $_POST['nombreCampeonato'];
+
+
 
             $ruta = "../Utiles/ReporteAmonestados.xlsx";
             $plantilla = PHPExcel_IOFactory::createReader('Excel2007');
@@ -166,26 +169,54 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 
             $fechas = $dbFechas->obtenerFechasCampeonato($idCampeonato);
             $arrayFechas = array();
-            $indicarCeldaFechas = 2;
-            $indicadorLetra=67;//Letra C
+            $indicarCeldaFechas = 3;
+            $indicadorLetra=68;//Letra D
             $plantilla->getActiveSheet();
 
             for ($i = 0; $i < count($fechas); $i++) {
-				$plantilla->getActiveSheet()->setCellValue(chr($indicadorLetra) . $indicarCeldaFechas, $fechas[$i]['nombrefecha']);
-				++$indicadorLetra;
-			}
-			
-			$juegolimpio = $dbRep->fairPlayReportPlayers($idCampeonato);
-			
-			for ($i = 0; $i < count($fechas); $i++) {
-				for ($j = 0; $j < count($juegolimpio); $j++) {
-					if(intval($fechas[$i]['idfecha']) ==  intval($juegolimpio[$j]['IdFecha'])){
-						$plantilla->getActiveSheet()->setCellValue(chr($indicadorLetra) . $indicarCeldaFechas, $juegolimpio[$j]['Equipo']);
-						++$indicadorLetra;
-					}
+              $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetra) . $indicarCeldaFechas, $fechas[$i]['nombrefecha']);
+              $plantilla->getActiveSheet()->getStyle(chr($indicadorLetra) . $indicarCeldaFechas)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,'startcolor' => array('rgb' =>'002060')));
+              $plantilla->getActiveSheet()->getStyle(chr($indicadorLetra) . $indicarCeldaFechas)->getFont()->setBold(true);
+              $plantilla->getActiveSheet()->getStyle(chr($indicadorLetra) . $indicarCeldaFechas)->getFont()->getColor()->setRGB('FFFFFF');
+              ++$indicadorLetra;
+            }
+
+            $juegolimpio = $dbRep->fairPlayReportPlayers($idCampeonato);
+
+            $indicadorLetraJugador=65;//Letra A
+            $indicadorCeldaJugador=4;
+            $indicadorLetraFecha=68;//Letra D
+            $numeroJugador=1;
+
+            for ($i = 0; $i < count($fechas); $i++) {
+              for ($j = 0; $j < count($juegolimpio); $j++) {
+                if(intval($fechas[$i]['idfecha']) ==  intval($juegolimpio[$j]['IdFecha'])){
+                  $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraJugador) . $indicadorCeldaJugador, $numeroJugador);
+                  $numeroJugador=$numeroJugador+1;
+                  $indicadorLetraJugador=$indicadorLetraJugador+1;
+                  $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraJugador) . $indicadorCeldaJugador, $juegolimpio[$j]['Equipo']);
+                  $indicadorLetraJugador=$indicadorLetraJugador+1;
+                  $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraJugador) . $indicadorCeldaJugador, $juegolimpio[$j]['NombreJugador']);
+                  $indicadorLetraJugador=$indicadorLetraJugador+1;
+                  $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraFecha) . $indicadorCeldaJugador, ($juegolimpio[$j]['Amarilla']+$juegolimpio[$j]['Roja']+$juegolimpio[$j]['Azul']));
+                  $indicadorLetraJugador=65;
+                  $indicadorCeldaJugador++;
                 }
-			}
-			
+              }
+              $indicadorLetraFecha=$indicadorLetraFecha+1;
+            }
+            //echo('A1:'.chr($indicadorLetraFecha).'1');
+            $letraInicioCampeonato='A';
+            $celdaInicioCampeonato=1;
+            $letraInicioAmonestado='A';
+            $celdaInicioAmonestado=2;
+            $titulo="AMONESTADOS";
+            $plantilla->getActiveSheet()->mergeCells($letraInicioCampeonato.$celdaInicioCampeonato.':'.chr($indicadorLetraFecha-1).'1');
+            $plantilla->getActiveSheet()->getStyle($letraInicioCampeonato. $celdaInicioCampeonato)->getFont()->getColor()->setRGB('FFFFFF');
+            $plantilla->getActiveSheet()->mergeCells($letraInicioAmonestado.$celdaInicioAmonestado.':'.chr($indicadorLetraFecha-1).'2');
+            $plantilla->getActiveSheet()->setCellValue('A1', $nombreCampeonato);
+            $plantilla->getActiveSheet()->setCellValue('A2', $titulo);
+
             $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
             $objWriter->save('../Utiles/ReporteAmonestados_Generada.xlsx');
             echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol5_Generada.xlsx"}';
