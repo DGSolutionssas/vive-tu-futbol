@@ -219,7 +219,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 
             $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
             $objWriter->save('../Utiles/ReporteAmonestados_Generada.xlsx');
-            echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/PlanillaFutbol5_Generada.xlsx"}';
+            echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/ReporteAmonestados_Generada.xlsx"}';
 
             break;
     }
