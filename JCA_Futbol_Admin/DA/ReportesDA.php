@@ -149,7 +149,7 @@ class ReportesDA {
     }
 
 	function goalsReportById($idCampeonato) {
-        $query = "select j.NombreJugador, e.Nombre as nombreEquipo, rd.Goles
+        $query = "select UPPER(j.NombreJugador) as NombreJugador, UPPER(e.Nombre) as nombreEquipo, rd.Goles
 		from resultados r
 		inner join resultadodetalle rd on r.IdResultado = rd.IdResultado
 		inner join jugador j on rd.IdJugador = j.IdJugador
@@ -158,7 +158,6 @@ class ReportesDA {
 		inner join campeonatos c on e.IdCampeonato = c.IdCampeonato
 		where c.IdCampeonato = " . $idCampeonato . " " .
 		"order by rd.Goles desc;";
-
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);

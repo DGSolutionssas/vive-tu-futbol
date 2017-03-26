@@ -160,8 +160,6 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $idCampeonato = $_POST['idCampeonato'];
             $nombreCampeonato = $_POST['nombreCampeonato'];
 
-
-
             $ruta = "../Utiles/ReporteAmonestados.xlsx";
             $plantilla = PHPExcel_IOFactory::createReader('Excel2007');
             $plantilla = $plantilla->load($ruta); // Empty Sheet
@@ -220,7 +218,195 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
             $objWriter->save('../Utiles/ReporteAmonestados_Generada.xlsx');
             echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/ReporteAmonestados_Generada.xlsx"}';
+            break;
+            case 'generarReporteGoles':
+                $idCampeonato = $_POST['idCampeonato'];
+			    $nombreCampeonato = $_POST['nombreCampeonato'];
+                $arrayGoles = $dbRep->goalsReportById($idCampeonato);
+			    $ruta="../Utiles/ReporteGoles.xlsx";
+                $plantilla = PHPExcel_IOFactory::createReader('Excel2007');
+                $plantilla = $plantilla->load($ruta); // Empty Sheet
+                $plantilla->setActiveSheetIndex(0);
+                $plantilla->getActiveSheet();
+                $indicadorCeldaGoleador=5;
+                $indicadorLetraGoleador=66;
+                $numeradorJugador=0;
+                for ($i = 0; $i < count($arrayGoles); $i++) {
+                    $numeradorJugador=$numeradorJugador+1;                  
+                    $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraGoleador) . $indicadorCeldaGoleador, $numeradorJugador);
+                    $indicadorLetraGoleador=$indicadorLetraGoleador+1;
+                    $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraGoleador) . $indicadorCeldaGoleador, $arrayGoles[$i]['NombreJugador']);
+                    $indicadorLetraGoleador=$indicadorLetraGoleador+1;
+                    $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraGoleador) . $indicadorCeldaGoleador, $arrayGoles[$i]['nombreEquipo']);
+                    $indicadorLetraGoleador=$indicadorLetraGoleador+1;
+                    $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraGoleador) . $indicadorCeldaGoleador, $arrayGoles[$i]['Goles']);
+                    $indicadorCeldaGoleador=$indicadorCeldaGoleador+1;
+                    $indicadorLetraGoleador=66;
+                }
+                
+                $plantilla->getActiveSheet()->setCellValue('B1', $nombreCampeonato);
+                
+                $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
+                $objWriter->save('../Utiles/ReporteGoles_Generado.xlsx');
+                echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/ReporteGoles_Generado.xlsx"}';
+            break;
+            case 'generarReporteCampeonato':
+                $idCampeonato = $_POST['idCampeonato'];
+			    $nombreCampeonato = $_POST['nombreCampeonato'];
+                $dbRep->championshipNameById($idCampeonato);
+			    $grupos = $_SESSION['Grupos'];
+                $ruta="../Utiles/ReporteCampeonato.xlsx";
+                $plantilla = PHPExcel_IOFactory::createReader('Excel2007');
+                $plantilla = $plantilla->load($ruta); // Empty Sheet
+                $plantilla->setActiveSheetIndex(0);
+                $plantilla->getActiveSheet();
+                $indicadorCeldaPrueba=0;
+                $indicadorCeldaCampeonato=5;
+                $indicadorLetraCampeonato=66;
+                $indicadorLetraCampeonatoPrueba=66;
+                $indicadorLetraFin=77;
+                
+                $numeradorCampeonato=0;
+                $letragrupo=65;
 
+                for($j = 1; $j<=$grupos;$j++)
+                {
+                    $numeradorCampeonato=0;
+                    $arrayEstadisticas = $dbRep->championshipReportById($idCampeonato, $j);
+                    
+                    $plantilla->getActiveSheet()->mergeCells(chr($indicadorLetraCampeonato).($indicadorCeldaCampeonato-2).':'.chr($indicadorLetraFin).($indicadorCeldaCampeonato-2));
+
+                   
+                    cargarHeader($plantilla, $indicadorLetraCampeonatoPrueba, $indicadorCeldaCampeonato-2,"GRUPO ".chr($letragrupo++),2);
+
+                    $indicadorCeldaPrueba=$indicadorCeldaCampeonato-1;
+                    
+                    cargarHeader($plantilla, $indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"No.",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"EQUIPO",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"PJ",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"PG",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"PE",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"PP",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"GF",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"GC",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"DG",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"JL",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"PW",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"PTOS",1);
+                    $indicadorLetraCampeonatoPrueba=66;
+
+			        for ($i = 0; $i < count($arrayEstadisticas); $i++) {
+                        $numeradorCampeonato=$numeradorCampeonato+1;             
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $numeradorCampeonato);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                      
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['Nombre']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['PJ']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['PG']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['PE']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['PP']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['GF']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['GC']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['DG']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['JL']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['PW']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['PTOS']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        
+                        $indicadorCeldaCampeonato=$indicadorCeldaCampeonato+1;
+                        $indicadorLetraCampeonato=66;
+                    }
+                    $indicadorCeldaCampeonato=$indicadorCeldaCampeonato+3;
+                }
+
+                $plantilla->getActiveSheet()->setCellValue('B1', $nombreCampeonato);
+                
+                $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
+                $objWriter->save('../Utiles/ReporteCampeonato_Generado.xlsx');
+                echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/ReporteCampeonato_Generado.xlsx"}';
+            break;
+              case 'generarReporteJuegoLimpioCampeonato':
+                $idCampeonato = $_POST['idCampeonato'];
+			    $nombreCampeonato = $_POST['nombreCampeonato'];
+                $dbRep->championshipNameById($idCampeonato);
+			    $grupos = $_SESSION['Grupos'];
+                $ruta="../Utiles/ReporteJuegoLimpio.xlsx";
+                $plantilla = PHPExcel_IOFactory::createReader('Excel2007');
+                $plantilla = $plantilla->load($ruta); // Empty Sheet
+                $plantilla->setActiveSheetIndex(0);
+                $plantilla->getActiveSheet();
+                $indicadorCeldaPrueba=0;
+                $indicadorCeldaCampeonato=5;
+                $indicadorLetraCampeonato=66;
+                $indicadorLetraCampeonatoPrueba=66;
+                $indicadorLetraFin=68;
+                
+                $numeradorCampeonato=0;
+                $letragrupo=65;
+
+                for($j = 1; $j<=$grupos;$j++)
+                {
+                    $numeradorCampeonato=0;
+                    $arrayEstadisticas = $dbRep->championshipFairPlayReportById($idCampeonato, $j);
+                    
+                    $plantilla->getActiveSheet()->mergeCells(chr($indicadorLetraCampeonato).($indicadorCeldaCampeonato-2).':'.chr($indicadorLetraFin).($indicadorCeldaCampeonato-2));
+                   
+                    cargarHeader($plantilla, $indicadorLetraCampeonatoPrueba, $indicadorCeldaCampeonato-2,"GRUPO ".chr($letragrupo++),2);
+
+                    $indicadorCeldaPrueba=$indicadorCeldaCampeonato-1;
+                    
+                    cargarHeader($plantilla, $indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"No.",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"EQUIPO",1);
+                    cargarHeader($plantilla, ++$indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,"PTOS",1);
+                    $indicadorLetraCampeonatoPrueba=66;
+
+			        for ($i = 0; $i < count($arrayEstadisticas); $i++) {
+                        $numeradorCampeonato=$numeradorCampeonato+1;             
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $numeradorCampeonato);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                      
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['Equipo']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonato) . $indicadorCeldaCampeonato, $arrayEstadisticas[$i]['ptos']);
+                        $indicadorLetraCampeonato=$indicadorLetraCampeonato+1;
+                        
+                        $indicadorCeldaCampeonato=$indicadorCeldaCampeonato+1;
+                        $indicadorLetraCampeonato=66;
+                    }
+                    $indicadorCeldaCampeonato=$indicadorCeldaCampeonato+3;
+                }
+
+                $plantilla->getActiveSheet()->setCellValue('B1', $nombreCampeonato);
+                
+                $objWriter = PHPExcel_IOFactory::createWriter($plantilla, 'Excel2007');
+                $objWriter->save('../Utiles/ReporteJuegoLimpio_Generado.xlsx');
+                echo '{"error": "2", "url": "http://vivetufutboljca.com/AdminJCA/Utiles/ReporteJuegoLimpio_Generado.xlsx"}';
             break;
     }
 }
+
+    function cargarHeader($plantilla, $indicadorLetraCampeonatoPrueba, $indicadorCeldaPrueba,$texto, $tipo)
+    {
+        $plantilla->getActiveSheet()->getStyle(chr($indicadorLetraCampeonatoPrueba) . $indicadorCeldaPrueba)->getFont()->setBold(true);
+        if($tipo==1)
+        {
+            $plantilla->getActiveSheet()->getStyle(chr($indicadorLetraCampeonatoPrueba) . $indicadorCeldaPrueba)->getFont()->getColor()->setRGB('FFFFFF');
+            $plantilla->getActiveSheet()->getStyle(chr($indicadorLetraCampeonatoPrueba) . $indicadorCeldaPrueba)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,'startcolor' => array('rgb' =>'002060')));
+        }else{
+            $plantilla->getActiveSheet()->getStyle(chr($indicadorLetraCampeonatoPrueba) . $indicadorCeldaPrueba)->getFont()->getColor()->setRGB('000000');
+            $plantilla->getActiveSheet()->getStyle(chr($indicadorLetraCampeonatoPrueba) . $indicadorCeldaPrueba)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,'startcolor' => array('rgb' =>'92D050')));
+        }
+        $plantilla->getActiveSheet()->getStyle(chr($indicadorLetraCampeonatoPrueba) . $indicadorCeldaPrueba)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraCampeonatoPrueba) . $indicadorCeldaPrueba, $texto);
+    }

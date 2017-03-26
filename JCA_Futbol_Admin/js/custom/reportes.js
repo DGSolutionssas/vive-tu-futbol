@@ -51,14 +51,13 @@ function generarReporte()
     jQuery.post('BL/ReportesBL.php', {action: 'obtenerReporte'}, function (data) {
         if (data.error === 1)
         {
+            $('#myPleaseWait').modal('hide');
         }
         else
         {
-           var divResultado=document.getElementById("divResultado");
-           var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-           divResultado.innerHTML+=object;
-            //var win = window.open('', '_blank');
-            //win.location.href = data;
+          var obj = JSON.parse(data);
+          window.location.href = obj.url;
+          $('#myPleaseWait').modal('hide');
         }
     });
 }
@@ -66,17 +65,17 @@ function generarReporte()
 function generarReporteGoles()
 {
 	$('#myPleaseWait').modal('show');
-    jQuery.post('BL/ReportesBL.php', {action: 'generarReporteGoles', idCampeonato: idCampeonatoSeleccionado}, function (data) {
+      var nombreCampeonato=document.getElementById("txtCampeonato").value;
+    jQuery.post('BL/PlantillasBL.php', {action: 'generarReporteGoles', idCampeonato: idCampeonatoSeleccionado, nombreCampeonato:nombreCampeonato}, function (data) {
         if (data.error === 1)
         {
+            $('#myPleaseWait').modal('hide');
         }
         else
         {
-           var divResultado=document.getElementById("divResultado");
-           var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-           divResultado.innerHTML+=object;
-            //var win = window.open('', '_blank');
-            //win.location.href = data;
+          var obj = JSON.parse(data);
+          window.location.href = obj.url;
+          $('#myPleaseWait').modal('hide');
         }
     });
 	$('#myPleaseWait').modal('hide');
@@ -85,17 +84,18 @@ function generarReporteGoles()
 function generarReporteCampeonato()
 {
 	$('#myPleaseWait').modal('show');
-    jQuery.post('BL/ReportesBL.php', {action: 'generarReporteCampeonato', idCampeonato: idCampeonatoSeleccionado}, function (data) {
+    var nombreCampeonato=document.getElementById("txtCampeonato").value;
+
+    jQuery.post('BL/PlantillasBL.php', {action: 'generarReporteCampeonato', idCampeonato: idCampeonatoSeleccionado, nombreCampeonato:nombreCampeonato}, function (data) {
         if (data.error === 1)
         {
+            $('#myPleaseWait').modal('hide');
         }
         else
         {
-           var divResultado=document.getElementById("divResultado");
-           var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-           divResultado.innerHTML+=object;
-            //var win = window.open('', '_blank');
-            //win.location.href = data;
+            var obj = JSON.parse(data);
+            window.location.href = obj.url;
+            $('#myPleaseWait').modal('hide');
         }
     });
 	$('#myPleaseWait').modal('hide');
@@ -104,17 +104,17 @@ function generarReporteCampeonato()
 function generarReporteFairPlayCampeonato()
 {
 	$('#myPleaseWait').modal('show');
-    jQuery.post('BL/ReportesBL.php', {action: 'generarReporteJuegoLimpioCampeonato', idCampeonato: idCampeonatoSeleccionado}, function (data) {
+    var nombreCampeonato=document.getElementById("txtCampeonato").value;
+    jQuery.post('BL/PlantillasBL.php', {action: 'generarReporteJuegoLimpioCampeonato', idCampeonato: idCampeonatoSeleccionado, nombreCampeonato:nombreCampeonato}, function (data) {
         if (data.error === 1)
         {
+            $('#myPleaseWait').modal('hide');
         }
         else
         {
-           var divResultado=document.getElementById("divResultado");
-           var object="<object type='application/pdf' data='"+data+"' width='100%' height='900px'></object>";
-           divResultado.innerHTML+=object;
-            //var win = window.open('', '_blank');
-            //win.location.href = data;
+            var obj = JSON.parse(data);
+            window.location.href = obj.url;
+            $('#myPleaseWait').modal('hide');
         }
     });
 	$('#myPleaseWait').modal('hide');
