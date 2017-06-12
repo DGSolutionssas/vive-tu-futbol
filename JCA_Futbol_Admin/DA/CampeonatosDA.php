@@ -34,6 +34,7 @@ class CampeonatosDA {
     }
 
     function eliminarCampeonato($IdCampeonato) {
+        $resul = mysqli_query($this->db->Connect(), "delete from equipos WHERE idCampeonato =". $IdCampeonato);
         $resul = mysqli_query($this->db->Connect(), "delete from campeonatos where IdCampeonato = " . $IdCampeonato);
     }
 

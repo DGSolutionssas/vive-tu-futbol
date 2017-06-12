@@ -191,20 +191,21 @@ foreach($data as $row)
 function generarCarnetJugador($datos)
 {
     $datosJugador = explode("|", $datos);
-    $this->Image('../img/Frontal.jpg', 70, 8, 65);
+	$this->SetFont('Arial','',8);
+    $this->Image('../img/Frontal.jpg', 70, 8, 95);
     $this->SetTextColor(0);
-    $this->SetXY(91	, 23);
+    $this->SetXY(102, 30.5);
     $this->Cell(0, 0, substr($datosJugador[0],0,15), 0, 0, 'L');
     $this->Ln();
-    $this->SetXY(77.4, 31.3);
+    $this->SetXY(84, 42.5);
     $this->Cell(0, 0,substr($datosJugador[1],0,25), 0, 0, 'L');
     $this->Ln();
-    $this->SetXY(77.8, 35.6);
+    $this->SetXY(84, 48.5);
     $this->Cell(0, 0, substr($datosJugador[2],0,25), 0, 0, 'L');
     $this->Ln();
-    $this->SetXY(77.4, 39.7);
+    $this->SetXY(84, 54);
     $this->Cell(0, 0, $datosJugador[3], 0, 0, 'L');
-    $this->Image('../img/Reverso.jpg', 70, 70, 65);
+    $this->Image('../img/Reverso.jpg', 70, 80, 95);
 }
 
 }

@@ -246,7 +246,7 @@ function cargarTabla() {
                         bSortable: false,
                         defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" Title="Eliminar" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     },
-                    {
+                    /*{
                         data: null,
                         className: "center",
                         bSortable: false,
@@ -259,6 +259,13 @@ function cargarTabla() {
                             }
                             return data;
                         }
+                    }
+					*/
+					{
+                        data: null,
+                        className: "center",
+                        bSortable: false,
+						defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-info btn-xs" Title="Carnet" OnClick="return generarCarnet(this)"><i class="fa fa-credit-card"></i></a>'
                     }
                   ],
             });
@@ -387,6 +394,7 @@ function cargarTablaFiltrada(idEquipoSeleccionado) {
                         bSortable: false,
                         defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-danger btn-xs" Title="Eliminar" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
                     },
+					/*
                     {
                         data: null,
                         className: "center",
@@ -400,6 +408,13 @@ function cargarTablaFiltrada(idEquipoSeleccionado) {
                             }
                             return data;
                         }
+                    }
+					*/
+					{
+                        data: null,
+                        className: "center",
+                        bSortable: false,
+						defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-info btn-xs" Title="Carnet" OnClick="return generarCarnet(this)"><i class="fa fa-credit-card"></i></a>'
                     }
                   ],
             });
