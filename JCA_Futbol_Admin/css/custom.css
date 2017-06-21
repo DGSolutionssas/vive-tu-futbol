@@ -1150,11 +1150,16 @@ legend {
 }
 
 .input-result{
-    width: 450px;
+    width: 400px;
     float: left;
 }
 .input-score{
-    width: 100px;
+    width: 80px;
+    float: left;
+    padding-left: 10px;
+}
+.input-w{
+    width: 60px;
     float: right;
 }
 
