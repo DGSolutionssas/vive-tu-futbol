@@ -32,14 +32,15 @@ class ResultadosDA {
         }
     }
 
-    function guardarResultado($idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2) {
-        $resul = mysqli_query($this->db->Connect(), "INSERT INTO resultados (IdFecha, IdCampeonato, IdEquipo1, IdEquipo2, Goles1, Goles2) VALUES ("
+    function guardarResultado($idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2, $PW) {
+        $resul = mysqli_query($this->db->Connect(), "INSERT INTO resultados (IdFecha, IdCampeonato, IdEquipo1, IdEquipo2, Goles1, Goles2, PW) VALUES ("
                 . $idFecha . ","
                 . $idCampeonato . ","
                 . $IdEquipo1 . ","
                 . $IdEquipo2 . ","
                 . $Goles1 . ","
-                . $Goles2 . ")"
+                . $Goles2 . ","
+                . $PW . ")"
         );
     }
 
@@ -99,8 +100,8 @@ class ResultadosDA {
         );
     }
     
-    function guardarResultadoEditado($IdResultado, $idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2) {
-            $resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha='" . $idFecha . "', IdCampeonato='" . $idCampeonato . "', IdEquipo1='"  . $IdEquipo1 . "', IdEquipo2='" . $IdEquipo2 . "', Goles1='" . $Goles1 . "', Goles2='"  . $Goles2 . "' WHERE IdResultado=".$IdResultado);
+    function guardarResultadoEditado($IdResultado, $idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2, $PW) {
+            $resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha='" . $idFecha . "', IdCampeonato='" . $idCampeonato . "', IdEquipo1='"  . $IdEquipo1 . "', IdEquipo2='" . $IdEquipo2 . "', Goles1='" . $Goles1 . "', Goles2='"  . $Goles2 . "', PW='"  . $PW . "' WHERE IdResultado=".$IdResultado);
         //$resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha=". "'" . $idFecha . "', IdCampeonato=". "'" . //$idCampeonato . "', IdEquipo1="  . $IdEquipo1 . "', IdEquipo2="  . $IdEquipo2 . "', Goles1="  . $Goles1 . "', Goles2="  . $Goles2 //. " WHERE IdResultado=".$IdResultado);
         }
 

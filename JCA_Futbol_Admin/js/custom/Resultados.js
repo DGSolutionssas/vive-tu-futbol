@@ -289,32 +289,115 @@ function guardarResultado(){
     var verdadero = $('#form1').parsley().validate("block1", true);
     if (verdadero)
     {
-        var IdFecha = idFechaSeleccionado;
-        var IdCampeonato = idCampeonatoSeleccionado;
-        var IdEquipo1 = idEquipo1Seleccionado;
-        var IdEquipo2 = idEquipo2Seleccionado;
-        var Goles1 = document.getElementById("txtGoles1").value;
-        var Goles2 = document.getElementById("txtGoles2").value;
-        var action = 'registrarResultado';
-	var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
-	var equipo2=document.getElementById("txtcargaequipo2").value = equipo2=document.getElementById("txtIdEquipo2").value;
-
-        jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, action: action}, function(data) {
-            if (data.error === 1)
+        var Checkwe1 = document.getElementById("chkw1").checked;
+        var Checkwe2 = document.getElementById("chkw2").checked;
+        if ((Checkwe1) && (Checkwe2))
+        {
+            new PNotify({
+                            title: 'Error!',
+                            text: 'No pueden ganar por W dos equipos',
+                            type: 'error'
+                        });
+        }
+        else
+        {
+            if  (Checkwe1)
             {
-            }
+                var IdFecha = idFechaSeleccionado;
+                var IdCampeonato = idCampeonatoSeleccionado;
+                var IdEquipo1 = idEquipo1Seleccionado;
+                var IdEquipo2 = idEquipo2Seleccionado;
+                var Goles1 = 3;
+                var Goles2 = 0;
+                var PW = 1;
+                var action = 'registrarResultado';
+                var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
+                var equipo2=document.getElementById("txtcargaequipo2").value = equipo2=document.getElementById("txtIdEquipo2").value;
+
+                jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, PW: PW,  action: action}, function(data) {
+                if (data.error === 1)
+                    {
+                    }
+                else
+                    {
+                    //alert ("datos enviados " + IdFecha + ", " + IdCampeonato + ", " + IdEquipo1 + ", " + IdEquipo2 + ", " + Goles1 + ", " + Goles2 + ", " + PW);
+                    //$('#VentanaRegistro').modal('hide');
+                        new PNotify({
+                            title: 'Transaccion Exitosa!',
+                            text: 'Resultado Registrado Correctamente',
+                            type: 'success'
+                        });
+                        cargarTabla();
+                    }
+                });
+                $('#VentanaRegistro').modal('hide');
+                cargarTabla();
+            }  
             else
             {
-                //$('#VentanaRegistro').modal('hide');
-                new PNotify({
-                    title: 'Transaccion Exitosa!',
-                    text: 'Resultado Registrado Correctamente',
-                    type: 'success'
-                });
-                cargarTabla();
+                if  (Checkwe2)
+                {
+                    var IdFecha = idFechaSeleccionado;
+                    var IdCampeonato = idCampeonatoSeleccionado;
+                    var IdEquipo1 = idEquipo1Seleccionado;
+                    var IdEquipo2 = idEquipo2Seleccionado;
+                    var Goles1 = 0;
+                    var Goles2 = 3;
+                    var w = 1;
+                    var action = 'registrarResultado';
+                    var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
+                    var equipo2=document.getElementById("txtcargaequipo2").value = equipo2=document.getElementById("txtIdEquipo2").value;
+
+                    jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, PW: w, action: action}, function(data) {
+                    if (data.error === 1)
+                        {
+                        }
+                    else
+                        {
+                        //$('#VentanaRegistro').modal('hide');
+                            new PNotify({
+                                title: 'Transaccion Exitosa!',
+                                text: 'Resultado Registrado Correctamente',
+                                type: 'success'
+                            });
+                           
+                        }
+                    });
+                    $('#VentanaRegistro').modal('hide');
+                    cargarTabla();
+                }
+                else
+                {
+                    var IdFecha = idFechaSeleccionado;
+                    var IdCampeonato = idCampeonatoSeleccionado;
+                    var IdEquipo1 = idEquipo1Seleccionado;
+                    var IdEquipo2 = idEquipo2Seleccionado;
+                    var Goles1 = document.getElementById("txtGoles1").value;
+                    var Goles2 = document.getElementById("txtGoles2").value;
+                    var w = 0;
+                    var action = 'registrarResultado';
+                    var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
+                    var equipo2=document.getElementById("txtcargaequipo2").value = equipo2=document.getElementById("txtIdEquipo2").value;
+
+                    jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, PW: w, action: action}, function(data) {
+                        if (data.error === 1)
+                        {
+                        }
+                        else
+                        {
+                            //$('#VentanaRegistro').modal('hide');
+                            new PNotify({
+                                title: 'Transaccion Exitosa!',
+                                text: 'Resultado Registrado Correctamente',
+                                type: 'success'
+                            });
+                            cargarTabla();
+                        }
+                    });
+                    cargartablaJL();
+                }
             }
-        });
-        cargartablaJL();
+        }
     }
 }
 
@@ -602,35 +685,118 @@ function actualizarresultado() {
     var verdadero = $('#form1').parsley().validate("blockeditar", true);
     if (verdadero)
     {
-        var IdResultadoEditar = idResultadoEditar;
-        var IdFechaEditar = idFechaSeleccionadoEditar;
-        var IdCampeonatoEditar = idCampeonatoSeleccionadoEditar;
-        var IdEquipo1Editar = idEquipo1SeleccionadoEditar;
-        var IdEquipo2Editar = idEquipo2SeleccionadoEditar;
-        var Goles1Editar = document.getElementById("txtGoles1Editar").value;
-        var Goles2Editar = document.getElementById("txtGoles2Editar").value;
-        //alert(IdResultadoEditar + " , " + IdFechaEditar+ " , " +IdCampeonatoEditar+ " , " +IdEquipo1Editar+ " , " +IdEquipo2Editar+ " , " +Goles1Editar+ " , " +Goles2Editar );
-        var action = 'registrarResultadoeditado';
-        var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
-	var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
-
-        jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, action: action}, function(data) {
-            if (data.error === 1)
+	var Checkwe1editar = document.getElementById("chkw1editar").checked;
+        var Checkwe2editar = document.getElementById("chkw2editar").checked;
+        if ((Checkwe1editar) && (Checkwe2editar))
+        {
+            new PNotify({
+                            title: 'Error!',
+                            text: 'No pueden ganar por W dos equipos',
+                            type: 'error'
+                        });
+        }
+	else
+        {
+            if  (Checkwe1editar)
             {
+                var IdResultadoEditar = idResultadoEditar;
+                var IdFechaEditar = idFechaSeleccionadoEditar;
+                var IdCampeonatoEditar = idCampeonatoSeleccionadoEditar;
+                var IdEquipo1Editar = idEquipo1SeleccionadoEditar;
+                var IdEquipo2Editar = idEquipo2SeleccionadoEditar;
+                var Goles1Editar = 3;
+                var Goles2Editar = 0;
+                var PWeditar = 1;
+                var action = 'registrarResultadoeditado';
+                var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
+                var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
+
+                jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, PW: PWeditar, action: action}, function(data) {
+                    if (data.error === 1)
+                    {
+                    }
+                    else
+                    {
+                            //$('#VentanaRegistro').modal('hide');
+                            new PNotify({
+                                    title: 'Transaccion Exitosa!',
+                                    text: 'Resultado Registrado Correctamente',
+                                    type: 'success'
+                            });
+                            cargarTabla();
+                    }
+                });
+                $('#VentanaEditarRegistro').modal('hide');
+                cargarTabla();
             }
             else
             {
-                //$('#VentanaRegistro').modal('hide');
-                new PNotify({
-                    title: 'Transaccion Exitosa!',
-                    text: 'Resultado Registrado Correctamente',
-                    type: 'success'
-                });
-                cargarTabla();
-            }
-        });
-        cargartablaEditarJL();
-    }   
+                if  (Checkwe2editar)
+                {
+                    var IdResultadoEditar = idResultadoEditar;
+                    var IdFechaEditar = idFechaSeleccionadoEditar;
+                    var IdCampeonatoEditar = idCampeonatoSeleccionadoEditar;
+                    var IdEquipo1Editar = idEquipo1SeleccionadoEditar;
+                    var IdEquipo2Editar = idEquipo2SeleccionadoEditar;
+                    var Goles1Editar = 0;
+                    var Goles2Editar = 3;
+                    var PWeditar = 1;
+                    var action = 'registrarResultadoeditado';
+                    var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
+                    var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
+
+                    jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, PW: PWeditar, action: action}, function(data) {
+                            if (data.error === 1)
+                            {
+                            }
+                            else
+                            {
+                                    //$('#VentanaRegistro').modal('hide');
+                                    new PNotify({
+                                            title: 'Transaccion Exitosa!',
+                                            text: 'Resultado Registrado Correctamente',
+                                            type: 'success'
+                                    });
+                                    cargarTabla();
+                            }
+                    });
+                    $('#VentanaEditarRegistro').modal('hide');
+                    cargarTabla();
+                }
+                else
+                {
+                        var IdResultadoEditar = idResultadoEditar;
+                        var IdFechaEditar = idFechaSeleccionadoEditar;
+                        var IdCampeonatoEditar = idCampeonatoSeleccionadoEditar;
+                        var IdEquipo1Editar = idEquipo1SeleccionadoEditar;
+                        var IdEquipo2Editar = idEquipo2SeleccionadoEditar;
+                        var Goles1Editar = document.getElementById("txtGoles1Editar").value;
+                        var Goles2Editar = document.getElementById("txtGoles2Editar").value;
+                        var PWeditar = 0;
+                        var action = 'registrarResultadoeditado';
+                        var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
+                        var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
+
+                        jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, PW: PWeditar, action: action}, function(data) {
+                                if (data.error === 1)
+                                {
+                                }
+                                else
+                                {
+                                        //$('#VentanaRegistro').modal('hide');
+                                        new PNotify({
+                                                title: 'Transaccion Exitosa!',
+                                                text: 'Resultado Registrado Correctamente',
+                                                type: 'success'
+                                        });
+                                        cargarTabla();
+                                }
+                        });
+                        cargartablaEditarJL();
+                }
+	    }
+        }
+    } 
 }
 
 //---------------------------
@@ -698,6 +864,7 @@ $(document).ready(function() {
             idFechaSeleccionadoEditar = ui.item.id;
             document.getElementById("txtIdFechaEditar").value = ui.item.value;
             document.getElementById("txtIdCampeonatoEditar").disabled = false;
+            document.getElementById("chkw1editar").disabled = false;
             return false;
         },
         autoFocus: true,
@@ -735,6 +902,7 @@ $(document).ready(function() {
             document.getElementById("txtIdEquipo1Editar").value = ui.item.value;
             document.getElementById("txtIdEquipo2Editar").disabled = false;
             document.getElementById("txtGoles2Editar").disabled = false;
+            document.getElementById("chkw2editar").disabled = false;
             return false;
         },
         autoFocus: true,
