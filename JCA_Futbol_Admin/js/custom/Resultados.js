@@ -621,7 +621,8 @@ function registrardetalle(lnk) {
         Amarilla = document.getElementById('checkAmarillae1' + IdJugador).checked;
         Azul = document.getElementById('checkAzule1' + IdJugador).checked;
         Roja = document.getElementById('checkRojae1' + IdJugador).checked;
-        if(Goles > 0 || Amarilla || Azul  || Roja ){
+        if(Goles > 0 || Amarilla || Azul  || Roja )
+        {
             var action = 'registrarDetalle';
             jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultado, IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo1, action: action}, function (data) {
             if (data.error === 1)
@@ -637,16 +638,18 @@ function registrardetalle(lnk) {
                 cargartablaJL1();
             }
         });
-        } 
+        }
+        else
+        {
+            cargartablaJL1();
+        }
     }
 }
 
 function registrardetalle1(lnk) {
    var tabla = document.getElementById('tableJL1').rows.length -1;
-    //var cantidad = tabla.rows.Length;
     for(i = 1; i <= tabla; i++){
         var row = document.getElementById('tableJL1').rows[i];
-        //var row = lnk.parentNode.parentNode;
         var rowIndex = row.rowIndex - 1;
         var IdJugador = row.cells[0].innerHTML;
         var IdEquipo2 = idEquipo2Seleccionado;
@@ -654,13 +657,13 @@ function registrardetalle1(lnk) {
         Amarilla = document.getElementById('checkAmarillae2' + IdJugador).checked;
         Azul = document.getElementById('checkAzule2' + IdJugador).checked;
         Roja = document.getElementById('checkRojae2' + IdJugador).checked;
-        if(Goles > 0 || Amarilla || Azul  || Roja ){
+        if(Goles > 0 || Amarilla || Azul  || Roja )
+        {
             var action = 'registrarDetalle';
             jQuery.post('BL/ResultadosBL.php', {IdJugador: IdJugador, Amarilla: Amarilla, Azul: Azul, Roja: Roja, Goles: Goles, IdEquipo: IdEquipo2, action: action}, function (data) {
             if (data.error === 1)
-            {
-                //alert("se jodio esta vaina");
-            } else
+            {} 
+            else
             {
                     new PNotify({
                     title: 'Transaccion Exitosa!',
@@ -670,6 +673,10 @@ function registrardetalle1(lnk) {
                 terminarregistro();
             }
         });
+        }
+        else
+        {
+            terminarregistro();
         }
     }
 }
