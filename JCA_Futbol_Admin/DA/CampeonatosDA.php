@@ -34,8 +34,13 @@ class CampeonatosDA {
     }
 
     function eliminarCampeonato($IdCampeonato) {
-        $resul = mysqli_query($this->db->Connect(), "delete from equipos WHERE idCampeonato =". $IdCampeonato);
-        $resul = mysqli_query($this->db->Connect(), "delete from campeonatos where IdCampeonato = " . $IdCampeonato);
+        $resul = mysqli_query($this->db->Connect(),"DELETE FROM jugador WHERE idJugador IN (SELECT idJugador FROM tblequiposjugadores WHERE idEquipo IN (SELECT IdEquipo FROM EQUIPOS WHERE IdCampeonato=".$IdCampeonato."))");
+        $resul = mysqli_query($this->db->Connect(),"DELETE FROM tblequiposjugadores WHERE IdEquipo IN (SELECT IdEquipo FROM EQUIPOS WHERE IdCampeonato=".$IdCampeonato.")");
+        $resul = mysqli_query($this->db->Connect(),"DELETE FROM fechas WHERE idCampeonato=".$IdCampeonato);
+        $resul = mysqli_query($this->db->Connect(),"DELETE FROM resultadodetalle WHERE IdResultado IN (SELECT idResultado FROM resultados WHERE idCampeonato=".$IdCampeonato.")");
+        $resul = mysqli_query($this->db->Connect(),"DELETE FROM resultados WHERE idCampeonato=".$IdCampeonato);
+        $resul = mysqli_query($this->db->Connect(),"DELETE FROM equipos WHERE idCampeonato=".$IdCampeonato);
+        $resul = mysqli_query($this->db->Connect(),"DELETE FROM campeonatos WHERE idCampeonato=".$IdCampeonato);
     }
 
     function obtenerGruposCampeonato($idCampeonato) {

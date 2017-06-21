@@ -26,9 +26,9 @@ function Eliminar()
                 type: 'success'
             });
             confirmModal.modal('hide');
-            cargarTabla();
         }
     });
+    cargarTabla();
 }
 
 function cargarTabla() {
