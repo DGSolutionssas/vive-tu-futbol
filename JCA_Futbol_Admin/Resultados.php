@@ -63,6 +63,10 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             <label class='control-label'>Goles:</label>
                             <input autocomplete="off" type="number" id="txtGoles1" name="txtGoles1" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-group="block1" class="form-control">
                         </div>
+                        <div class='input-w'>
+                            <label class='control-label'>Gana W:</label>
+                            <input autocomplete="off" type="checkbox" id="chkw1" name="chkw1" data-parsley-group="block1" class="form-control">
+                        </div>
                         <div class='input-result'>
                             <label class='control-label'>Equipo 2:</label>
                             <input autocomplete="off" type="text" id="txtIdEquipo2" name="txtIdEquipo2" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-group="block1" class="form-control">
@@ -70,6 +74,10 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <div class='input-score'>
                             <label class='control-label'>Goles:</label>
                             <input autocomplete="off" type="number" id="txtGoles2" name="txtGoles2" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-group="block1" class="form-control">
+                        </div>
+			<div class='input-w'>
+                            <label class='control-label'>Gana W:</label>
+                            <input autocomplete="off" type="checkbox" id="chkw2" name="chkw2" data-parsley-group="block1" class="form-control">
                         </div>
                     </div>
                     <br><br><br><br><br><br><br>
@@ -191,6 +199,10 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                             <label class='control-label'>Goles:</label>
                             <input autocomplete="off" type="number" id="txtGoles1Editar" disabled="disabled" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
                         </div>
+                        <div class='input-w'>
+                            <label class='control-label'>Gana W:</label>
+                            <input autocomplete="off" type="checkbox" id="chkw1editar" name="chkw1editar" data-parsley-group="blockeditar" class="form-control">
+                        </div>
                         <div class='input-result'>
                             <label class='control-label'>Equipo 2:</label>
                             <input autocomplete="off" type="text" id="txtIdEquipo2Editar" disabled="disabled" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
@@ -198,6 +210,10 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                         <div class='input-score'>
                             <label class='control-label'>Goles:</label>
                             <input autocomplete="off" type="number" id="txtGoles2Editar"  disabled="disabled" data-parsley-required-message="Dato Requerido." data-parsley-group="blockeditar" class="form-control">
+                        </div>
+                        <div class='input-w'>
+                            <label class='control-label'>Gana W:</label>
+                            <input autocomplete="off" type="checkbox" id="chkw2editar" name="chkw2editar" data-parsley-group="blockeditar" class="form-control">
                         </div>
                     </div>
                     <br><br><br><br><br><br><br>
