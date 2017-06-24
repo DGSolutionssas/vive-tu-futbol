@@ -25,6 +25,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 $arrayResultados[$i]['IdEquipo2'] = $resultados[$i]['Equipo_2'];
                 $arrayResultados[$i]['Goles1'] = $resultados[$i]['GolesE1'];
                 $arrayResultados[$i]['Goles2'] = $resultados[$i]['GolesE2'];
+                $arrayResultados[$i]['EquipoGanador'] = $resultados[$i]['EquipoW'];              
             }
             echo json_encode($arrayResultados);
             break;
@@ -32,7 +33,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $file = fopen("archivo.txt", "a");
             fwrite($file, "IdFecha : " . $_POST['IdFecha'] . PHP_EOL);
             fclose($file);
-            $resultado = $db->guardarResultado($_POST['IdFecha'],$_POST['IdCampeonato'],$_POST['IdEquipo1'],$_POST['IdEquipo2'],$_POST['Goles1'],$_POST['Goles2'],$_POST['PW']);
+            $resultado = $db->guardarResultado($_POST['IdFecha'],$_POST['IdCampeonato'],$_POST['IdEquipo1'],$_POST['IdEquipo2'],$_POST['Goles1'],$_POST['Goles2'],$_POST['EquipoGanador'],$_POST['PW']);
             break;
         case 'eliminarResultado':
             $resultados = $db->eliminarResultado($_POST['IdResultado']);
@@ -63,7 +64,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $file = fopen("archivo.txt", "a");
             fwrite($file, "IdFecha : " . $_POST['IdFecha'] . PHP_EOL);
             fclose($file);
-            $resultado = $db->guardarResultadoEditado($_POST['IdResultado'],$_POST['IdFecha'],$_POST['IdCampeonato'],$_POST['IdEquipo1'],$_POST['IdEquipo2'],$_POST['Goles1'],$_POST['Goles2'],$_POST['PW']);
+            $resultado = $db->guardarResultadoEditado($_POST['IdResultado'],$_POST['IdFecha'],$_POST['IdCampeonato'],$_POST['IdEquipo1'],$_POST['IdEquipo2'],$_POST['Goles1'],$_POST['Goles2'],$_POST['EquipoGanador'],$_POST['PW']);
             break;
         case 'obtenerResultadosEditarJL':
             $resultadosJLeditados = $db->obtenerResultadoseditadosJL($_POST['IdResultado'], $_POST['IdEquipo']);

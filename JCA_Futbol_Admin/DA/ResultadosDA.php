@@ -16,7 +16,7 @@ class ResultadosDA {
     }
 
     function obtenerResultados() {
-        $query = "SELECT R.IdResultado AS IdResultado, F.nombre_fecha AS Fecha, C.Campeonato AS Campeonato, E.Nombre AS Equipo_1, E1.Nombre AS Equipo_2, R.Goles1 AS GolesE1, R.Goles2 AS GolesE2 FROM resultados R INNER JOIN fechas F ON R.idFecha=F.IdFecha INNER JOIN campeonatos C ON R.idCampeonato=C.idCampeonato INNER JOIN equipos E ON R.IdEquipo1=E.IdEquipo INNER JOIN equipos E1 ON R.IdEquipo2=E1.IdEquipo ";
+        $query = "SELECT R.IdResultado AS IdResultado, F.nombre_fecha AS Fecha, C.Campeonato AS Campeonato, E.Nombre AS Equipo_1, E1.Nombre AS Equipo_2, R.Goles1 AS GolesE1, R.Goles2 AS GolesE2, R.EquipoGanador AS EquipoW FROM resultados R INNER JOIN fechas F ON R.idFecha=F.IdFecha INNER JOIN campeonatos C ON R.idCampeonato=C.idCampeonato INNER JOIN equipos E ON R.IdEquipo1=E.IdEquipo INNER JOIN equipos E1 ON R.IdEquipo2=E1.IdEquipo ";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -32,14 +32,15 @@ class ResultadosDA {
         }
     }
 
-    function guardarResultado($idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2, $PW) {
-        $resul = mysqli_query($this->db->Connect(), "INSERT INTO resultados (IdFecha, IdCampeonato, IdEquipo1, IdEquipo2, Goles1, Goles2, PW) VALUES ("
+    function guardarResultado($idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2, $EquipoGanador, $PW) {
+        $resul = mysqli_query($this->db->Connect(), "INSERT INTO resultados (IdFecha, IdCampeonato, IdEquipo1, IdEquipo2, Goles1, Goles2, EquipoGanador, PW) VALUES ("
                 . $idFecha . ","
                 . $idCampeonato . ","
                 . $IdEquipo1 . ","
                 . $IdEquipo2 . ","
                 . $Goles1 . ","
                 . $Goles2 . ","
+                . $EquipoGanador . ","
                 . $PW . ")"
         );
     }
@@ -100,8 +101,8 @@ class ResultadosDA {
         );
     }
     
-    function guardarResultadoEditado($IdResultado, $idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2, $PW) {
-            $resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha='" . $idFecha . "', IdCampeonato='" . $idCampeonato . "', IdEquipo1='"  . $IdEquipo1 . "', IdEquipo2='" . $IdEquipo2 . "', Goles1='" . $Goles1 . "', Goles2='"  . $Goles2 . "', PW='"  . $PW . "' WHERE IdResultado=".$IdResultado);
+    function guardarResultadoEditado($IdResultado, $idFecha, $idCampeonato, $IdEquipo1, $IdEquipo2, $Goles1, $Goles2, $EquipoGanador, $PW) {
+            $resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha='" . $idFecha . "', IdCampeonato='" . $idCampeonato . "', IdEquipo1='"  . $IdEquipo1 . "', IdEquipo2='" . $IdEquipo2 . "', Goles1='" . $Goles1 . "', Goles2='"  . $Goles2 . "', EquipoGanador='"  . $EquipoGanador . "', PW='"  . $PW . "' WHERE IdResultado=".$IdResultado);
         //$resul = mysqli_query($this->db->Connect(), "UPDATE resultados SET IdFecha=". "'" . $idFecha . "', IdCampeonato=". "'" . //$idCampeonato . "', IdEquipo1="  . $IdEquipo1 . "', IdEquipo2="  . $IdEquipo2 . "', Goles1="  . $Goles1 . "', Goles2="  . $Goles2 //. " WHERE IdResultado=".$IdResultado);
         }
 

@@ -26,6 +26,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     <th>EQUIPO 2</th>
                     <th>GOLES E1</th>
                     <th>GOLES E2</th>
+                    <th>W</th>
                     <th></th>
                     </tr>
                 </thead>

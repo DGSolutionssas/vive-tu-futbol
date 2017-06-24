@@ -8,6 +8,7 @@ var idFechaSeleccionadoEditar = "";
 var idEquipo1SeleccionadoEditar = "";
 var idEquipo2SeleccionadoEditar = "";
 var idResultadoEditar = "";
+var PWeditar = "";
 
 $(document).ready(function() {
     $('#myPleaseWait').modal('show');
@@ -32,7 +33,7 @@ function obtenerLineaEditar(lnk){
     document.getElementById("txtGoles1Editar").value = row.cells[5].innerHTML;
     idEquipo2SeleccionadoEditar = document.getElementById("txtIdEquipo2Editar").value = row.cells[4].innerHTML;
     document.getElementById("txtGoles2Editar").value = row.cells[6].innerHTML;
-}
+    }
 
 function Eliminar(){
     jQuery.post('BL/ResultadosBL.php', {action: 'eliminarResultado', IdResultado: idResultadoEliminar}, function(data) {
@@ -265,6 +266,21 @@ function cargarTabla() {
                         "width": "auto"
                     },
                     {
+                        'data': 'EquipoGanador',
+                        "sClass": "justify",
+                        "width": "auto",
+                        render: function(data) {
+                                if (data === '2' || data === '1') {
+                                    data = 'SI';
+                                }
+                                else
+                                {
+                                    data = 'NO';
+                                }
+                                return data;
+                            },
+                    },
+                    {
                         data: null,
                         className: "auto",
                         bSortable: false,
@@ -309,12 +325,13 @@ function guardarResultado(){
                 var IdEquipo2 = idEquipo2Seleccionado;
                 var Goles1 = 3;
                 var Goles2 = 0;
+                var EquipoGanador = 1;
                 var PW = 1;
                 var action = 'registrarResultado';
                 var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
                 var equipo2=document.getElementById("txtcargaequipo2").value = equipo2=document.getElementById("txtIdEquipo2").value;
 
-                jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, PW: PW,  action: action}, function(data) {
+                jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, EquipoGanador: EquipoGanador, PW: PW,  action: action}, function(data) {
                 if (data.error === 1)
                     {
                     }
@@ -343,12 +360,13 @@ function guardarResultado(){
                     var IdEquipo2 = idEquipo2Seleccionado;
                     var Goles1 = 0;
                     var Goles2 = 3;
+                    var EquipoGanador = 2;
                     var w = 1;
                     var action = 'registrarResultado';
                     var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
                     var equipo2=document.getElementById("txtcargaequipo2").value = equipo2=document.getElementById("txtIdEquipo2").value;
 
-                    jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, PW: w, action: action}, function(data) {
+                    jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, EquipoGanador: EquipoGanador, PW: w, action: action}, function(data) {
                     if (data.error === 1)
                         {
                         }
@@ -374,12 +392,13 @@ function guardarResultado(){
                     var IdEquipo2 = idEquipo2Seleccionado;
                     var Goles1 = document.getElementById("txtGoles1").value;
                     var Goles2 = document.getElementById("txtGoles2").value;
+                    var EquipoGanador = 0;
                     var w = 0;
                     var action = 'registrarResultado';
                     var equipo1=document.getElementById("txtcargaequipo1").value = equipo1=document.getElementById("txtIdEquipo1").value;
                     var equipo2=document.getElementById("txtcargaequipo2").value = equipo2=document.getElementById("txtIdEquipo2").value;
 
-                    jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, PW: w, action: action}, function(data) {
+                    jQuery.post('BL/ResultadosBL.php', {IdFecha: IdFecha, IdCampeonato: IdCampeonato, IdEquipo1: IdEquipo1, IdEquipo2: IdEquipo2, Goles1: Goles1, Goles2: Goles2, EquipoGanador: EquipoGanador, PW: w, action: action}, function(data) {
                         if (data.error === 1)
                         {
                         }
@@ -713,12 +732,13 @@ function actualizarresultado() {
                 var IdEquipo2Editar = idEquipo2SeleccionadoEditar;
                 var Goles1Editar = 3;
                 var Goles2Editar = 0;
+                var EquipoGanadorEditar = 1;
                 var PWeditar = 1;
                 var action = 'registrarResultadoeditado';
                 var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
                 var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
 
-                jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, PW: PWeditar, action: action}, function(data) {
+                jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, EquipoGanador: EquipoGanadorEditar, PW: PWeditar, action: action}, function(data) {
                     if (data.error === 1)
                     {
                     }
@@ -747,12 +767,13 @@ function actualizarresultado() {
                     var IdEquipo2Editar = idEquipo2SeleccionadoEditar;
                     var Goles1Editar = 0;
                     var Goles2Editar = 3;
+                    var EquipoGanadorEditar = 2;
                     var PWeditar = 1;
                     var action = 'registrarResultadoeditado';
                     var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
                     var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
 
-                    jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, PW: PWeditar, action: action}, function(data) {
+                    jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, EquipoGanador: EquipoGanadorEditar, PW: PWeditar, action: action}, function(data) {
                             if (data.error === 1)
                             {
                             }
@@ -779,12 +800,13 @@ function actualizarresultado() {
                         var IdEquipo2Editar = idEquipo2SeleccionadoEditar;
                         var Goles1Editar = document.getElementById("txtGoles1Editar").value;
                         var Goles2Editar = document.getElementById("txtGoles2Editar").value;
+                        var EquipoGanadorEditar = 0;
                         var PWeditar = 0;
                         var action = 'registrarResultadoeditado';
                         var equipo1editar=document.getElementById("txtcargaequipo1Editar").value = equipo1=document.getElementById("txtIdEquipo1Editar").value;
                         var equipo2editar=document.getElementById("txtcargaequipo2Editar").value = equipo2=document.getElementById("txtIdEquipo2Editar").value;
 
-                        jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, PW: PWeditar, action: action}, function(data) {
+                        jQuery.post('BL/ResultadosBL.php', {IdResultado: IdResultadoEditar, IdFecha: IdFechaEditar, IdCampeonato: IdCampeonatoEditar, IdEquipo1: IdEquipo1Editar, IdEquipo2: IdEquipo2Editar, Goles1: Goles1Editar, Goles2: Goles2Editar, EquipoGanador: EquipoGanadorEditar, PW: PWeditar, action: action}, function(data) {
                                 if (data.error === 1)
                                 {
                                 }
