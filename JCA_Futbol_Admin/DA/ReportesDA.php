@@ -15,25 +15,25 @@ class ReportesDA {
         $this->db = new Connect();
     }
 
-	function championshipNameById($idCampeonato) {
-		$query = "select c.Campeonato, c.Grupos from campeonatos c
+    function championshipNameById($idCampeonato) {
+        $query = "select c.Campeonato, c.Grupos from campeonatos c
 		where c.IdCampeonato = " . $idCampeonato . ";";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
-		$nrows = mysqli_num_rows($resul);
+        $nrows = mysqli_num_rows($resul);
 
         $jsonData = array();
         if ($nrows > 0) {
             while ($row = mysqli_fetch_array($resul)) {
                 $_SESSION['nombreCampeonato'] = $row['Campeonato'];
-				$_SESSION['Grupos'] = $row['Grupos'];
+                $_SESSION['Grupos'] = $row['Grupos'];
             }
         }
     }
 
-	function championshipFairPlayReportById($idCampeonato, $grupo) {
-		//$query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre,
+    function championshipFairPlayReportById($idCampeonato, $grupo) {
+        //$query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre,
         $query = "SELECT EQ.Grupo, EQ.Nombre as Equipo,
 		(SELECT SUM(CASE JL.Amarilla WHEN 1 THEN 2 ELSE 0 END) +
 		SUM(CASE JL.Roja WHEN 1 THEN 10 ELSE 0 END) +
@@ -47,7 +47,7 @@ class ReportesDA {
 		LEFT OUTER JOIN resultados AS EN2 ON EQ.IdEquipo = EN2.IdEquipo2
 		inner join campeonatos as c on EQ.IdCampeonato = c.IdCampeonato
 		where c.IdCampeonato = " . $idCampeonato . " " . "and EQ.Grupo = " . $grupo .
-		" GROUP BY EQ.Nombre, EQ.IdCampeonato, EQ.Grupo, EN1.IdEquipo1, EQ.IdEquipo
+                " GROUP BY EQ.Nombre, EQ.IdCampeonato, EQ.Grupo, EN1.IdEquipo1, EQ.IdEquipo
 		order by ptos desc;";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
@@ -66,7 +66,7 @@ class ReportesDA {
         }
     }
 
-	function fairPlayReportPlayers($idCampeonato) {
+    function fairPlayReportPlayers($idCampeonato) {
         $query = "select f.IdFecha, UPPER(e.Nombre) as Equipo, UPPER(j.NombreJugador) AS NombreJugador,
 		CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END as Amarilla,
 		CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END as Roja,
@@ -77,7 +77,7 @@ class ReportesDA {
 		inner join jugador j on rd.IdJugador = j.IdJugador
 		inner join fechas f on r.IdFecha = f.IdFecha
 		where f.idCampeonato = " . $idCampeonato .
-		" order by f.nombre_fecha asc;";
+                " order by f.nombre_fecha asc;";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
@@ -96,7 +96,7 @@ class ReportesDA {
     }
 
     function championshipReportById($idCampeonato, $grupo) {
-		//$query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre,
+        //$query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre,
         $query = "SELECT EQ.Grupo, EQ.Nombre,
 		COUNT(DISTINCT EN1.IdResultado) + COUNT(DISTINCT EN2.IdResultado) AS PJ,
 		COUNT(CASE WHEN EN1.Goles1 > EN1.Goles2 THEN 1 END) + COUNT(CASE WHEN EN2.Goles2 > EN2.Goles1 THEN 1 END) AS PG,
@@ -110,27 +110,31 @@ class ReportesDA {
 		LEFT OUTER JOIN tblequiposjugadores AS JU ON EQ1.IdEquipo = JU.IdEquipo
 		LEFT OUTER JOIN resultadodetalle AS JL ON JL.IdJugador = JU.IdJugador
 		WHERE (EQ.IdEquipo = EQ1.IdEquipo)) AS JL,
-		COUNT(CASE WHEN EN1.PW = 1 THEN 1 END) + COUNT(CASE WHEN EN2.PW = 1 THEN 1 END) AS PW,
-		(CASE WHEN (SUM(CASE WHEN EN1.PW = 1 THEN 0
+		COUNT(CASE WHEN EN1.EquipoGanador = 1 THEN 1 END) + COUNT(CASE WHEN EN2.EquipoGanador = 2 THEN 1 END) AS PW,
+		(CASE WHEN (SUM(CASE WHEN EN1.EquipoGanador = 1 THEN 3
+		WHEN EN2.EquipoGanador = 2 THEN 0
 		WHEN EN1.Goles1 > EN1.Goles2 THEN 3
 		WHEN EN1.Goles1 = EN1.Goles2 THEN 2
-		WHEN EN1.Goles1 < EN1.Goles2 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN1.PW = 1 THEN 0
+		WHEN EN1.Goles1 < EN1.Goles2 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN1.EquipoGanador = 1 THEN 3
+		WHEN EN2.EquipoGanador = 2 THEN 0
 		WHEN EN1.Goles1 > EN1.Goles2 THEN 3
 		WHEN EN1.Goles1 = EN1.Goles2 THEN 2
-		WHEN EN1.Goles1 < EN1.Goles2 THEN 1 END)) END) + (CASE WHEN (SUM(CASE WHEN EN2.PW = 1 THEN 0
+		WHEN EN1.Goles1 < EN1.Goles2 THEN 1 END)) END) + (CASE WHEN (SUM(CASE WHEN EN2.EquipoGanador = 2 THEN 3
+		WHEN EN2.EquipoGanador = 1 THEN 0
 		WHEN EN2.Goles2 > EN2.Goles1 THEN 3
 		WHEN EN2.Goles2 = EN2.Goles1 THEN 2
-		WHEN EN2.Goles2 < EN2.Goles1 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN2.PW = 1 THEN 0
+		WHEN EN2.Goles2 < EN2.Goles1 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN2.EquipoGanador = 2 THEN 3
+		WHEN EN2.EquipoGanador = 1 THEN 0
 		WHEN EN2.Goles2 > EN2.Goles1 THEN 3
 		WHEN EN2.Goles2 = EN2.Goles1 THEN 2
 		WHEN EN2.Goles2 < EN2.Goles1 THEN 1 END)) END) AS PTOS
 		FROM equipos AS EQ
 		LEFT OUTER JOIN resultados AS EN1 ON EQ.IdEquipo = EN1.IdEquipo1
 		LEFT OUTER JOIN resultados AS EN2 ON EQ.IdEquipo = EN2.IdEquipo2
-		inner join campeonatos as c on EQ.IdCampeonato = c.IdCampeonato
-		where c.IdCampeonato = " . $idCampeonato . " " .
-		"and EQ.Grupo = " . $grupo . " GROUP BY EQ.Nombre, EQ.IdCampeonato, EQ.Grupo, EN1.IdEquipo1, EQ.IdEquipo
-		order by ptos desc;";
+		INNER JOIN campeonatos AS c ON EQ.IdCampeonato = c.IdCampeonato
+		WHERE c.IdCampeonato = " . $idCampeonato . " " .
+                "AND EQ.Grupo =  " . $grupo . " GROUP BY EQ.Nombre, EQ.IdCampeonato, EQ.Grupo, EN1.IdEquipo1, EQ.IdEquipo
+		ORDER BY ptos DESC;";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
@@ -148,7 +152,7 @@ class ReportesDA {
         }
     }
 
-	function goalsReportById($idCampeonato) {
+    function goalsReportById($idCampeonato) {
         $query = "select UPPER(j.NombreJugador) as NombreJugador, UPPER(e.Nombre) as nombreEquipo, rd.Goles
 		from resultados r
 		inner join resultadodetalle rd on r.IdResultado = rd.IdResultado
@@ -157,7 +161,7 @@ class ReportesDA {
 		inner join equipos e on er.IdEquipo = e.IdEquipo
 		inner join campeonatos c on e.IdCampeonato = c.IdCampeonato
 		where c.IdCampeonato = " . $idCampeonato . " " .
-		"order by rd.Goles desc;";
+                "order by rd.Goles desc;";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
@@ -175,27 +179,27 @@ class ReportesDA {
         }
     }
 
-    function datosJugador($idJugador)
-    {
-      $query="SELECT J.Documento AS Documento, UPPER(J.NombreJugador) AS NombreJugador, UPPER(E.Nombre) AS Equipo, UPPER(C.Campeonato) AS Campeonato FROM jugador J
+    function datosJugador($idJugador) {
+        $query = "SELECT J.Documento AS Documento, UPPER(J.NombreJugador) AS NombreJugador, UPPER(E.Nombre) AS Equipo, UPPER(C.Campeonato) AS Campeonato FROM jugador J
               INNER JOIN tblequiposjugadores EJ ON J.IdJugador=EJ.IdJugador
               INNER JOIN equipos E ON EJ.IdEquipo = E.IdEquipo
               INNER JOIN campeonatos C ON E.IdCampeonato=C.IdCampeonato
               WHERE J.IdJugador=$idJugador
               LIMIT 1";
 
-      mysqli_set_charset($this->db->Connect(), "utf8");
-      $resul = mysqli_query($this->db->Connect(), $query);
-      $nrows = mysqli_num_rows($resul);
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
 
-      $jsonData = array();
-      if ($nrows > 0) {
-        while ($row = mysqli_fetch_array($resul)) {
-          $jsonData[] = $row;
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+            return $jsonData;
+        } else {
+            return "";
         }
-        return $jsonData;
-      }else{
-        return "";
-      }
     }
-  }
+
+}
