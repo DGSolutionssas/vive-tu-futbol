@@ -67,18 +67,152 @@ class ReportesDA {
     }
 
     function fairPlayReportPlayers($idCampeonato) {
-        $query = "select f.IdFecha, UPPER(e.Nombre) as Equipo, UPPER(j.NombreJugador) AS NombreJugador,
-		CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END as Amarilla,
-		CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END as Roja,
-		CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END as Azul
-		from resultadodetalle rd
-		inner join resultados r on rd.IdResultado = r.IdResultado
-		inner join equipos e on rd.IdEquipo = e.IdEquipo
-		inner join jugador j on rd.IdJugador = j.IdJugador
-		inner join fechas f on r.IdFecha = f.IdFecha
-		where f.idCampeonato = " . $idCampeonato .
-                " order by f.nombre_fecha asc;";
+        /* $query = "select DISTINCT f.IdFecha, UPPER(e.Nombre) as Equipo, UPPER(j.NombreJugador) AS NombreJugador,
+          CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END as Amarilla,
+          CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END as Roja,
+          CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END as Azul,
+          J.idJugador AS IdJugador
+          from resultadodetalle rd
+          inner join resultados r on rd.IdResultado = r.IdResultado
+          inner join equipos e on rd.IdEquipo = e.IdEquipo
+          inner join jugador j on rd.IdJugador = j.IdJugador
+          inner join fechas f on r.IdFecha = f.IdFecha
+          where f.idCampeonato = " . $idCampeonato .
+          " AND j.idJugador in (75,76) order by f.nombre_fecha asc;";
+         * */
+        $query = "SELECT DISTINCT f.IdFecha, UPPER(e.Nombre) AS Equipo, UPPER(j.NombreJugador) AS NombreJugador,
+CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END AS Amarilla,
+CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END AS Roja,
+CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END AS Azul,
+J.idJugador AS IdJugador
+FROM resultadodetalle rd
+INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
+INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
+INNER JOIN jugador j ON rd.IdJugador = j.IdJugador
+INNER JOIN fechas f ON r.IdFecha = f.IdFecha
+WHERE f.idCampeonato = " . $idCampeonato . " 
+AND (rd.Roja != 0  OR rd.Amarilla != 0 OR rd.Azul != 0)".
+//AND j.idJugador IN (75,76,80,734,150) 
+" ORDER BY IdJugador,IdFecha ASC;";
 
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
+
+    function seleccionarJugadores($idCampeonato) {
+        $query = "SELECT DISTINCT
+J.idJugador AS IdJugador
+FROM resultadodetalle rd
+INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
+INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
+INNER JOIN jugador j ON rd.IdJugador = j.IdJugador
+INNER JOIN fechas f ON r.IdFecha = f.IdFecha
+WHERE f.idCampeonato IN ($idCampeonato)
+AND (rd.Roja != 0  OR rd.Amarilla != 0 OR rd.Azul != 0)".
+//AND j.idJugador IN (75,76,80,734,150) 
+" ORDER BY IdJugador ASC;";
+
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
+
+    function datosJugadorAmonestado($idJugador,$idCampeonato) {
+        $query = "SELECT DISTINCT UPPER(e.Nombre) AS Equipo, UPPER(j.NombreJugador) AS NombreJugador,
+J.idJugador AS IdJugador
+FROM resultadodetalle rd
+INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
+INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
+INNER JOIN jugador j ON rd.IdJugador = j.IdJugador
+INNER JOIN fechas f ON r.IdFecha = f.IdFecha
+WHERE f.idCampeonato=$idCampeonato
+AND j.idJugador = $idJugador";
+
+        mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
+    
+    function reporteTarjetas($idCampeonato, $idJugador)
+    {
+        $query="SELECT DISTINCT f.IdFecha, CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END AS Amarilla,
+CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END AS Roja,
+CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END AS Azul,
+J.idJugador AS IdJugador
+FROM resultadodetalle rd
+INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
+INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
+INNER JOIN jugador j ON rd.IdJugador = j.IdJugador
+INNER JOIN fechas f ON r.IdFecha = f.IdFecha
+WHERE f.idCampeonato IN ($idCampeonato)
+AND (rd.Roja != 0  OR rd.Amarilla != 0 OR rd.Azul != 0)
+AND j.idJugador =$idJugador 
+ORDER BY IdJugador,IdFecha ASC;";
+        
+         mysqli_set_charset($this->db->Connect(), "utf8");
+        $resul = mysqli_query($this->db->Connect(), $query);
+        $nrows = mysqli_num_rows($resul);
+
+        $jsonData = array();
+        if ($nrows > 0) {
+            while ($row = mysqli_fetch_array($resul)) {
+                $jsonData[] = $row;
+            }
+
+            return $jsonData;
+        } else {
+            return "";
+        }
+    }
+
+    function fairPlayReportPlayersforPlayer($idCampeonato, $idJugador, $idFecha) {
+        $query = "SELECT IdFecha, Equipo, NombreJugador, Amarilla, Roja, Azul, IdJugador
+             FROM (SELECT f.IdFecha, UPPER(e.Nombre) AS Equipo, UPPER(j.NombreJugador) AS NombreJugador,
+		CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END AS Amarilla,
+		CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END AS Roja,
+		CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END AS Azul,
+		J.idJugador AS IdJugador
+		FROM resultadodetalle rd
+		INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
+		INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
+		INNER JOIN jugador j ON rd.IdJugador = j.IdJugador
+		INNER JOIN fechas f ON r.IdFecha = f.IdFecha
+		WHERE f.idCampeonato = " . $idCampeonato . " ORDER BY idFecha ASC) nuevo 
+		WHERE IdJugador=" . $idJugador . " AND IdFecha=" . $idFecha . ";";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -115,19 +249,19 @@ class ReportesDA {
 		WHEN EN2.EquipoGanador = 2 THEN 0
 		WHEN EN1.Goles1 > EN1.Goles2 THEN 3
 		WHEN EN1.Goles1 = EN1.Goles2 THEN 2
-		WHEN EN1.Goles1 < EN1.Goles2 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN1.EquipoGanador = 1 THEN 3
+		WHEN EN1.Goles1 < EN1.Goles2 AND EN1.EquipoGanador=0 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN1.EquipoGanador = 1 THEN 3
 		WHEN EN2.EquipoGanador = 2 THEN 0
 		WHEN EN1.Goles1 > EN1.Goles2 THEN 3
 		WHEN EN1.Goles1 = EN1.Goles2 THEN 2
-		WHEN EN1.Goles1 < EN1.Goles2 THEN 1 END)) END) + (CASE WHEN (SUM(CASE WHEN EN2.EquipoGanador = 2 THEN 3
+		WHEN EN1.Goles1 < EN1.Goles2 AND EN1.EquipoGanador=0 THEN 1 END)) END) + (CASE WHEN (SUM(CASE WHEN EN2.EquipoGanador = 2 THEN 3
 		WHEN EN2.EquipoGanador = 1 THEN 0
 		WHEN EN2.Goles2 > EN2.Goles1 THEN 3
 		WHEN EN2.Goles2 = EN2.Goles1 THEN 2
-		WHEN EN2.Goles2 < EN2.Goles1 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN2.EquipoGanador = 2 THEN 3
+		WHEN EN2.Goles2 < EN2.Goles1 AND EN2.EquipoGanador=0 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN2.EquipoGanador = 2 THEN 3
 		WHEN EN2.EquipoGanador = 1 THEN 0
 		WHEN EN2.Goles2 > EN2.Goles1 THEN 3
 		WHEN EN2.Goles2 = EN2.Goles1 THEN 2
-		WHEN EN2.Goles2 < EN2.Goles1 THEN 1 END)) END) AS PTOS
+		WHEN EN2.Goles2 < EN2.Goles1 AND EN2.EquipoGanador=0 THEN 1 END)) END) AS PTOS
 		FROM equipos AS EQ
 		LEFT OUTER JOIN resultados AS EN1 ON EQ.IdEquipo = EN1.IdEquipo1
 		LEFT OUTER JOIN resultados AS EN2 ON EQ.IdEquipo = EN2.IdEquipo2
@@ -153,7 +287,7 @@ class ReportesDA {
     }
 
     function goalsReportById($idCampeonato) {
-        $query = "select UPPER(j.NombreJugador) as NombreJugador, UPPER(e.Nombre) as nombreEquipo, rd.Goles
+        $query = "select UPPER(j.NombreJugador) as NombreJugador, UPPER(e.Nombre) as nombreEquipo, SUM( rd.Goles ) AS Goles
 		from resultados r
 		inner join resultadodetalle rd on r.IdResultado = rd.IdResultado
 		inner join jugador j on rd.IdJugador = j.IdJugador
@@ -161,7 +295,7 @@ class ReportesDA {
 		inner join equipos e on er.IdEquipo = e.IdEquipo
 		inner join campeonatos c on e.IdCampeonato = c.IdCampeonato
 		where c.IdCampeonato = " . $idCampeonato . " " .
-                "order by rd.Goles desc;";
+                "GROUP BY NombreJugador, nombreEquipo ORDER BY Goles DESC;";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);

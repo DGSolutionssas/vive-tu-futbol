@@ -1377,8 +1377,19 @@ function ObtenerDetalles(lnk){
     document.getElementById("GolesE1Detalle").value = row.cells[5].innerHTML;
     Equipo2Detalle = document.getElementById("Equipo2Detalle").value = row.cells[4].innerHTML;
     document.getElementById("GolesE2Detalle").value = row.cells[6].innerHTML;
-    //var tabla = $('#tabledetallesgolese1').dataTable();
-    //tabla.empty();
+
+     var dataTable1=$('#tabledetallesgolese1').dataTable();
+    
+    dataTable1.fnClearTable();
+    dataTable1.fnDraw();
+    dataTable1.fnDestroy();
+    
+     var dataTable2=$('#tabledetallesgolese2').dataTable();
+    
+    dataTable2.fnClearTable();
+    dataTable2.fnDraw();
+    dataTable2.fnDestroy();
+    
     $.ajax({
             type: "post",
             dataType: "json",
@@ -1389,7 +1400,7 @@ function ObtenerDetalles(lnk){
                     "bPaginate": false,
                     "bFilter": false,
                     "bInfo":false,
-                    "bDestroy":true,
+                        
                     "bAutoWidth": false,
                     data: data,
                     columns: [{

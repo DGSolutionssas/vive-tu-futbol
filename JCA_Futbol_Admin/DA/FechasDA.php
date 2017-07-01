@@ -39,11 +39,11 @@ class FechasDA {
 
     function registrarFecha($idCampeonato, $nombreFecha, $fecha)
     {
-		echo "entra a guardar fecha en bd ";
-		echo "INSERT INTO fechas (nombre_fecha, fecha, idCampeonato) VALUES ("
-                . "'" . $nombreFecha . "',"
-                . "'" . $fecha . "',"
-                . $idCampeonato . ")";
+//		echo "entra a guardar fecha en bd ";
+//		echo "INSERT INTO fechas (nombre_fecha, fecha, idCampeonato) VALUES ("
+//                . "'" . $nombreFecha . "',"
+//                . "'" . $fecha . "',"
+//                . $idCampeonato . ")";
         $resul = mysqli_query($this->db->Connect(), "INSERT INTO fechas (nombre_fecha, fecha, idCampeonato) VALUES ("
                 . "'" . $nombreFecha . "',"
                 . "'" . $fecha . "',"
