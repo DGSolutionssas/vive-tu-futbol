@@ -84,7 +84,7 @@ class ReportesDA {
 CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END AS Amarilla,
 CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END AS Roja,
 CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END AS Azul,
-J.idJugador AS IdJugador
+j.idJugador AS IdJugador
 FROM resultadodetalle rd
 INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
 INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
@@ -113,7 +113,7 @@ AND (rd.Roja != 0  OR rd.Amarilla != 0 OR rd.Azul != 0)".
 
     function seleccionarJugadores($idCampeonato) {
         $query = "SELECT DISTINCT
-J.idJugador AS IdJugador
+j.idJugador AS IdJugador
 FROM resultadodetalle rd
 INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
 INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
@@ -142,7 +142,7 @@ AND (rd.Roja != 0  OR rd.Amarilla != 0 OR rd.Azul != 0)".
 
     function datosJugadorAmonestado($idJugador,$idCampeonato) {
         $query = "SELECT DISTINCT UPPER(e.Nombre) AS Equipo, UPPER(j.NombreJugador) AS NombreJugador,
-J.idJugador AS IdJugador
+j.idJugador AS IdJugador
 FROM resultadodetalle rd
 INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
 INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
@@ -172,7 +172,7 @@ AND j.idJugador = $idJugador";
         $query="SELECT DISTINCT f.IdFecha, CASE rd.Amarilla WHEN 1 THEN 2 ELSE 0 END AS Amarilla,
 CASE rd.Roja WHEN 1 THEN 10 ELSE 0 END AS Roja,
 CASE rd.Azul WHEN 1 THEN 4 ELSE 0 END AS Azul,
-J.idJugador AS IdJugador
+j.idJugador AS IdJugador
 FROM resultadodetalle rd
 INNER JOIN resultados r ON rd.IdResultado = r.IdResultado
 INNER JOIN equipos e ON rd.IdEquipo = e.IdEquipo
