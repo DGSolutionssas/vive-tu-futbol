@@ -51,7 +51,7 @@ class ResultadosDA {
     }
 
     function obtenerResultadosJL($IdEquipo1) {
-        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.IdJugador=J.IdJugador WHERE EJ.IdEquipo= $IdEquipo1 ";
+        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.IdJugador=J.IdJugador WHERE EJ.IdEquipo= ". $IdEquipo1 . " AND J.Activo = 1";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -68,7 +68,7 @@ class ResultadosDA {
     }
 
     function obtenerResultadosJL1($IdEquipo2) {
-        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.IdJugador=J.IdJugador WHERE EJ.IdEquipo= $IdEquipo2 ";
+        $query = "SELECT J.IdJugador AS id, J.NombreJugador AS nombre FROM tblequiposjugadores EJ INNER JOIN jugador J ON EJ.IdJugador=J.IdJugador WHERE EJ.IdEquipo= " . $IdEquipo2 . "AND J.Activo = 1";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);

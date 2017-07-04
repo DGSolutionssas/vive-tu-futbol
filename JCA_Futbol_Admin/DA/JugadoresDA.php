@@ -16,7 +16,7 @@ class JugadoresDA {
     function obtenerJugadores() {
         //var imagen = 'CONCAT('<img src="Uploads/',Url,'"" class="img-circle profile_img2">')''''';
         $query = "SELECT J.IdJugador AS IdJugador, J.NombreJugador AS NombreJugador, J.Documento AS Documento, J.CorreoElectronico AS CorreoElectronico, J.Celular AS Celular, IF(J.DirectorTecnico=0,' ','checked' )AS DT, IF(J.Delegado=0,' ','checked') As Delegado, IF(J.RepresentanteLegal=0,' ','checked') As RepresentanteLegal,Url AS Url
-        FROM jugador J ";
+        FROM jugador J WHERE J.Activo = 1";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -38,7 +38,7 @@ class JugadoresDA {
         $query = "SELECT J.IdJugador AS IdJugador, J.NombreJugador AS NombreJugador, J.Documento AS Documento, J.CorreoElectronico AS CorreoElectronico, J.Celular AS Celular, IF(J.DirectorTecnico=0,' ','checked' )AS DT, IF(J.Delegado=0,' ','checked') As Delegado, IF(J.RepresentanteLegal=0,' ','checked') As RepresentanteLegal,Url AS Url
         FROM jugador J
         INNER JOIN tblequiposjugadores T ON J.IdJugador = T.IdJugador
-        WHERE T.IdEquipo = ".$idEquipo;
+        WHERE T.IdEquipo = ".$idEquipo. " AND J.Activo = 1";
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
         $nrows = mysqli_num_rows($resul);
@@ -56,8 +56,8 @@ class JugadoresDA {
 
 	function eliminarJugador($idJugadorEliminar)
     {
-        $resul=mysqli_query($this->db->Connect(),"DELETE FROM jugador WHERE IdJugador = " . $idJugadorEliminar);
-        $resul2=mysqli_query($this->db->Connect(),"DELETE FROM tblequiposjugadores WHERE IdJugador =  " . $idJugadorEliminar);
+        $resul=mysqli_query($this->db->Connect(),"UPDATE Jugador SET Activo = 0 WHERE IdJugador = " . $idJugadorEliminar);
+        //$resul2=mysqli_query($this->db->Connect(),"DELETE FROM tblequiposjugadores WHERE IdJugador =  " . $idJugadorEliminar);
     }
 
     function registrarJugador($NombreJugador, $Documento, $CorreoElectronico, $Celular, $DirectorTecnico, $Delegado, $RepresentanteLegal,$Url,$idEquipoSeleccionado)
@@ -145,7 +145,8 @@ class JugadoresDA {
     function cantidadJugadores($idEquipoSeleccionado)
     {
 
-      $query="SELECT COUNT(*) AS CantidadRegistrados,(SELECT C.CantidadJugadores FROM campeonatos C INNER JOIN equipos E ON C.idCampeonato = E.idCampeonato WHERE E.IdEquipo=".$idEquipoSeleccionado.") AS CantidadMaxima FROM tblequiposjugadores WHERE IdEquipo=".$idEquipoSeleccionado;
+      $query="SELECT COUNT(*) AS CantidadRegistrados,(SELECT C.CantidadJugadores FROM campeonatos C INNER JOIN equipos E ON C.idCampeonato = E.idCampeonato WHERE E.IdEquipo=".$idEquipoSeleccionado.") AS CantidadMaxima "
+              . "FROM tblequiposjugadores TEJ INNER JOIN jugador J ON TEJ.IdJugador=J.IdJugador WHERE TEJ.IdEquipo=".$idEquipoSeleccionado." AND J.Activo=1";
         mysqli_set_charset($this->db->Connect(), "utf8");
        $resul = mysqli_query($this->db->Connect(), $query);
        $nrows = mysqli_num_rows($resul);
