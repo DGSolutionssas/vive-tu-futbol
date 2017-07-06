@@ -31,11 +31,12 @@ function obtenerLineaEditar(lnk){
     idFechaSeleccionadoEditar = document.getElementById("txtIdFechaEditar").value = row.cells[1].innerHTML;
     idCampeonatoSeleccionadoEditar = document.getElementById("txtIdCampeonatoEditar").value = row.cells[2].innerHTML;
     idEquipo1SeleccionadoEditar= document.getElementById("txtIdEquipo1Editar").value = row.cells[3].innerHTML;
+    equipo1=row.cells[5].innerHTML;
+    equipo2=row.cells[6].innerHTML;
     document.getElementById("txtGoles1Editar").value = row.cells[5].innerHTML;
     idEquipo2SeleccionadoEditar = document.getElementById("txtIdEquipo2Editar").value = row.cells[4].innerHTML;
     document.getElementById("txtGoles2Editar").value = row.cells[6].innerHTML;
-	
-	hubow = row.cells[7].innerHTML;
+    hubow = row.cells[7].innerHTML;
     hubo = "SI";
     if ((hubow===hubo) && equipo1 == 3)
     {
