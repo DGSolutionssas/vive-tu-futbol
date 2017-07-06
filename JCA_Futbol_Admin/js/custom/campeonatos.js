@@ -1,4 +1,5 @@
 var idCampeonatoEliminar = "";
+var idCampeonatoEditar="";
 var idCampeonato = "";
 $(document).ready(function () {
     $('#myPleaseWait').modal('show');
@@ -116,7 +117,7 @@ function cargarTabla() {
                         data: null,
                         className: "center",
                         bSortable: false,
-                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-plus"></i> Equipos</a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a>'
+                        defaultContent: '<a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" OnClick="return registrarEquipoModal(this)"><i class="fa fa-plus"></i> Equipos</a><a href="#" data-dismiss="modal" title="Eliminar" class="btn btn-danger btn-xs" OnClick="return obtenerLineaEliminar(this)"><i class="fa fa-trash-o"></i></a><a href="#" data-dismiss="modal" class="btn btn-warning btn-xs" Title="Editar" OnClick="return obtenerLineaEditar(this)"><i class="fa fa-pencil-square-o"></i></a>'
                     }],
             });
             $('#myPleaseWait').modal('hide');
@@ -223,4 +224,46 @@ function guardarCampeonato()
             }
         });
     }
+}
+
+function editarCampeonato()
+{
+    var verdadero =$('#form1').parsley().validate('blockEditar',true);
+    if(verdadero)
+    {
+        var campeonato=document.getElementById('txtCampeonatoEditar').value;        
+        var descripcion = document.getElementById("txtDescripcionEditar").value;
+        var grupos = document.getElementById("txtGruposEditar").value;
+        var equipos = document.getElementById("txtEquiposEditar").value;
+        var cantidadJugadores = document.getElementById("txtCantidadJugadoresEditar").value;
+        var action = 'editarCampeonato';
+        
+         jQuery.post('BL/CampeonatosBL.php', {idCampeonato:idCampeonatoEditar,campeonato: campeonato, descripcion: descripcion, grupos: grupos, equipos: equipos, action: action, cantidadJugadores:cantidadJugadores}, function (data) {
+            if (data.error === 1)
+            {
+            } else
+            {
+                $('#VentanaEditar').modal('hide');
+                new PNotify({
+                    title: 'Transaccion Exitosa!',
+                    text: 'Campeonato Actualizado Correctamente',
+                    type: 'success'
+                });
+                cargarTabla();
+            }
+        });
+    }
+}
+
+function obtenerLineaEditar(lnk)
+{
+    var row = lnk.parentNode.parentNode;
+    var rowIndex = row.rowIndex - 1;
+    idCampeonatoEditar = row.cells[0].innerHTML;
+    $('#VentanaEditar').modal('show');
+    document.getElementById("txtCampeonatoEditar").value = row.cells[1].innerHTML;
+    document.getElementById("txtDescripcionEditar").value = row.cells[2].innerHTML;
+    document.getElementById("txtGruposEditar").value = row.cells[3].innerHTML;
+    document.getElementById("txtEquiposEditar").value = row.cells[4].innerHTML;
+    document.getElementById("txtCantidadJugadoresEditar").value = row.cells[5].innerHTML;
 }

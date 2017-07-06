@@ -23,6 +23,7 @@ function obtenerLineaEliminar(lnk){
 }
 
 function obtenerLineaEditar(lnk){
+    disableeditar();
     var row = lnk.parentNode.parentNode;
     var rowIndex = row.rowIndex - 1;
     idResultadoEditar = row.cells[0].innerHTML;
@@ -33,6 +34,25 @@ function obtenerLineaEditar(lnk){
     document.getElementById("txtGoles1Editar").value = row.cells[5].innerHTML;
     idEquipo2SeleccionadoEditar = document.getElementById("txtIdEquipo2Editar").value = row.cells[4].innerHTML;
     document.getElementById("txtGoles2Editar").value = row.cells[6].innerHTML;
+	
+	hubow = row.cells[7].innerHTML;
+    hubo = "SI";
+    if ((hubow===hubo) && equipo1 == 3)
+    {
+        document.getElementById("chkw1editar").checked = true;
+    }
+    else
+    {
+        if ((hubow===hubo) && equipo2 == 3)
+        {
+            document.getElementById("chkw2editar").checked = true;
+        }
+        else
+        {
+            document.getElementById("chkw1editar").checked = false;
+            document.getElementById("chkw2editar").checked = false;
+        }
+    }
     }
 
 function Eliminar(){
@@ -1543,4 +1563,18 @@ function ObtenerDetalles(lnk){
 function terminarconsulta(){
     $('#VerDetalles').modal('hide');
     cargarTabla();
+}
+
+
+function disableeditar()
+{
+    document.getElementById("txtIdCampeonatoEditar").disabled = true;
+    document.getElementById("chkw1editar").disabled = true;
+    document.getElementById("txtIdEquipo1Editar").disabled = true;
+    document.getElementById("txtGoles1Editar").disabled = true;
+    document.getElementById("chkw1editar").disabled = true;
+    document.getElementById("txtIdEquipo2Editar").disabled = true;
+    document.getElementById("chkw2editar").disabled = true;
+    document.getElementById("txtGoles2Editar").disabled = true;
+    document.getElementById("ContinuaEdicion").disabled = true;
 }

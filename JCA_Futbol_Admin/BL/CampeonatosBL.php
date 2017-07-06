@@ -48,9 +48,18 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             $list = $db->autocompletarCampeonato($campeonato);
             echo json_encode($list);
             break;
-		case 'eliminarCampeonato':
+        case 'eliminarCampeonato':
             $campeonatos = $db->eliminarCampeonato($_POST['IdCampeonato']);
             echo '{"error": "2", "descripcion": "Se elimino correctamente el Campeonato"}';
-        break;
+            break;
+        case 'editarCampeonato':
+            $dtoCampeonato->setIdCampeonato($_POST['idCampeonato']);
+            $dtoCampeonato->setCampeonato($_POST['campeonato']);
+            $dtoCampeonato->setDescripcion($_POST['descripcion']);
+            $dtoCampeonato->setGrupos($_POST['grupos']);
+            $dtoCampeonato->setEquipos($_POST['equipos']);
+            $dtoCampeonato->setCantidadJugadores($_POST['cantidadJugadores']);
+            $campeonatos=$db->actualizarCampeonato($dtoCampeonato);
+            break;
     }
 }

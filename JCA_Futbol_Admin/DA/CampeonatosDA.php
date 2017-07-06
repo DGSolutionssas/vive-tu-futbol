@@ -90,5 +90,15 @@ class CampeonatosDA {
             return "";
         }
     }
-
+    
+     function actualizarCampeonato(CampeonatosDTO $dtoCampeonato) {
+         
+        $resul = mysqli_query($this->db->Connect(), "UPDATE campeonatos SET "
+                . " Campeonato ='".$dtoCampeonato->getCampeonato()."'"
+                . " ,Descripcion='".$dtoCampeonato->getDescripcion()."'"
+                . " ,Grupos=".$dtoCampeonato->getGrupos()
+                . " ,Equipos=".$dtoCampeonato->getEquipos()
+                . " ,CantidadJugadores=".$dtoCampeonato->getCantidadJugadores()
+                . " WHERE IdCampeonato=".$dtoCampeonato->getIdCampeonato());
+     }
 }

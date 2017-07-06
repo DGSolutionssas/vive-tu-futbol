@@ -74,6 +74,51 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 </div>
             </div>
         </div>
+        
+         <div id="VentanaEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Cancelar</span>
+                        </button>
+                        <h4 class="modal-title" id="H3">
+                            <p>EDITAR CAMPEONATO</p>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <label class='control-label'>Campeonato:</label>
+                            <input autocomplete="off" type="text" id="txtCampeonatoEditar" name="txtCampeonatoEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="blockEditar" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Descripcion:</label>
+                            <input autocomplete="off" type="text" id="txtDescripcionEditar" name="txtDescripcionEditar"  data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-minlength="4" data-parsley-minlength-message="Minimo 4 Caracateres" data-parsley-group="blockEditar" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Grupos:</label>
+                            <input autocomplete="off" type="text" id="txtGruposEditar" name="txtGruposEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="integer" data-parsley-type-message="Solo N�meros"  data-parsley-group="blockEditar" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Equipos:</label>
+                            <input autocomplete="off" type="text" id="txtEquiposEditar" name="txtEquiposEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="integer" data-parsley-type-message="Solo N�meros" data-parsley-group="blockEditar" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <label class='control-label'>Cantidad Jugadores:</label>
+                            <input autocomplete="off" type="text" id="txtCantidadJugadoresEditar" name="txtCantidadJugadoresEditar" data-parsley-required data-parsley-required-message="Dato Requerido." data-parsley-type="integer" data-parsley-type-message="Solo Numeros"  data-parsley-group="blockEditar" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class='form-row'>
+                            <a id="btnGuardar" type="submit" class="btn btn-success" name="btnGuardar" onclick="editarCampeonato();">Editar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div id="VentanaRegistroEquipo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">

@@ -56,7 +56,7 @@ class JugadoresDA {
 
 	function eliminarJugador($idJugadorEliminar)
     {
-        $resul=mysqli_query($this->db->Connect(),"UPDATE Jugador SET Activo = 0 WHERE IdJugador = " . $idJugadorEliminar);
+        $resul=mysqli_query($this->db->Connect(),"UPDATE jugador SET Activo = 0 WHERE IdJugador = " . $idJugadorEliminar);
         //$resul2=mysqli_query($this->db->Connect(),"DELETE FROM tblequiposjugadores WHERE IdJugador =  " . $idJugadorEliminar);
     }
 
