@@ -75,11 +75,12 @@ elseif (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true && 
 if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
 
 ?>
-
             <br><br>
             <button id="btnRegistrar" name="btnRegistrar" disabled= "true" type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Jugador</button>
             <br>
-			<div class="row">
+			<div class="row">    
+            <div class="x_content">
+            <div class="table-responsive">
             <table id="tableJugadores" class="display" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -98,6 +99,8 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     </tr>
                 </thead>
             </table>
+            </div>
+            </div>
 			</div>
             </br>
         </div>

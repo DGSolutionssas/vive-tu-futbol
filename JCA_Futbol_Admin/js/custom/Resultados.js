@@ -225,7 +225,7 @@ function cargarTabla() {
                 "bPaginate": true,
                 "bDestroy": true,
                 "sPaginationType": "full_numbers",
-                "responsive":true,
+                "responsive":false,
                 language: {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",

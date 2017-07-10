@@ -11,10 +11,12 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
     ?>
     <div>   
         <br><br><br>
-        <div class="jumbotron">
+        <div class="jumbotron x_panel personalColor">
             <button type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Campeonato</button>
             <script type="text/javascript" src="js/custom/campeonatos.js"></script>
             <br>
+            <div class="x_content">
+            <div class="table-responsive">
             <table id="tableCampeonatos" class="display nowrap table table-hover table-bordered jambo_table">
                 <thead>
                     <tr>
@@ -28,6 +30,7 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                     </tr>
                 </thead>
             </table>
+            </div>
             </br>
         </div>
 

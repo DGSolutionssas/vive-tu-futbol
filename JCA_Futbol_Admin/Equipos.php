@@ -11,10 +11,12 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
     ?>
     <div>
         <br><br><br>
-        <div class="jumbotron">
+        <div class="jumbotron x_panel personalColor">
             <button type="button" class="btn btn-success" onclick="limpiar();" data-toggle="modal" data-target="#VentanaRegistro"> Registrar Equipo</button>
             <script type="text/javascript" src="js/custom/equipos.js"></script>
             <br>
+            <div class="x_content">
+            <div class="table-responsive">
             <table id="tableEquipos" class="display table table-hover table-bordered jambo_table">
                 <thead>
                     <tr>
@@ -31,6 +33,8 @@ if (!empty($_SESSION['autenticado']) && $_SESSION['autenticado'] == true) {
                 <tbody>
                 </tbody>
             </table>
+            </div>
+            </div>
             </br>
         </div>
 

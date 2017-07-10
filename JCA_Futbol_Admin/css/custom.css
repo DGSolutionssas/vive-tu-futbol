@@ -6448,3 +6448,14 @@ table.dataTable thead th{
     width: 90%;
    max-width:1200px;
 }
+
+.personalColor
+{
+    background-color: #EDEDED !important;
+}
+
+.paging_full_numbers {
+    height: 22px;
+    line-height: 10px;
+    width: 700px;
+}
