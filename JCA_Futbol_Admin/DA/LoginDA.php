@@ -39,7 +39,7 @@ class LoginDA {
                 INNER JOIN tblequiposjugadores T ON T.IdJugador = J.IdJugador
                 INNER JOIN equipos E ON E.IdEquipo = T.IdEquipo
                 INNER JOIN campeonatos C ON C.IdCampeonato = E.IdCampeonato
-                WHERE J.Celular = '". trim(addslashes($usuario)) ."' AND CONCAT('A', J.Documento, '*') = '". trim($contrasena) ."'AND J.Delegado = 1 AND (((SELECT COUNT(*) FROM resultados R WHERE R.IdEquipo1 = E.IdEquipo) + (SELECT COUNT(*) FROM resultados R WHERE R.IdEquipo2 = E.IdEquipo)) < 3)");
+                WHERE J.Celular = '". trim(addslashes($usuario)) ."' AND CONCAT('A', J.Documento, '*') = '". trim($contrasena) ."'AND J.Delegado = 1 AND (((SELECT COUNT(*) FROM resultados R WHERE R.IdEquipo1 = E.IdEquipo) + (SELECT COUNT(*) FROM resultados R WHERE R.IdEquipo2 = E.IdEquipo)) < 4)");
              mysqli_set_charset($this->db->connect(), "utf8");
             $jsonData = array();
             $nrows = mysqli_num_rows($resul);

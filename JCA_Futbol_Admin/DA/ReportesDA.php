@@ -231,44 +231,137 @@ ORDER BY IdJugador,IdFecha ASC;";
 
     function championshipReportById($idCampeonato, $grupo) {
         //$query = "SELECT c.Campeonato, EQ.Grupo, EQ.Nombre,
-        $query = "SELECT EQ.Grupo, EQ.Nombre,
-		COUNT(DISTINCT EN1.IdResultado) + COUNT(DISTINCT EN2.IdResultado) AS PJ,
-		COUNT(CASE WHEN EN1.Goles1 > EN1.Goles2 THEN 1 END) + COUNT(CASE WHEN EN2.Goles2 > EN2.Goles1 THEN 1 END) AS PG,
-		COUNT(CASE WHEN EN1.Goles1 = EN1.Goles2 THEN 1 END) + COUNT(CASE WHEN EN2.Goles2 = EN2.Goles1 THEN 1 END) AS PE,
-		COUNT(CASE WHEN EN1.Goles1 < EN1.Goles2 THEN 1 END) + COUNT(CASE WHEN EN2.Goles2 < EN2.Goles1 THEN 1 END) AS PP,
-		(CASE WHEN SUM(EN1.Goles1) IS NULL THEN 0 ELSE SUM(EN1.Goles1) END) + (CASE WHEN SUM(EN2.Goles2) IS NULL THEN 0 ELSE SUM(EN2.Goles2) END) AS GF,
-		(CASE WHEN SUM(EN1.Goles2) IS NULL THEN 0 ELSE SUM(EN1.Goles2) END) + (CASE WHEN SUM(EN2.Goles1) IS NULL THEN 0 ELSE SUM(EN2.Goles1) END) AS GC,
-		(CASE WHEN SUM(EN1.Goles1 - EN1.Goles2) IS NULL THEN 0 ELSE SUM(EN1.Goles1 - EN1.Goles2) END) + (CASE WHEN SUM(EN2.Goles2 - EN2.Goles1) IS NULL THEN 0 ELSE SUM(EN2.Goles2 - EN2.Goles1) END) AS DG,
-		(SELECT SUM(CASE JL.Amarilla WHEN 1 THEN 2 ELSE 0 END) + SUM(CASE JL.Roja WHEN 1 THEN 10 ELSE 0 END) + SUM(CASE JL.Azul WHEN 1 THEN 4 ELSE 0 END) AS Expr1
-		FROM equipos AS EQ1
-		LEFT OUTER JOIN tblequiposjugadores AS JU ON EQ1.IdEquipo = JU.IdEquipo
-		LEFT OUTER JOIN resultadodetalle AS JL ON JL.IdJugador = JU.IdJugador
-		WHERE (EQ.IdEquipo = EQ1.IdEquipo)) AS JL,
-		COUNT(CASE WHEN EN1.EquipoGanador = 1 THEN 1 END) + COUNT(CASE WHEN EN2.EquipoGanador = 2 THEN 1 END) AS PW,
-		(CASE WHEN (SUM(CASE WHEN EN1.EquipoGanador = 1 THEN 3
-		WHEN EN2.EquipoGanador = 2 THEN 0
-		WHEN EN1.Goles1 > EN1.Goles2 THEN 3
-		WHEN EN1.Goles1 = EN1.Goles2 THEN 2
-		WHEN EN1.Goles1 < EN1.Goles2 AND EN1.EquipoGanador=0 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN1.EquipoGanador = 1 THEN 3
-		WHEN EN2.EquipoGanador = 2 THEN 0
-		WHEN EN1.Goles1 > EN1.Goles2 THEN 3
-		WHEN EN1.Goles1 = EN1.Goles2 THEN 2
-		WHEN EN1.Goles1 < EN1.Goles2 AND EN1.EquipoGanador=0 THEN 1 END)) END) + (CASE WHEN (SUM(CASE WHEN EN2.EquipoGanador = 2 THEN 3
-		WHEN EN2.EquipoGanador = 1 THEN 0
-		WHEN EN2.Goles2 > EN2.Goles1 THEN 3
-		WHEN EN2.Goles2 = EN2.Goles1 THEN 2
-		WHEN EN2.Goles2 < EN2.Goles1 AND EN2.EquipoGanador=0 THEN 1 END)) IS NULL THEN 0 ELSE (SUM(CASE WHEN EN2.EquipoGanador = 2 THEN 3
-		WHEN EN2.EquipoGanador = 1 THEN 0
-		WHEN EN2.Goles2 > EN2.Goles1 THEN 3
-		WHEN EN2.Goles2 = EN2.Goles1 THEN 2
-		WHEN EN2.Goles2 < EN2.Goles1 AND EN2.EquipoGanador=0 THEN 1 END)) END) AS PTOS
-		FROM equipos AS EQ
-		LEFT OUTER JOIN resultados AS EN1 ON EQ.IdEquipo = EN1.IdEquipo1
-		LEFT OUTER JOIN resultados AS EN2 ON EQ.IdEquipo = EN2.IdEquipo2
-		INNER JOIN campeonatos AS c ON EQ.IdCampeonato = c.IdCampeonato
-		WHERE c.IdCampeonato = " . $idCampeonato . " " .
-                "AND EQ.Grupo =  " . $grupo . " GROUP BY EQ.Nombre, EQ.IdCampeonato, EQ.Grupo, EN1.IdEquipo1, EQ.IdEquipo
-		ORDER BY ptos DESC;";
+        $query = "SELECT EQ.Grupo, EQ.Nombre,(SELECT COUNT(*) FROM resultados WHERE idequipo1=EQ.idEquipo OR idequipo2=EQ.idEquipo) AS PJ,
+((SELECT (COUNT(CASE WHEN Goles1 > Goles2 THEN 1 END)) FROM resultados
+WHERE IDEQUIPO1=EQ.idEquipo) 
++
+(SELECT (COUNT(CASE WHEN Goles2 > Goles1 THEN 1 END)) FROM resultados
+WHERE IDEQUIPO2=EQ.idEquipo)
+ ) AS PG,
+ ((SELECT (COUNT(CASE WHEN Goles1 = Goles2 THEN 1 END)) FROM resultados
+WHERE IDEQUIPO1=EQ.idEquipo) 
++
+(SELECT (COUNT(CASE WHEN Goles2 = Goles1 THEN 1 END)) FROM resultados
+WHERE IDEQUIPO2=EQ.idEquipo)
+ ) AS PE,
+ ((SELECT (COUNT(CASE WHEN Goles1 < Goles2 THEN 1 END)) FROM resultados
+WHERE IDEQUIPO1=EQ.idEquipo) 
++
+(SELECT (COUNT(CASE WHEN Goles2 < Goles1 THEN 1 END)) FROM resultados
+WHERE IDEQUIPO2=EQ.idEquipo)
+ ) AS PP,
+ ( CASE WHEN 
+		(
+			SELECT SUM(Goles2) FROM resultados
+			WHERE IDEQUIPO2=EQ.idEquipo
+		) IS NULL THEN 0 ELSE (SELECT SUM(Goles2) FROM resultados
+			WHERE IDEQUIPO2=EQ.idEquipo)
+		END
+		+
+		 CASE WHEN 
+		(
+			SELECT SUM(Goles1) FROM resultados
+			WHERE IDEQUIPO1=EQ.idEquipo
+		) IS NULL THEN 0 ELSE (SELECT SUM(Goles1) FROM resultados
+			WHERE IDEQUIPO1=EQ.idEquipo)
+			
+		END )AS GF,
+ ( CASE WHEN 
+		(
+			SELECT SUM(Goles2) FROM resultados
+			WHERE IDEQUIPO1=EQ.idEquipo
+		) IS NULL THEN 0 ELSE (SELECT SUM(Goles2) FROM resultados
+			WHERE IDEQUIPO1=EQ.idEquipo)
+		END
+		+
+		 CASE WHEN 
+		(
+			SELECT SUM(Goles1) FROM resultados
+			WHERE IDEQUIPO2=EQ.idEquipo
+		) IS NULL THEN 0 ELSE (SELECT SUM(Goles1) FROM resultados
+			WHERE IDEQUIPO2=EQ.idEquipo)
+			
+		END )AS GC,
+		(
+		( CASE WHEN 
+		(
+			SELECT SUM(Goles2) FROM resultados
+			WHERE IDEQUIPO2=EQ.idEquipo
+		) IS NULL THEN 0 ELSE (SELECT SUM(Goles2) FROM resultados
+			WHERE IDEQUIPO2=EQ.idEquipo)
+		END
+		+
+		 CASE WHEN 
+		(
+			SELECT SUM(Goles1) FROM resultados
+			WHERE IDEQUIPO1=EQ.idEquipo
+		) IS NULL THEN 0 ELSE (SELECT SUM(Goles1) FROM resultados
+			WHERE IDEQUIPO1=EQ.idEquipo)
+			
+		END )
+		-
+		( CASE WHEN 
+		(
+			SELECT SUM(Goles2) FROM resultados
+			WHERE IDEQUIPO1=EQ.idEquipo
+		) IS NULL THEN 0 ELSE (SELECT SUM(Goles2) FROM resultados
+			WHERE IDEQUIPO1=EQ.idEquipo)
+		END
+		+
+		 CASE WHEN 
+		(
+			SELECT SUM(Goles1) FROM resultados
+			WHERE IDEQUIPO2=EQ.idEquipo
+		) IS NULL THEN 0 ELSE (SELECT SUM(Goles1) FROM resultados
+			WHERE IDEQUIPO2=EQ.idEquipo)
+			
+		END )) AS DG,
+		(
+(SELECT SUM(CASE Amarilla WHEN 1 THEN 2 ELSE 0 END)  FROM resultadodetalle
+WHERE idEquipo=EQ.idEquipo)
++
+(SELECT SUM(CASE Roja WHEN 1 THEN 10 ELSE 0 END)  FROM resultadodetalle
+WHERE idEquipo=EQ.idEquipo))AS JL
+,
+((
+SELECT COUNT(*) FROM resultados
+WHERE EquipoGanador=1 AND idEquipo1=EQ.idEquipo)
++
+((
+SELECT COUNT(*) FROM resultados
+WHERE EquipoGanador=2 AND idEquipo2=EQ.idEquipo
+))
+) AS PW,
+((
+	(
+		(SELECT COUNT(CASE WHEN Goles1 > Goles2 THEN 1 END) FROM resultados WHERE idequipo1=EQ.idEquipo)*3
+	)
+	+
+	(
+		(SELECT COUNT(CASE WHEN Goles1 = Goles2 THEN 1 END) FROM resultados WHERE idequipo1=EQ.idEquipo)*2
+	)
+	+
+	(
+		(SELECT COUNT(CASE WHEN Goles1 < Goles2 THEN 1 END) FROM resultados WHERE idequipo1=EQ.idEquipo AND EquipoGanador=0)
+	)
+)
++
+(
+	(
+		(SELECT COUNT(CASE WHEN Goles2 > Goles1 THEN 1 END) FROM resultados WHERE idequipo2=EQ.idEquipo)*3
+	)
+	+
+	(
+		(SELECT COUNT(CASE WHEN Goles2 = Goles1 THEN 1 END) FROM resultados WHERE idequipo2=EQ.idEquipo)*2
+	)
+	+
+	(
+		(SELECT COUNT(CASE WHEN Goles2 < Goles1 THEN 1 END) FROM resultados WHERE idequipo2=EQ.idEquipo AND EquipoGanador=0)
+	)
+)
+) AS PTOS
+ FROM equipos AS EQ
+ WHERE EQ.IdCampeonato=$idCampeonato AND EQ.Grupo=$grupo;";
 
         mysqli_set_charset($this->db->Connect(), "utf8");
         $resul = mysqli_query($this->db->Connect(), $query);
