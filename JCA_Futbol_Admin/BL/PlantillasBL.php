@@ -4,7 +4,7 @@
  * Controla la generacion de Plantillas
  * @author Diego Saavedra
  * @created 04/01/2017
- * @copyright DG Solutions sas
+ * @copyright DG Solutions sas 
  */
 if (isset($_POST['action']) && !empty($_POST['action'])) {
     $action = $_POST['action'];
@@ -288,23 +288,25 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 //                                   echo "F:".$f."\n";
 //                                   echo $datosTarjetasJugador[$h]['IdFecha'] ." ---- ".$fechas[$f]['idfecha']."\n";
                                    $plantilla->getActiveSheet()->setCellValue(chr($indicadorLetraFecha) . $indicadorCeldaJugador, ($datosTarjetasJugador[$h]['Amarilla'] + $datosTarjetasJugador[$h]['Roja'] + $datosTarjetasJugador[$h]['Azul']));
-                               
-                                   break;
+                                   $indicadorLetraFecha = 68; //Letra D   
+                                   break    ;
                                }
                            }                                                
                        }
                        $indicadorCeldaJugador++;
                        $indicadorLetraFecha = 68; //Letra D                       
             }
+            
+            $indicadorCeldaCombinar=67;
 
             $letraInicioCampeonato = 'A';
             $celdaInicioCampeonato = 1;
             $letraInicioAmonestado = 'A';
             $celdaInicioAmonestado = 2;
             $titulo = "AMONESTADOS";
-            $plantilla->getActiveSheet()->mergeCells($letraInicioCampeonato . $celdaInicioCampeonato . ':' . chr($indicadorLetraFecha - 1) . '1');
+            $plantilla->getActiveSheet()->mergeCells($letraInicioCampeonato . $celdaInicioCampeonato . ':' . chr($indicadorCeldaCombinar + count($fechas)) . '1');
             $plantilla->getActiveSheet()->getStyle($letraInicioCampeonato . $celdaInicioCampeonato)->getFont()->getColor()->setRGB('FFFFFF');
-            $plantilla->getActiveSheet()->mergeCells($letraInicioAmonestado . $celdaInicioAmonestado . ':' . chr($indicadorLetraFecha - 1) . '2');
+            $plantilla->getActiveSheet()->mergeCells($letraInicioAmonestado . $celdaInicioAmonestado . ':' . chr($indicadorCeldaCombinar + count($fechas)) . '2');
             $plantilla->getActiveSheet()->setCellValue('A1', $nombreCampeonato);
             $plantilla->getActiveSheet()->setCellValue('A2', $titulo);
 
